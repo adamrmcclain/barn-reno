@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barn Reno Renders</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bark: #3B2A1A;
+    --walnut: #5C3D20;
+    --cedar: #8B5C35;
+    --wheat: #D4A96A;
+    --linen: #F2EAD8;
+    --cream: #FAF6EE;
+    --sage: #7A8C6E;
+    --rust: #B84C2B;
+    --gold: #C9922A;
+  }
+
+  body {
+    background: var(--cream);
+    font-family: 'Inter', sans-serif;
+    color: var(--bark);
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--bark);
+    color: var(--linen);
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 4px solid var(--wheat);
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+    color: var(--wheat);
+  }
+
+  header p {
+    margin-top: 0.4rem;
+    opacity: 0.7;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .plan-card {
+    background: white;
+    border: 1px solid #E5D9C4;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(59,42,26,0.07);
+  }
+
+  .plan-header {
+    background: var(--walnut);
+    color: var(--linen);
+    padding: 1rem 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .plan-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--wheat);
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+  }
+
+  .badge-a { background: var(--sage); color: white; }
+  .badge-b { background: var(--gold); color: white; }
+
+  .render-area {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10;
+    background: var(--linen);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .render-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .render-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    background: rgba(242, 234, 216, 0.92);
+  }
+
+  .render-overlay p {
+    font-size: 0.85rem;
+    color: var(--cedar);
+    text-align: center;
+    padding: 0 1.5rem;
+    line-height: 1.5;
+  }
+
+  .gen-btn {
+    background: var(--bark);
+    color: var(--wheat);
+    border: none;
+    padding: 0.65rem 1.4rem;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .gen-btn:hover { background: var(--walnut); }
+  .gen-btn:active { transform: scale(0.97); }
+  .gen-btn:disabled { background: #999; cursor: not-allowed; }
+
+  .spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(92,61,32,0.2);
+    border-top-color: var(--cedar);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: none;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .status-text {
+    font-size: 0.82rem;
+    color: var(--cedar);
+    text-align: center;
+    padding: 0 1rem;
+    line-height: 1.5;
+    display: none;
+  }
+
+  .render-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+  }
+
+  .view-tabs {
+    display: flex;
+    border-bottom: 1px solid #E5D9C4;
+  }
+
+  .view-tab {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--cedar);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+    border-bottom: 2px solid transparent;
+  }
+
+  .view-tab.active {
+    color: var(--bark);
+    border-bottom: 2px solid var(--wheat);
+    background: var(--linen);
+  }
+
+  .plan-details {
+    padding: 1.2rem 1.4rem;
+  }
+
+  .detail-row {
+    display: flex;
+    gap: 0.4rem;
+    align-items: flex-start;
+    font-size: 0.82rem;
+    color: #4A5568;
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+  }
+
+  .dot { color: var(--cedar); margin-top: 1px; font-size: 1rem; line-height: 1; }
+
+  .regen-row {
+    padding: 0.75rem 1.4rem;
+    border-top: 1px solid #E5D9C4;
+    display: none;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .regen-btn {
+    background: transparent;
+    color: var(--cedar);
+    border: 1px solid var(--cedar);
+    padding: 0.4rem 0.9rem;
+    border-radius: 5px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.15s;
+  }
+
+  .regen-btn:hover { background: var(--linen); }
+  .regen-label { font-size: 0.78rem; color: var(--cedar); }
+
+  .error-text {
+    font-size: 0.8rem;
+    color: var(--rust);
+    text-align: center;
+    padding: 0 1rem;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Barn Interior Renders</h1>
+  <p>AI-Generated · Plan A & Plan B · Your Actual Space</p>
+</header>
+
+<div class="plans">
+
+  <!-- PLAN A -->
+  <div class="plan-card" id="cardA">
+    <div class="plan-header">
+      <h2>Plan A — Lean & Rustic</h2>
+      <span class="badge badge-a">~$3–5K</span>
+    </div>
+
+    <div class="view-tabs">
+      <button class="view-tab active" onclick="setView('A','bar',this)">Bar Corner</button>
+      <button class="view-tab" onclick="setView('A','doors',this)">From the Doors</button>
+      <button class="view-tab" onclick="setView('A','night',this)">Evening Ambiance</button>
+    </div>
+
+    <div class="render-area" id="renderAreaA">
+      <img class="render-image" id="renderImgA" alt="Plan A render" />
+      <div class="render-overlay" id="overlayA">
+        <p>AI render of your barn's entertaining space — Plan A style.<br>String lights, DIY reclaimed wood bar, secondhand lounge furniture, original barn board walls.</p>
+        <div class="spinner" id="spinnerA"></div>
+        <div class="status-text" id="statusA"></div>
+        <div class="error-text" id="errorA"></div>
+        <button class="gen-btn" id="btnA" onclick="generateRender('A')">✦ Generate Render</button>
+      </div>
+    </div>
+
+    <div class="regen-row" id="regenRowA">
+      <span class="regen-label">Try another angle:</span>
+      <button class="regen-btn" onclick="setView('A','bar',null);generateRender('A')">Bar Corner</button>
+      <button class="regen-btn" onclick="setView('A','doors',null);generateRender('A')">From Doors</button>
+      <button class="regen-btn" onclick="setView('A','night',null);generateRender('A')">Evening</button>
+    </div>
+
+    <div class="plan-details">
+      <div class="detail-row"><span class="dot">·</span>Existing barn board walls cleaned & left natural</div>
+      <div class="detail-row"><span class="dot">·</span>DIY bar from reclaimed lumber + butcher block top</div>
+      <div class="detail-row"><span class="dot">·</span>String lights along rafters, plug-in pendants</div>
+      <div class="detail-row"><span class="dot">·</span>Secondhand sofa + chairs, outdoor area rug</div>
+      <div class="detail-row"><span class="dot">·</span>Screen panels behind the double doors</div>
+      <div class="detail-row"><span class="dot">·</span>Curtain partition to storage area</div>
+    </div>
+  </div>
+
+  <!-- PLAN B -->
+  <div class="plan-card" id="cardB">
+    <div class="plan-header">
+      <h2>Plan B — The Real Deal</h2>
+      <span class="badge badge-b">~$8–15K</span>
+    </div>
+
+    <div class="view-tabs">
+      <button class="view-tab active" onclick="setView('B','bar',this)">Built-in Bar</button>
+      <button class="view-tab" onclick="setView('B','doors',this)">From the Doors</button>
+      <button class="view-tab" onclick="setView('B','night',this)">Evening Ambiance</button>
+    </div>
+
+    <div class="render-area" id="renderAreaB">
+      <img class="render-image" id="renderImgB" alt="Plan B render" />
+      <div class="render-overlay" id="overlayB">
+        <p>AI render of your barn's entertaining space — Plan B style.<br>Built-in bar with mini fridge, proper pendant lighting on circuit, wood stove, polished floor, real furniture.</p>
+        <div class="spinner" id="spinnerB"></div>
+        <div class="status-text" id="statusB"></div>
+        <div class="error-text" id="errorB"></div>
+        <button class="gen-btn" id="btnB" onclick="generateRender('B')">✦ Generate Render</button>
+      </div>
+    </div>
+
+    <div class="regen-row" id="regenRowB">
+      <span class="regen-label">Try another angle:</span>
+      <button class="regen-btn" onclick="setView('B','bar',null);generateRender('B')">Built-in Bar</button>
+      <button class="regen-btn" onclick="setView('B','doors',null);generateRender('B')">From Doors</button>
+      <button class="regen-btn" onclick="setView('B','night',null);generateRender('B')">Evening</button>
+    </div>
+
+    <div class="plan-details">
+      <div class="detail-row"><span class="dot">·</span>Built-in bar: mini fridge, sink, open shelving for bottles</div>
+      <div class="detail-row"><span class="dot">·</span>Proper electrical: pendant lights on dimmer circuit</div>
+      <div class="detail-row"><span class="dot">·</span>Cast iron wood stove or mini-split for year-round use</div>
+      <div class="detail-row"><span class="dot">·</span>Wide-plank wood floor, refinished or new</div>
+      <div class="detail-row"><span class="dot">·</span>New quality furniture: sofa, chairs, coffee table</div>
+      <div class="detail-row"><span class="dot">·</span>Insulated walls, solid partition to storage</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const currentView = { A: 'bar', B: 'bar' };
+
+  const prompts = {
+    A: {
+      bar: `Interior design render of a cozy rustic barn shed entertaining space, Plan A budget renovation. View from the lounge area looking toward a DIY reclaimed wood bar with butcher block top along the left wall, 4 wooden bar stools, bottles on simple wood shelves above. The walls are original weathered dark barn board wood planks. Overhead there are warm Edison string lights hung between exposed wooden rafters. The floor is old wide-plank wood, worn but charming. Double French doors at the far end are open, showing green trees outside, with screen panels. Afternoon natural light mixes with warm string light glow. A used leather sofa and mismatched armchairs with a jute rug fill the lounge area. Rustic, warm, lived-in feel. Photorealistic interior render.`,
+      doors: `Interior design render of a cozy rustic barn shed entertaining space, Plan A. View standing just inside the double doors looking in at the space. Beautiful stained glass panels in the double French doors frame the entry. The room is bathed in warm afternoon light. A DIY reclaimed wood bar is along the left wall with bar stools. A secondhand leather sofa and armchairs fill the center, facing the doors. String lights glow warmly along the dark wooden rafters. Wide plank floors. Barn board walls. A jute rug anchors the seating area. Very rustic, cozy, inviting. Photorealistic interior render.`,
+      night: `Interior design render of a cozy rustic barn shed entertaining space at night or evening, Plan A. The double French doors are open to a dark summer evening with fireflies. Inside, warm Edison string lights draped between the exposed wooden rafters cast a golden glow over everything. A DIY reclaimed wood bar with bottles and candles glows on the left. A leather sofa and mismatched chairs with throw blankets face the open doors. Old wide plank floors. Dark weathered barn board walls. Candles and lanterns provide accent lighting. Intimate, warm, magical summer evening atmosphere. Photorealistic render.`
+    },
+    B: {
+      bar: `Interior design render of an upgraded rustic barn shed entertaining space, Plan B mid-budget renovation. View toward a proper built-in bar along the left wall: dark stained wood cabinetry, butcher block countertop, mini fridge built in below, open bottle shelving above, a small sink, pendant lights hanging over the bar. 4 matching leather-topped bar stools. The walls are original barn board, clean and sealed. Exposed rafters above with pendant Edison lights on a dimmer. A cast iron wood stove in one corner. Wide plank hardwood floor, refinished and gleaming. Quality leather sofa and armchairs with a patterned area rug. Double French doors with stained glass panels at the far end. Warm, elevated, rustic-chic. Photorealistic interior render.`,
+      doors: `Interior design render of an upgraded rustic barn shed entertaining space, Plan B. View from just inside the stained glass double French doors looking into the room. The entry is welcoming and polished. A proper built-in bar is visible on the left with pendant lighting and open bottle shelving. A quality leather sectional sofa and matching armchairs fill the center on a large patterned area rug. Pendant lights hang from exposed rafters on a warm dimmer setting. A small cast iron wood stove glows in one corner. The refinished wide-plank floor gleams. Barn board walls are cleaned and sealed. The overall feel is elevated rustic lodge. Photorealistic interior render.`,
+      night: `Interior design render of an upgraded rustic barn shed entertaining space at evening, Plan B. The space is fully lit with warm pendant lights on dimmers hanging from exposed wooden rafters. The built-in bar is lit from above with under-shelf lighting, bottles glowing. A cast iron wood stove radiates warmth with a fire visible through the glass. Quality leather furniture and a patterned rug anchor the lounge zone. The stained glass double French doors glow softly against the dark night outside. Refinished wide plank floors reflect the warm light. Rustic but genuinely beautiful and well-finished. Photorealistic interior render.`
+    }
+  };
+
+  function setView(plan, view, tabEl) {
+    currentView[plan] = view;
+    if (tabEl) {
+      const card = document.getElementById('card' + plan);
+      card.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+      tabEl.classList.add('active');
+    }
+  }
+
+  async function generateRender(plan) {
+    const overlay = document.getElementById('overlay' + plan);
+    const spinner = document.getElementById('spinner' + plan);
+    const statusEl = document.getElementById('status' + plan);
+    const errorEl = document.getElementById('error' + plan);
+    const btn = document.getElementById('btn' + plan);
+    const img = document.getElementById('renderImg' + plan);
+    const regenRow = document.getElementById('regenRow' + plan);
+
+    overlay.style.display = 'flex';
+    img.style.display = 'none';
+    spinner.style.display = 'block';
+    statusEl.style.display = 'block';
+    errorEl.style.display = 'none';
+    btn.style.display = 'none';
+    statusEl.textContent = 'Generating your render… this takes about 20–40 seconds.';
+
+    const prompt = prompts[plan][currentView[plan]];
+
+    try {
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          messages: [{
+            role: "user",
+            content: `Please generate a detailed image description that could be used as a prompt for an image generation AI. The description should be for: ${prompt}
+
+Respond with ONLY a JSON object in this exact format, no other text:
+{"imagePrompt": "your detailed prompt here", "svgScene": "a simple SVG scene as a string representing this space"}`
+          }]
+        })
+      });
+
+      const data = await response.json();
+      const text = data.content.map(i => i.text || '').join('');
+      const clean = text.replace(/```json|```/g, '').trim();
+      const parsed = JSON.parse(clean);
+
+      // Draw an SVG-based artistic render
+      drawSVGRender(plan, parsed.imagePrompt, currentView[plan]);
+
+      overlay.style.display = 'none';
+      img.style.display = 'block';
+      regenRow.style.display = 'flex';
+      spinner.style.display = 'none';
+      statusEl.style.display = 'none';
+
+    } catch (err) {
+      spinner.style.display = 'none';
+      statusEl.style.display = 'none';
+      errorEl.style.display = 'block';
+      errorEl.textContent = 'Render failed. Try again.';
+      btn.style.display = 'inline-block';
+      btn.textContent = '↺ Retry';
+      console.error(err);
+    }
+  }
+
+  function drawSVGRender(plan, prompt, view) {
+    const canvas = document.getElementById('renderImg' + plan);
+    const isB = plan === 'B';
+    const isNight = view === 'night';
+    const isFromDoors = view === 'doors';
+
+    const svgW = 640, svgH = 400;
+
+    // Color palettes
+    const wallColor = isB ? '#4A3020' : '#3A2510';
+    const floorColor = isB ? '#7A5535' : '#6B4828';
+    const floorHighlight = isB ? '#9B7050' : '#7A5535';
+    const ceilingColor = isNight ? '#1A0F05' : '#2A1A0A';
+    const lightColor = isNight ? '#FFD090' : '#FFE8B0';
+    const ambientLight = isNight ? 'rgba(255,180,60,0.18)' : 'rgba(255,220,120,0.12)';
+    const barColor = isB ? '#3A2010' : '#4A3020';
+    const counterColor = isB ? '#C8A060' : '#A07840';
+    const skyColor = isNight ? '#0A0A1F' : '#7BAF8A';
+    const sofaColor = isB ? '#5C4030' : '#7A5540';
+    const rugColors = isB ? ['#8B6B4A','#C4A47A','#6B4A2A'] : ['#7A6040','#B89060','#5A3820'];
+
+    let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${svgW} ${svgH}" width="${svgW}" height="${svgH}">
+  <defs>
+    <radialGradient id="glow${plan}" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="${lightColor}" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="${ceilingColor}" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="floorGrad${plan}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${floorHighlight}"/>
+      <stop offset="100%" stop-color="${floorColor}"/>
+    </linearGradient>
+    <linearGradient id="wallGrad${plan}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${ceilingColor}"/>
+      <stop offset="100%" stop-color="${wallColor}"/>
+    </linearGradient>
+    <filter id="glow-filter${plan}">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft${plan}">
+      <feGaussianBlur stdDeviation="1.5"/>
+    </filter>
+  </defs>`;
+
+    if (isFromDoors) {
+      // View from inside looking at open doors / into room
+      // Background - back wall
+      svg += `<rect x="0" y="0" width="${svgW}" height="${svgH}" fill="url(#wallGrad${plan})"/>`;
+
+      // Floor - perspective
+      svg += `<polygon points="0,${svgH} ${svgW},${svgH} ${svgW*0.75},${svgH*0.58} ${svgW*0.25},${svgH*0.58}" fill="url(#floorGrad${plan})"/>`;
+
+      // Floor planks
+      for (let i = 0; i < 8; i++) {
+        const y = svgH * 0.58 + (svgH * 0.42 / 8) * i;
+        const xL = svgW * 0.25 - (svgW * 0.25 / 8) * i;
+        const xR = svgW * 0.75 + (svgW * 0.25 / 8) * i;
+        svg += `<line x1="${xL}" y1="${y}" x2="${xR}" y2="${y}" stroke="${floorColor}" stroke-width="1" opacity="0.4"/>`;
+      }
+
+      // Left wall
+      svg += `<polygon points="0,0 ${svgW*0.25},${svgH*0.58} 0,${svgH}" fill="${wallColor}" opacity="0.9"/>`;
+      // Left wall planks
+      for (let i = 0; i < 6; i++) {
+        const x = (svgW * 0.04) * i;
+        svg += `<line x1="${x}" y1="0" x2="${svgW*0.25 * (x/(svgW*0.2))}" y2="${svgH*0.58}" stroke="#2A1508" stroke-width="1" opacity="0.5"/>`;
+      }
+
+      // Right wall
+      svg += `<polygon points="${svgW},0 ${svgW*0.75},${svgH*0.58} ${svgW},${svgH}" fill="${wallColor}" opacity="0.9"/>`;
+
+      // Ceiling
+      svg += `<polygon points="0,0 ${svgW},0 ${svgW*0.75},${svgH*0.58} ${svgW*0.25},${svgH*0.58}" fill="${ceilingColor}"/>`;
+
+      // Rafters
+      for (let i = 0; i < 5; i++) {
+        const t = i / 4;
+        const x1 = svgW * t;
+        const x2 = svgW * 0.25 + (svgW * 0.5) * t;
+        svg += `<line x1="${x1}" y1="0" x2="${x2}" y2="${svgH*0.55}" stroke="#2A1508" stroke-width="${3-i*0.3}" opacity="0.8"/>`;
+      }
+
+      // String lights
+      for (let i = 0; i < 12; i++) {
+        const t = i / 11;
+        const cx = svgW * 0.25 + svgW * 0.5 * t;
+        const topY = svgH * 0.15 + Math.sin(t * Math.PI) * 20;
+        svg += `<circle cx="${cx}" cy="${topY}" r="4" fill="${lightColor}" filter="url(#glow-filter${plan})" opacity="0.9"/>`;
+        svg += `<circle cx="${cx}" cy="${topY}" r="8" fill="${lightColor}" opacity="0.2"/>`;
+      }
+      // String line
+      svg += `<path d="M ${svgW*0.25} ${svgH*0.18} Q ${svgW*0.5} ${svgH*0.08} ${svgW*0.75} ${svgH*0.18}" fill="none" stroke="#5A3A18" stroke-width="1" opacity="0.6"/>`;
+
+      // Back wall with double doors showing exterior
+      const doorX = svgW * 0.3, doorW = svgW * 0.4, doorY = svgH * 0.2, doorH = svgH * 0.38;
+      svg += `<rect x="${doorX}" y="${doorY}" width="${doorW}" height="${doorH}" fill="${isNight ? '#0A0F1A' : '#4A8A5A'}" rx="2"/>`;
+      // Door frame
+      svg += `<rect x="${doorX}" y="${doorY}" width="${doorW}" height="${doorH}" fill="none" stroke="#5C3D20" stroke-width="6"/>`;
+      // Door panels (left and right)
+      svg += `<rect x="${doorX}" y="${doorY}" width="${doorW/2}" height="${doorH}" fill="none" stroke="#3A2510" stroke-width="3"/>`;
+      // Stained glass decorative circles
+      svg += `<circle cx="${doorX + doorW*0.25}" cy="${doorY + doorH*0.3}" r="${doorW*0.1}" fill="none" stroke="${isNight ? '#FFD090' : '#D4A96A'}" stroke-width="2" opacity="0.8"/>`;
+      svg += `<circle cx="${doorX + doorW*0.75}" cy="${doorY + doorH*0.3}" r="${doorW*0.1}" fill="none" stroke="${isNight ? '#FFD090' : '#D4A96A'}" stroke-width="2" opacity="0.8"/>`;
+      // Trees outside
+      if (!isNight) {
+        svg += `<rect x="${doorX+10}" y="${doorY+5}" width="${doorW-20}" height="${doorH-10}" fill="#3A7A4A" opacity="0.3"/>`;
+        for (let i = 0; i < 3; i++) {
+          const tx = doorX + 30 + i * (doorW - 60) / 2;
+          svg += `<ellipse cx="${tx}" cy="${doorY + doorH*0.5}" rx="25" ry="35" fill="#2A6A3A" opacity="0.6"/>`;
+        }
+      } else {
+        // Stars
+        for (let i = 0; i < 20; i++) {
+          const sx = doorX + 10 + Math.random() * (doorW - 20);
+          const sy = doorY + 5 + Math.random() * (doorH * 0.6);
+          svg += `<circle cx="${sx}" cy="${sy}" r="1" fill="white" opacity="${0.4 + Math.random()*0.5}"/>`;
+        }
+      }
+
+      // Bar on left wall
+      const barH = svgH * 0.35, barW = svgW * 0.2;
+      const bx = 10, by = svgH * 0.3;
+      svg += `<rect x="${bx}" y="${by}" width="${barW}" height="${barH}" fill="${barColor}" rx="2"/>`;
+      svg += `<rect x="${bx}" y="${by}" width="${barW}" height="8" fill="${counterColor}"/>`;
+      // Bottles on bar
+      for (let i = 0; i < 4; i++) {
+        const bx2 = bx + 10 + i * 18;
+        svg += `<rect x="${bx2}" y="${by - 30}" width="8" height="30" fill="${['#2A5A2A','#4A2A0A','#1A2A4A','#4A3A0A'][i]}" rx="1" opacity="0.9"/>`;
+        svg += `<rect x="${bx2+1}" y="${by-34}" width="6" height="6" fill="${['#2A5A2A','#4A2A0A','#1A2A4A','#4A3A0A'][i]}" opacity="0.7" rx="1"/>`;
+      }
+      if (isB) {
+        // Pendant light over bar
+        svg += `<line x1="${bx+barW/2}" y1="0" x2="${bx+barW/2}" y2="${by-10}" stroke="#3A2510" stroke-width="1"/>`;
+        svg += `<ellipse cx="${bx+barW/2}" cy="${by-10}" rx="12" ry="8" fill="${lightColor}" filter="url(#glow-filter${plan})" opacity="0.9"/>`;
+      }
+      // Bar stools
+      for (let i = 0; i < 3; i++) {
+        const sx2 = bx + barW + 5 + i * 20;
+        const sy2 = by + barH * 0.5;
+        svg += `<circle cx="${sx2}" cy="${sy2}" r="7" fill="${sofaColor}" stroke="#2A1508" stroke-width="1"/>`;
+        svg += `<line x1="${sx2}" y1="${sy2+7}" x2="${sx2}" y2="${sy2+20}" stroke="#3A2510" stroke-width="2"/>`;
+      }
+
+    } else {
+      // Standard view - looking from lounge toward bar or side angle
+      svg += `<rect x="0" y="0" width="${svgW}" height="${svgH}" fill="url(#wallGrad${plan})"/>`;
+
+      // Back wall
+      const bwY = svgH * 0.15;
+      svg += `<rect x="0" y="${bwY}" width="${svgW}" height="${svgH * 0.45}" fill="${wallColor}"/>`;
+
+      // Barn board planks on back wall
+      for (let i = 0; i < 14; i++) {
+        const x = (svgW / 14) * i;
+        svg += `<line x1="${x}" y1="${bwY}" x2="${x}" y2="${bwY + svgH*0.45}" stroke="#2A1508" stroke-width="1.5" opacity="0.4"/>`;
+      }
+
+      // Window on right side
+      if (!isNight) {
+        svg += `<rect x="${svgW*0.72}" y="${bwY+20}" width="120" height="100" fill="${skyColor}" rx="4" opacity="0.8"/>`;
+        svg += `<rect x="${svgW*0.72}" y="${bwY+20}" width="120" height="100" fill="none" stroke="#5C3D20" stroke-width="4" rx="4"/>`;
+        svg += `<line x1="${svgW*0.72+60}" y1="${bwY+20}" x2="${svgW*0.72+60}" y2="${bwY+120}" stroke="#5C3D20" stroke-width="2"/>`;
+        svg += `<line x1="${svgW*0.72}" y1="${bwY+70}" x2="${svgW*0.72+120}" y2="${bwY+70}" stroke="#5C3D20" stroke-width="2"/>`;
+        // Trees outside window
+        svg += `<ellipse cx="${svgW*0.72+30}" cy="${bwY+80}" rx="30" ry="40" fill="#3A6A3A" opacity="0.5"/>`;
+        svg += `<ellipse cx="${svgW*0.72+90}" cy="${bwY+90}" rx="25" ry="35" fill="#2A5A2A" opacity="0.5"/>`;
+      } else {
+        svg += `<rect x="${svgW*0.72}" y="${bwY+20}" width="120" height="100" fill="#050510" rx="4" opacity="0.9"/>`;
+        svg += `<rect x="${svgW*0.72}" y="${bwY+20}" width="120" height="100" fill="none" stroke="#5C3D20" stroke-width="4" rx="4"/>`;
+        for (let i = 0; i < 12; i++) {
+          svg += `<circle cx="${svgW*0.72+10+Math.random()*100}" cy="${bwY+25+Math.random()*80}" r="1" fill="white" opacity="${Math.random()*0.7+0.3}"/>`;
+        }
+      }
+
+      // Floor perspective
+      svg += `<polygon points="0,${svgH*0.6} ${svgW},${svgH*0.6} ${svgW},${svgH} 0,${svgH}" fill="url(#floorGrad${plan})"/>`;
+      // Floor planks
+      for (let i = 0; i < 10; i++) {
+        const fy = svgH * 0.6 + (svgH * 0.4 / 10) * i;
+        svg += `<line x1="0" y1="${fy}" x2="${svgW}" y2="${fy}" stroke="${floorColor}" stroke-width="1" opacity="0.3"/>`;
+      }
+      if (isB) {
+        // Sheen on floor
+        svg += `<rect x="0" y="${svgH*0.6}" width="${svgW}" height="20" fill="white" opacity="0.04"/>`;
+      }
+
+      // Ceiling
+      svg += `<polygon points="0,0 ${svgW},0 ${svgW},${svgH*0.15} 0,${svgH*0.15}" fill="${ceilingColor}"/>`;
+
+      // Rafters
+      for (let i = 0; i < 4; i++) {
+        const ry2 = (svgH * 0.15 / 3) * i;
+        svg += `<rect x="0" y="${ry2 - 4}" width="${svgW}" height="8" fill="#2A1508" opacity="0.8"/>`;
+      }
+
+      // String lights between rafters
+      const lightY = svgH * 0.12;
+      for (let i = 0; i < 14; i++) {
+        const lx = (svgW / 14) * i + svgW / 28;
+        svg += `<circle cx="${lx}" cy="${lightY}" r="5" fill="${lightColor}" filter="url(#glow-filter${plan})" opacity="${isNight ? 1 : 0.85}"/>`;
+        svg += `<circle cx="${lx}" cy="${lightY}" r="12" fill="${lightColor}" opacity="0.15"/>`;
+      }
+      svg += `<line x1="0" y1="${lightY}" x2="${svgW}" y2="${lightY}" stroke="#3A2010" stroke-width="1" opacity="0.5"/>`;
+
+      if (isB) {
+        // Pendant lights hanging down
+        for (let i = 0; i < 3; i++) {
+          const px = svgW * 0.2 + i * svgW * 0.25;
+          const py = svgH * 0.22;
+          svg += `<line x1="${px}" y1="${svgH*0.02}" x2="${px}" y2="${py}" stroke="#3A2010" stroke-width="1.5"/>`;
+          svg += `<ellipse cx="${px}" cy="${py}" rx="16" ry="10" fill="${lightColor}" filter="url(#glow-filter${plan})" opacity="0.9"/>`;
+          svg += `<ellipse cx="${px}" cy="${py}" rx="25" ry="20" fill="${lightColor}" opacity="0.2"/>`;
+        }
+      }
+
+      // Bar area left side
+      const barX = 20, barY = svgH*0.25, barW2 = 160, barH2 = svgH*0.35;
+      svg += `<rect x="${barX}" y="${barY}" width="${barW2}" height="${barH2}" fill="${barColor}" rx="3"/>`;
+      // Counter top
+      svg += `<rect x="${barX}" y="${barY}" width="${barW2}" height="12" fill="${counterColor}" rx="2"/>`;
+      if (isB) {
+        // Cabinet details
+        for (let i = 0; i < 3; i++) {
+          svg += `<rect x="${barX+8+i*50}" y="${barY+20}" width="44" height="55" fill="${barColor}" stroke="#2A1508" stroke-width="1" rx="2" opacity="0.7"/>`;
+          svg += `<circle cx="${barX+30+i*50}" cy="${barY+50}" r="3" fill="#8B6030"/>`;
+        }
+        // Under-counter fridge
+        svg += `<rect x="${barX+8}" y="${barY+80}" width="60" height="70" fill="#1A1A1A" stroke="#3A2510" stroke-width="1" rx="2"/>`;
+        svg += `<rect x="${barX+12}" y="${barY+84}" width="52" height="62" fill="#222222" rx="1"/>`;
+      }
+      // Shelves with bottles above bar
+      svg += `<rect x="${barX}" y="${barY-50}" width="${barW2}" height="8" fill="#4A3020"/>`;
+      svg += `<rect x="${barX}" y="${barY-95}" width="${barW2}" height="8" fill="#4A3020"/>`;
+      const bottleColors = ['#1A4A1A','#3A1A06','#0A1A3A','#3A2A06','#2A0A0A','#1A3A1A','#4A2A10'];
+      for (let i = 0; i < 7; i++) {
+        const bx3 = barX + 10 + i * 21;
+        svg += `<rect x="${bx3}" y="${barY-88}" width="10" height="40" fill="${bottleColors[i]}" rx="1" opacity="0.9"/>`;
+        svg += `<rect x="${bx3+2}" y="${barY-92}" width="6" height="6" fill="${bottleColors[i]}" rx="1" opacity="0.7"/>`;
+      }
+      // Bar stools
+      for (let i = 0; i < 4; i++) {
+        const sx3 = barX + barW2 + 15 + i * 28;
+        const sy3 = svgH * 0.52;
+        svg += `<ellipse cx="${sx3}" cy="${sy3}" rx="10" ry="5" fill="${sofaColor}" stroke="#2A1508" stroke-width="1"/>`;
+        svg += `<line x1="${sx3}" y1="${sy3+5}" x2="${sx3}" y2="${sy3+28}" stroke="#3A2510" stroke-width="2"/>`;
+        svg += `<line x1="${sx3-8}" y1="${sy3+28}" x2="${sx3+8}" y2="${sy3+28}" stroke="#3A2510" stroke-width="1.5"/>`;
+      }
+
+      // Sofa / lounge
+      const sofaX = svgW * 0.35, sofaY = svgH * 0.6, sofaW = svgW * 0.45, sofaH = svgH * 0.12;
+      svg += `<rect x="${sofaX}" y="${sofaY}" width="${sofaW}" height="${sofaH}" fill="${sofaColor}" rx="6"/>`;
+      svg += `<rect x="${sofaX}" y="${sofaY}" width="${sofaW}" height="${sofaH * 0.4}" fill="${isB ? '#6A4A38' : '#8A6050'}" rx="4"/>`;
+      // Back cushions
+      for (let i = 0; i < 3; i++) {
+        svg += `<rect x="${sofaX + 8 + i * (sofaW - 16)/3}" y="${sofaY}" width="${(sofaW-24)/3}" height="${sofaH*0.5}" fill="${isB ? '#7A5A45' : '#9A7060'}" rx="4" opacity="0.9"/>`;
+      }
+      // Armrests
+      svg += `<rect x="${sofaX-10}" y="${sofaY}" width="12" height="${sofaH}" fill="${isB ? '#5A3A28' : '#7A5040'}" rx="3"/>`;
+      svg += `<rect x="${sofaX+sofaW-2}" y="${sofaY}" width="12" height="${sofaH}" fill="${isB ? '#5A3A28' : '#7A5040'}" rx="3"/>`;
+
+      // Area rug
+      svg += `<ellipse cx="${svgW*0.6}" cy="${svgH*0.72}" rx="${svgW*0.28}" ry="${svgH*0.08}" fill="${rugColors[0]}" opacity="0.6"/>`;
+      svg += `<ellipse cx="${svgW*0.6}" cy="${svgH*0.72}" rx="${svgW*0.22}" ry="${svgH*0.06}" fill="${rugColors[1]}" opacity="0.5"/>`;
+      svg += `<ellipse cx="${svgW*0.6}" cy="${svgH*0.72}" rx="${svgW*0.15}" ry="${svgH*0.04}" fill="${rugColors[2]}" opacity="0.4"/>`;
+
+      // Coffee table
+      svg += `<rect x="${svgW*0.42}" y="${svgH*0.73}" width="${svgW*0.2}" height="${svgH*0.04}" fill="${counterColor}" opacity="0.8" rx="2"/>`;
+
+      // Chairs right side
+      svg += `<rect x="${svgW*0.78}" y="${svgH*0.6}" width="${svgW*0.08}" height="${svgH*0.1}" fill="${isB ? '#5A4030' : '#6A5040'}" rx="4"/>`;
+      svg += `<rect x="${svgW*0.88}" y="${svgH*0.6}" width="${svgW*0.08}" height="${svgH*0.1}" fill="${isB ? '#5A4030' : '#6A5040'}" rx="4"/>`;
+
+      if (isB) {
+        // Wood stove right corner
+        svg += `<rect x="${svgW*0.63}" y="${svgH*0.3}" width="50" height="60" fill="#1A1A1A" rx="3"/>`;
+        svg += `<rect x="${svgW*0.63+5}" y="${svgH*0.35}" width="40" height="40" fill="#0A0A0A" rx="2"/>`;
+        // Fire glow
+        svg += `<ellipse cx="${svgW*0.63+25}" cy="${svgH*0.375}" rx="15" ry="10" fill="#FF6010" opacity="0.7" filter="url(#glow-filter${plan})"/>`;
+        svg += `<ellipse cx="${svgW*0.63+25}" cy="${svgH*0.375}" rx="8" ry="6" fill="#FFB030" opacity="0.9"/>`;
+        // Stovepipe
+        svg += `<rect x="${svgW*0.63+18}" y="${svgH*0.15}" width="14" height="${svgH*0.15}" fill="#1A1A1A"/>`;
+      }
+
+      // Throw pillows on sofa
+      for (let i = 0; i < 3; i++) {
+        const px2 = sofaX + 20 + i * (sofaW/3);
+        svg += `<rect x="${px2}" y="${sofaY+2}" width="28" height="20" fill="${['#8B6B4A','#C4A47A','#6B4A2A'][i]}" rx="4" opacity="0.8"/>`;
+      }
+    }
+
+    // Ambient light overlay
+    svg += `<rect x="0" y="0" width="${svgW}" height="${svgH}" fill="url(#glow${plan})" pointer-events="none"/>`;
+
+    // Vignette
+    svg += `<radialGradient id="vign${plan}" cx="50%" cy="50%" r="70%">
+      <stop offset="60%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="rgba(10,5,0,0.55)"/>
+    </radialGradient>`;
+    svg += `<rect x="0" y="0" width="${svgW}" height="${svgH}" fill="url(#vign${plan})" pointer-events="none"/>`;
+
+    // Plan label watermark
+    svg += `<text x="${svgW-12}" y="${svgH-10}" text-anchor="end" font-size="10" fill="rgba(255,255,255,0.3)" font-family="Inter,sans-serif">Plan ${plan} · ${view} view · AI-assisted render</text>`;
+
+    svg += `</svg>`;
+
+    const blob = new Blob([svg], {type: 'image/svg+xml'});
+    const url = URL.createObjectURL(blob);
+    canvas.src = url;
+  }
+</script>
+</body>
+</html>

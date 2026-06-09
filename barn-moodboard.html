@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barn Reno Mood Board</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bark:   #2E1F0E;
+    --walnut: #5C3D20;
+    --cedar:  #8B5C35;
+    --wheat:  #D4A96A;
+    --linen:  #F2EAD8;
+    --cream:  #FAF6EE;
+    --sage:   #7A8C6E;
+    --rust:   #B84C2B;
+    --gold:   #C9922A;
+    --smoke:  #4A5568;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bark);
+    font-family: 'Inter', sans-serif;
+    color: var(--linen);
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--bark);
+    padding: 3.5rem 2rem 2.5rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(212,169,106,0.25);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 38px,
+      rgba(92,61,32,0.18) 38px,
+      rgba(92,61,32,0.18) 40px
+    );
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--wheat);
+    opacity: 0.7;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    color: var(--wheat);
+    line-height: 1.15;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--linen);
+  }
+
+  .hero-sub {
+    margin-top: 0.8rem;
+    font-size: 0.88rem;
+    color: var(--linen);
+    opacity: 0.6;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .plan-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .plan-pill {
+    padding: 0.55rem 1.6rem;
+    border-radius: 40px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .pill-a { background: var(--sage); color: white; }
+  .pill-a:hover { background: #6a7c5e; }
+  .pill-b { background: var(--gold); color: white; }
+  .pill-b:hover { background: #b08020; }
+
+  /* ── SECTION ── */
+  .plan-section {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 1rem;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-label-badge {
+    padding: 0.3rem 1rem;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .badge-a { background: var(--sage); color: white; }
+  .badge-b { background: var(--gold); color: white; }
+
+  .section-label h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--wheat);
+    line-height: 1.2;
+  }
+
+  .section-label .price {
+    margin-left: auto;
+    font-size: 0.82rem;
+    color: var(--wheat);
+    opacity: 0.7;
+    white-space: nowrap;
+    font-weight: 300;
+  }
+
+  .section-intro {
+    font-size: 0.9rem;
+    color: var(--linen);
+    opacity: 0.7;
+    line-height: 1.7;
+    max-width: 680px;
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+
+  /* ── MOSAIC GRID ── */
+  .mosaic {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 2.5rem;
+  }
+
+  .mosaic-4 {
+    grid-template-columns: 2fr 1fr 1fr 1.2fr;
+    grid-template-rows: 260px 200px;
+  }
+
+  .mosaic-4 .tile:nth-child(1) { grid-row: 1 / 3; }
+  .mosaic-4 .tile:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .mosaic-4 .tile:nth-child(3) { grid-column: 3; grid-row: 1; }
+  .mosaic-4 .tile:nth-child(4) { grid-column: 4; grid-row: 1; }
+  .mosaic-4 .tile:nth-child(5) { grid-column: 2 / 5; grid-row: 2; }
+
+  .mosaic-b {
+    grid-template-columns: 1.3fr 1fr 1.3fr;
+    grid-template-rows: 240px 220px;
+  }
+
+  .mosaic-b .tile:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
+  .mosaic-b .tile:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .mosaic-b .tile:nth-child(3) { grid-column: 3; grid-row: 1; }
+  .mosaic-b .tile:nth-child(4) { grid-column: 2 / 4; grid-row: 2; }
+
+  .tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #2A1A0A;
+  }
+
+  .tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+    filter: brightness(0.88) saturate(0.9);
+  }
+
+  .tile:hover img { transform: scale(1.04); filter: brightness(0.95) saturate(1); }
+
+  .tile-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.9rem 1rem 0.7rem;
+    background: linear-gradient(transparent, rgba(20,10,0,0.85));
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--wheat);
+  }
+
+  /* ── DETAILS ROW ── */
+  .details-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: rgba(212,169,106,0.15);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+  }
+
+  .detail-cell {
+    background: rgba(46,31,14,0.85);
+    padding: 1.2rem 1.4rem;
+  }
+
+  .detail-cell .d-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--wheat);
+    opacity: 0.6;
+    margin-bottom: 0.35rem;
+  }
+
+  .detail-cell .d-value {
+    font-size: 0.88rem;
+    color: var(--linen);
+    line-height: 1.5;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    max-width: 1080px;
+    margin: 0 auto 0;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(212,169,106,0.2);
+  }
+
+  .divider-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--wheat);
+    opacity: 0.4;
+  }
+
+  /* ── PALETTE STRIP ── */
+  .palette-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .swatch {
+    flex: 1;
+    min-width: 80px;
+    height: 52px;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .swatch-label {
+    position: absolute;
+    bottom: 5px;
+    left: 8px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    font-size: 0.75rem;
+    color: var(--wheat);
+    opacity: 0.35;
+    letter-spacing: 0.08em;
+    border-top: 1px solid rgba(212,169,106,0.1);
+    margin-top: 2rem;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .mosaic-4, .mosaic-b {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+    }
+    .mosaic-4 .tile, .mosaic-b .tile {
+      grid-column: auto !important;
+      grid-row: auto !important;
+      height: 180px;
+    }
+    .section-label .price { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">Backyard Barn · Mood Board</p>
+  <h1>The <em>Entertaining Barn</em></h1>
+  <p class="hero-sub">14 × 15.5 ft · Rustic Hangout · Two Budget Plans</p>
+  <div class="plan-nav">
+    <a class="plan-pill pill-a" href="#planA">Plan A — Lean &amp; Rustic · $3–5K</a>
+    <a class="plan-pill pill-b" href="#planB">Plan B — The Real Deal · $8–15K</a>
+  </div>
+</div>
+
+<!-- ══ PLAN A ══ -->
+<div id="planA" class="plan-section">
+  <div class="section-label">
+    <span class="section-label-badge badge-a">Plan A</span>
+    <h2>Lean &amp; Rustic</h2>
+    <span class="price">est. $3,000 – $5,500</span>
+  </div>
+
+  <p class="section-intro">
+    The barn's bones are already the design. Clean it out, seal the floor, hang string lights between the rafters, build a simple bar from reclaimed lumber, and fill it with secondhand leather and wicker. A screen panel behind the stained glass doors keeps the bugs out on summer nights while keeping the view in.
+  </p>
+
+  <!-- Color palette Plan A -->
+  <div class="palette-row">
+    <div class="swatch" style="background:#3A2510"><span class="swatch-label">Barn Board</span></div>
+    <div class="swatch" style="background:#7A5535"><span class="swatch-label">Raw Oak</span></div>
+    <div class="swatch" style="background:#C9922A"><span class="swatch-label">Warm Gold</span></div>
+    <div class="swatch" style="background:#7A8C6E"><span class="swatch-label">Sage Green</span></div>
+    <div class="swatch" style="background:#B89060"><span class="swatch-label">Jute</span></div>
+    <div class="swatch" style="background:#5C4030"><span class="swatch-label">Tan Leather</span></div>
+  </div>
+
+  <!-- Mosaic Plan A -->
+  <div class="mosaic mosaic-4">
+    <div class="tile">
+      <img src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=800&q=80" alt="Rustic barn interior bar" onerror="this.src='https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=800&q=80'"/>
+      <div class="tile-label">Reclaimed Wood Bar</div>
+    </div>
+    <div class="tile">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Edison string lights" onerror="this.src='https://images.unsplash.com/photo-1513519107792-d65d08a5ab49?w=600&q=80'"/>
+      <div class="tile-label">String Lights</div>
+    </div>
+    <div class="tile">
+      <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Leather sofa rustic" />
+      <div class="tile-label">Secondhand Sofa</div>
+    </div>
+    <div class="tile">
+      <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="Jute rug" />
+      <div class="tile-label">Jute Area Rug</div>
+    </div>
+    <div class="tile">
+      <img src="https://images.unsplash.com/photo-1510627489930-0c1b0bfb6785?w=1200&q=80" alt="Barn wood wall warm light" onerror="this.src='https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=1200&q=80'"/>
+      <div class="tile-label">Barn Board Walls · Natural Wood · String Light Glow</div>
+    </div>
+  </div>
+
+  <!-- Details Plan A -->
+  <div class="details-row">
+    <div class="detail-cell">
+      <div class="d-label">Bar</div>
+      <div class="d-value">DIY reclaimed lumber frame, butcher block or slab top, open bottle shelving above</div>
+    </div>
+    <div class="detail-cell">
+      <div class="d-label">Lighting</div>
+      <div class="d-value">Edison string lights on rafters, 1–2 plug-in pendants, outdoor extension cord circuit</div>
+    </div>
+    <div class="detail-cell">
+      <div class="d-label">Seating</div>
+      <div class="d-value">Secondhand leather sofa + mismatched armchairs, jute or outdoor rug, wood side tables</div>
+    </div>
+    <div class="detail-cell">
+      <div class="d-label">Doors</div>
+      <div class="d-value">Keep stained glass double doors, add wood-framed screen panel insert behind them</div>
+    </div>
+    <div class="detail-cell">
+      <div class="d-label">Walls &amp; Floor</div>
+      <div class="d-value">Clean + seal existing barn board walls, sweep + seal wide-plank wood floor as-is</div>
+    </div>
+    <div class="detail-cell">
+      <div class="d-label">Divide</div>
+      <div class="d-value">Heavy canvas or linen curtain on conduit rod separates entertaining from storage</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-text">Plan B</span><div class="divider-line"></div></div>
+
+<!-- ══ PLAN B ══ -->
+<div id="planB" class="plan-section">
+  <div class="section-label">
+    <span class="section-label-badge badge-b">Plan B</span>
+    <h2>The Real Deal</h2>
+    <span class="price">est. $8,000 – $15,000</span>
+  </div>
+
+  <p class="section-intro">
+    Everything in Plan A, done properly. An electrician runs a circuit for real pendant lighting on dimmers. The bar gets built-in cabinetry with a mini fridge and sink. A small cast iron wood stove makes it a three-season space. The floor gets refinished. The walls get cleaned, sealed, and insulated in the front room. A solid partition replaces the curtain.
+  </p>
+
+  <!-- Color palette Plan B -->
+  <div class="palette-row">
+    <div class="swatch" style="background:#2A1808"><span class="swatch-label">Dark Walnut</span></div>
+    <div class="swatch" style="background:#6B4828"><span class="swatch-label">Oak Floor</span></div>
+    <div class="swatch" style="background:#C8A060"><span class="swatch-label">Butcher Block</span></div>
+    <div class="swatch" style="background:#B84C2B"><span class="swatch-label">Stove Iron</span></div>
+    <div class="swatch" style="background:#4A5568"><span class="swatch-label">Slate</span></div>
+    <div class="swatch" style="background:#D4A96A"><span class="swatch-label">Amber Glass</span></div>
+  </div>
+
+  <!-- Mosaic Plan B -->
+  <div class="mosaic mosaic-b">
+    <div class="tile">
+      <img src="https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=800&q=80" alt="Built-in bar dark wood" onerror="this.src='https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=800&q=80'"/>
+      <div class="tile-label">Built-in Bar · Dark Cabinetry · Open Shelving</div>
+    </div>
+    <div class="tile">
+      <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80" alt="Pendant Edison lights over bar" />
+      <div class="tile-label">Pendant Lighting on Dimmer</div>
+    </div>
+    <div class="tile">
+      <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&q=80" alt="Cast iron wood stove" onerror="this.src='https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=600&q=80'"/>
+      <div class="tile-label">Cast Iron Wood Stove</div>
+    </div>
+    <div class="tile">
+      <img src="https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1200&q=80" alt="Refined rustic lounge wide plank floor" onerror="this.src='https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200&q=80'"/>
+      <div class="tile-label">Refinished Wide-Plank Floor · Quality Furniture · Warm Ambient Lighting</div>
+    </div>
+  </div>
+
+  <!-- Details Plan B -->
+  <div class="details-row">
+    <div class="detail-cell">
+      <div class="d-label">Bar</div>
+      <div class="d-value">Built-in dark stained cabinets, butcher block top, undermount sink, mini fridge, open bottle shelving with under-shelf lighting</div>
+    </div>
+    <div class="detail-cell">
+      <div class="d-label">Lighting</div>
+      <div class="d-value">Electrician-run circuit, 3–4 pendant lights on dimmer, Edison bulb fixtures, accent lighting at bar</div>
+    </div>
+    <div class="detail-cell">
+      <div class="d-label">Heat</div>
+      <div class="d-value">Small cast iron wood stove (corner-mounted) or mini-split for heat + AC. Extends use to 3 seasons</div>
+    </div>
+    <div class="detail-cell">
+      <div class="d-label">Floor</div>
+      <div class="d-value">Existing wide-plank floor sanded, stained, and sealed — or new wide-plank engineered hardwood over it</div>
+    </div>
+    <div class="detail-cell">
+      <div class="d-label">Walls</div>
+      <div class="d-value">Front room insulated between studs, barn board re-secured and sealed. Back room left raw.</div>
+    </div>
+    <div class="detail-cell">
+      <div class="d-label">Partition</div>
+      <div class="d-value">Solid half-wall or full wall with a pass-through window divides entertaining from storage cleanly</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Backyard Barn Renovation · Mood Board · Plans A &amp; B
+</footer>
+
+</body>
+</html>

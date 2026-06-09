@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shed Reno Concepts</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bark:    #3B2A1A;
+    --walnut:  #5C3D20;
+    --cedar:   #8B5C35;
+    --wheat:   #D4A96A;
+    --linen:   #F2EAD8;
+    --cream:   #FAF6EE;
+    --sage:    #7A8C6E;
+    --rust:    #B84C2B;
+    --slate:   #4A5568;
+    --gold:    #C9922A;
+  }
+
+  body {
+    background: var(--cream);
+    font-family: 'Inter', sans-serif;
+    color: var(--bark);
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--bark);
+    color: var(--linen);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    border-bottom: 4px solid var(--wheat);
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    letter-spacing: 0.02em;
+    color: var(--wheat);
+  }
+
+  header p {
+    margin-top: 0.5rem;
+    color: var(--linen);
+    opacity: 0.75;
+    font-size: 0.9rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: var(--walnut);
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    padding: 0.85rem 1.8rem;
+    cursor: pointer;
+    color: var(--wheat);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    background: transparent;
+    border: none;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .tab:hover { background: rgba(255,255,255,0.08); }
+  .tab.active {
+    color: var(--linen);
+    border-bottom: 3px solid var(--wheat);
+    background: rgba(255,255,255,0.1);
+  }
+
+  .content { display: none; padding: 2rem 1.5rem; max-width: 900px; margin: 0 auto; }
+  .content.active { display: block; }
+
+  /* ---- OVERVIEW ---- */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .info-card {
+    background: white;
+    border: 1px solid #E5D9C4;
+    border-radius: 6px;
+    padding: 1.2rem 1.4rem;
+    border-left: 4px solid var(--cedar);
+  }
+
+  .info-card .label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--cedar);
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  .info-card .value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--bark);
+  }
+
+  .info-card p {
+    font-size: 0.82rem;
+    color: var(--slate);
+    margin-top: 0.3rem;
+    line-height: 1.5;
+  }
+
+  /* ---- FLOOR PLAN ---- */
+  .floor-plan-wrap {
+    background: white;
+    border: 1px solid #E5D9C4;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .floor-plan-wrap h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--walnut);
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid #E5D9C4;
+  }
+
+  svg.floor-plan { width: 100%; height: auto; display: block; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    color: var(--slate);
+  }
+
+  .legend-swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ---- CONCEPTS ---- */
+  .concept-card {
+    background: white;
+    border: 1px solid #E5D9C4;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+  }
+
+  .concept-card:hover { box-shadow: 0 4px 20px rgba(59,42,26,0.12); }
+
+  .concept-header {
+    background: var(--bark);
+    color: var(--wheat);
+    padding: 1rem 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .concept-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+  }
+
+  .badge {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .badge-budget { background: var(--sage); color: white; }
+  .badge-premium { background: var(--rust); color: white; }
+  .badge-mid { background: var(--gold); color: white; }
+
+  .concept-body { padding: 1.4rem; }
+
+  .concept-visual {
+    width: 100%;
+    height: 180px;
+    border-radius: 6px;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Perspective floor plan SVG visuals */
+  .concept-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--slate);
+    line-height: 1.4;
+  }
+
+  .feature-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cedar);
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  .cost-breakdown {
+    background: var(--linen);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin-top: 0.8rem;
+  }
+
+  .cost-breakdown h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--cedar);
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+  }
+
+  .cost-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: var(--slate);
+    padding: 0.25rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .cost-line:last-child { border-bottom: none; }
+  .cost-line.total {
+    font-weight: 600;
+    color: var(--bark);
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+    padding-top: 0.4rem;
+    border-top: 1.5px solid var(--cedar);
+    border-bottom: none;
+  }
+
+  .cost-line span:last-child { font-weight: 500; }
+
+  /* ---- NOTES ---- */
+  .notes-section { margin-bottom: 1.5rem; }
+
+  .notes-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--walnut);
+    margin-bottom: 1rem;
+  }
+
+  .note-block {
+    background: white;
+    border: 1px solid #E5D9C4;
+    border-left: 4px solid var(--sage);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .note-block.warn { border-left-color: var(--rust); }
+  .note-block.tip { border-left-color: var(--gold); }
+
+  .note-block h4 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    color: var(--cedar);
+    margin-bottom: 0.4rem;
+  }
+
+  .note-block.warn h4 { color: var(--rust); }
+  .note-block.tip h4 { color: var(--gold); }
+
+  .note-block p {
+    font-size: 0.85rem;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+
+  h2.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--walnut);
+    margin-bottom: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Backyard Barn Renovation</h1>
+  <p>Rustic Entertaining Space · Storage Conversion · Concept Plans</p>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('overview')">Overview</button>
+  <button class="tab" onclick="showTab('floorplan')">Floor Plan</button>
+  <button class="tab" onclick="showTab('concepts')">3 Concepts</button>
+  <button class="tab" onclick="showTab('notes')">Notes & Tips</button>
+</div>
+
+<!-- OVERVIEW -->
+<div id="overview" class="content active">
+  <div class="overview-grid">
+    <div class="info-card">
+      <div class="label">Front Space (Entertaining)</div>
+      <div class="value">14 × 15.5 ft</div>
+      <p>≈ 217 sq ft — plenty for a bar, lounge seating, and a small game area</p>
+    </div>
+    <div class="info-card">
+      <div class="label">Back Space (Storage)</div>
+      <div class="value">12 × 15.5 ft</div>
+      <p>≈ 186 sq ft — bikes, seasonal gear, lawn equipment</p>
+    </div>
+    <div class="info-card">
+      <div class="label">Ceiling Height</div>
+      <div class="value">9 – 12.5 ft</div>
+      <p>Great opportunity to expose rafters or add loft shelving up high</p>
+    </div>
+    <div class="info-card">
+      <div class="label">Best Existing Features</div>
+      <div class="value">Keep These</div>
+      <p>Stained glass door panels, double entry doors, rustic plank wood walls, stone foundation</p>
+    </div>
+  </div>
+
+  <div class="note-block tip" style="margin-bottom:1rem">
+    <h4>The Concept</h4>
+    <p>Keep the double doors as the focal "wow" entry with screens behind them for summer nights. The bar goes on the left or back wall of the front room. Lounge seating faces the doors to pull the outdoors in. A partition — either a salvaged wood half-wall or a curtain — separates entertaining from storage.</p>
+  </div>
+  <div class="note-block">
+    <h4>Structure Looks Sound</h4>
+    <p>The barn board exterior, metal roof, and stone foundation appear solid in the photos. Main work is interior: cleaning, flooring, lighting, insulation (optional), and furnishing.</p>
+  </div>
+</div>
+
+<!-- FLOOR PLAN -->
+<div id="floorplan" class="content">
+  <div class="floor-plan-wrap">
+    <h2>Annotated Floor Plan — Recommended Layout</h2>
+
+    <!-- SVG floor plan, top-down view -->
+    <svg class="floor-plan" viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer walls -->
+      <rect x="30" y="20" width="460" height="380" fill="#F5EDD8" stroke="#5C3D20" stroke-width="8" rx="3"/>
+
+      <!-- Divider wall between front and back -->
+      <rect x="30" y="220" width="460" height="8" fill="#5C3D20"/>
+      <text x="260" y="216" text-anchor="middle" font-size="11" fill="#8B5C35" font-family="Inter,sans-serif" font-weight="600">— partition / curtain divide —</text>
+
+      <!-- FRONT ROOM label -->
+      <text x="260" y="55" text-anchor="middle" font-size="13" fill="#3B2A1A" font-family="Playfair Display,serif" font-weight="700">ENTERTAINING SPACE</text>
+      <text x="260" y="72" text-anchor="middle" font-size="10" fill="#8B5C35" font-family="Inter,sans-serif">14 ft deep × 15.5 ft wide</text>
+
+      <!-- BACK ROOM label -->
+      <text x="260" y="300" text-anchor="middle" font-size="13" fill="#3B2A1A" font-family="Playfair Display,serif" font-weight="700">STORAGE</text>
+      <text x="260" y="316" text-anchor="middle" font-size="10" fill="#8B5C35" font-family="Inter,sans-serif">12 ft deep × 15.5 ft wide</text>
+
+      <!-- Double doors (bottom of front room = south wall) -->
+      <rect x="160" y="386" width="200" height="14" fill="#8B5C35" rx="2"/>
+      <line x1="260" y1="386" x2="260" y2="400" stroke="#3B2A1A" stroke-width="2"/>
+      <!-- door swing arcs -->
+      <path d="M 160 386 Q 160 360 185 356" fill="none" stroke="#C9922A" stroke-width="1.5" stroke-dasharray="4 2"/>
+      <path d="M 360 386 Q 360 360 335 356" fill="none" stroke="#C9922A" stroke-width="1.5" stroke-dasharray="4 2"/>
+      <text x="260" y="414" text-anchor="middle" font-size="10" fill="#8B5C35" font-family="Inter,sans-serif">Double Doors (stained glass panels)</text>
+
+      <!-- Window left side front room -->
+      <rect x="30" y="100" width="10" height="60" fill="#A8C5DA" stroke="#5C3D20" stroke-width="2"/>
+      <text x="15" y="133" text-anchor="middle" font-size="9" fill="#5C3D20" font-family="Inter,sans-serif" transform="rotate(-90,15,133)">window</text>
+
+      <!-- Window right side front room -->
+      <rect x="480" y="100" width="10" height="60" fill="#A8C5DA" stroke="#5C3D20" stroke-width="2"/>
+
+      <!-- BAR - left wall -->
+      <rect x="38" y="80" width="100" height="36" fill="#8B5C35" rx="3"/>
+      <text x="88" y="101" text-anchor="middle" font-size="11" fill="white" font-family="Inter,sans-serif" font-weight="600">BAR / COUNTER</text>
+      <text x="88" y="113" text-anchor="middle" font-size="9" fill="#F2EAD8" font-family="Inter,sans-serif">shelves above</text>
+
+      <!-- Bar stools -->
+      <circle cx="50" cy="126" r="8" fill="#D4A96A" stroke="#5C3D20" stroke-width="1.5"/>
+      <circle cx="72" cy="126" r="8" fill="#D4A96A" stroke="#5C3D20" stroke-width="1.5"/>
+      <circle cx="94" cy="126" r="8" fill="#D4A96A" stroke="#5C3D20" stroke-width="1.5"/>
+      <circle cx="116" cy="126" r="8" fill="#D4A96A" stroke="#5C3D20" stroke-width="1.5"/>
+      <text x="83" y="148" text-anchor="middle" font-size="9" fill="#5C3D20" font-family="Inter,sans-serif">stools</text>
+
+      <!-- Sofa/lounge -->
+      <rect x="160" y="140" width="200" height="55" fill="#7A8C6E" rx="4"/>
+      <text x="260" y="166" text-anchor="middle" font-size="11" fill="white" font-family="Inter,sans-serif" font-weight="600">SOFA / LOUNGE</text>
+      <text x="260" y="180" text-anchor="middle" font-size="9" fill="#E8F0E4" font-family="Inter,sans-serif">faces double doors</text>
+
+      <!-- Coffee table -->
+      <rect x="200" y="205" width="120" height="8" fill="#C9922A" rx="2"/>
+      <text x="260" y="212" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif">coffee table</text>
+
+      <!-- Corner chairs right -->
+      <rect x="395" y="140" width="75" height="65" fill="#B84C2B" rx="4"/>
+      <text x="432" y="170" text-anchor="middle" font-size="10" fill="white" font-family="Inter,sans-serif" font-weight="600">CHAIRS</text>
+      <text x="432" y="183" text-anchor="middle" font-size="9" fill="#F2EAD8" font-family="Inter,sans-serif">2 arm chairs</text>
+
+      <!-- Rug indicator -->
+      <rect x="150" y="130" width="330" height="90" fill="none" stroke="#C9922A" stroke-width="1.5" stroke-dasharray="5 3" rx="4"/>
+      <text x="470" y="127" text-anchor="end" font-size="9" fill="#C9922A" font-family="Inter,sans-serif">area rug</text>
+
+      <!-- String lights indicator top -->
+      <line x1="38" y1="35" x2="482" y2="35" stroke="#C9922A" stroke-width="1" stroke-dasharray="3 5"/>
+      <text x="260" y="32" text-anchor="middle" font-size="9" fill="#C9922A" font-family="Inter,sans-serif">string lights / exposed rafter lighting</text>
+
+      <!-- Back room contents -->
+      <!-- Shelving unit 1 -->
+      <rect x="38" y="232" width="120" height="30" fill="#D4A96A" rx="2"/>
+      <text x="98" y="251" text-anchor="middle" font-size="10" fill="#3B2A1A" font-family="Inter,sans-serif">wall shelving</text>
+      <!-- Shelving unit 2 -->
+      <rect x="38" y="270" width="120" height="30" fill="#D4A96A" rx="2"/>
+      <text x="98" y="289" text-anchor="middle" font-size="10" fill="#3B2A1A" font-family="Inter,sans-serif">wall shelving</text>
+
+      <!-- Bike hooks -->
+      <rect x="360" y="232" width="110" height="30" fill="#D4A96A" rx="2"/>
+      <text x="415" y="251" text-anchor="middle" font-size="10" fill="#3B2A1A" font-family="Inter,sans-serif">bike hooks (wall)</text>
+
+      <!-- Vertical storage -->
+      <rect x="200" y="232" width="140" height="50" fill="#E5D9C4" stroke="#8B5C35" stroke-width="1.5" rx="2"/>
+      <text x="270" y="258" text-anchor="middle" font-size="10" fill="#5C3D20" font-family="Inter,sans-serif">open floor storage</text>
+      <text x="270" y="272" text-anchor="middle" font-size="9" fill="#8B5C35" font-family="Inter,sans-serif">(seasonal / bins)</text>
+
+      <!-- Compass / north -->
+      <text x="490" y="390" text-anchor="end" font-size="9" fill="#8B5C35" font-family="Inter,sans-serif">not to scale</text>
+
+      <!-- Dimension arrows -->
+      <line x1="30" y1="10" x2="490" y2="10" stroke="#5C3D20" stroke-width="1"/>
+      <text x="260" y="9" text-anchor="middle" font-size="10" fill="#5C3D20" font-family="Inter,sans-serif">15.5 ft wide</text>
+      <line x1="18" y1="20" x2="18" y2="228" stroke="#5C3D20" stroke-width="1"/>
+      <text x="12" y="124" text-anchor="middle" font-size="10" fill="#5C3D20" font-family="Inter,sans-serif" transform="rotate(-90,12,124)">14 ft</text>
+      <line x1="18" y1="228" x2="18" y2="400" stroke="#5C3D20" stroke-width="1" stroke-dasharray="3 2"/>
+      <text x="12" y="314" text-anchor="middle" font-size="10" fill="#8B5C35" font-family="Inter,sans-serif" transform="rotate(-90,12,314)">12 ft</text>
+    </svg>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-swatch" style="background:#8B5C35"></div>Bar / fixed structure</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#7A8C6E"></div>Seating</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#D4A96A"></div>Stools / shelving</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#B84C2B"></div>Accent chairs</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#A8C5DA"></div>Windows</div>
+      <div class="legend-item" style="color:#C9922A">– – –  Area rug / string lights</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONCEPTS -->
+<div id="concepts" class="content">
+  <h2 class="section-title">Three Budget Tiers</h2>
+
+  <!-- CONCEPT A -->
+  <div class="concept-card">
+    <div class="concept-header">
+      <h3>Plan A — The Lean & Rustic</h3>
+      <span class="badge badge-budget">~$3,000 – $5,500</span>
+    </div>
+    <div class="concept-body">
+      <p style="font-size:0.85rem;color:#4A5568;margin-bottom:1rem;line-height:1.6;">Mostly sweat equity. Clean it out, patch what's broken, add charm with lighting and secondhand furniture. The barn's bones do the heavy lifting.</p>
+      <div class="concept-features">
+        <div class="feature-item"><div class="feature-dot"></div>Deep clean + debris removal</div>
+        <div class="feature-item"><div class="feature-dot"></div>Sweep & seal existing wood floor</div>
+        <div class="feature-item"><div class="feature-dot"></div>Screen panels behind double doors</div>
+        <div class="feature-item"><div class="feature-dot"></div>String lights + 1–2 plug-in fixtures</div>
+        <div class="feature-item"><div class="feature-dot"></div>DIY bar from reclaimed lumber</div>
+        <div class="feature-item"><div class="feature-dot"></div>Secondhand sofa + chairs</div>
+        <div class="feature-item"><div class="feature-dot"></div>Curtain divider to storage</div>
+        <div class="feature-item"><div class="feature-dot"></div>Wall-mount shelving in back</div>
+        <div class="feature-item"><div class="feature-dot"></div>Patch + paint walls (front only)</div>
+        <div class="feature-item"><div class="feature-dot"></div>Outdoor rug + small side tables</div>
+      </div>
+      <div class="cost-breakdown">
+        <h4>Rough Cost Breakdown</h4>
+        <div class="cost-line"><span>Cleanout / haul away</span><span>$300 – $700</span></div>
+        <div class="cost-line"><span>Floor sealing + minor repairs</span><span>$200 – $400</span></div>
+        <div class="cost-line"><span>Screen door panels</span><span>$150 – $300</span></div>
+        <div class="cost-line"><span>Lighting (string + fixtures)</span><span>$200 – $400</span></div>
+        <div class="cost-line"><span>DIY bar materials</span><span>$300 – $600</span></div>
+        <div class="cost-line"><span>Furniture (secondhand/FB Marketplace)</span><span>$500 – $1,500</span></div>
+        <div class="cost-line"><span>Paint, hardware, accessories</span><span>$300 – $600</span></div>
+        <div class="cost-line"><span>Storage shelving (back room)</span><span>$200 – $500</span></div>
+        <div class="cost-line total"><span>Estimated Total</span><span>$2,150 – $5,000</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT B -->
+  <div class="concept-card">
+    <div class="concept-header">
+      <h3>Plan B — The Real Deal</h3>
+      <span class="badge badge-mid">~$8,000 – $14,000</span>
+    </div>
+    <div class="concept-body">
+      <p style="font-size:0.85rem;color:#4A5568;margin-bottom:1rem;line-height:1.6;">Bring in some pros for the infrastructure (electric, possibly a mini-split or wood stove), and invest in real furniture and a proper built-in bar. This is the version you actually want to spend evenings in year-round.</p>
+      <div class="concept-features">
+        <div class="feature-item"><div class="feature-dot"></div>Everything in Plan A, done better</div>
+        <div class="feature-item"><div class="feature-dot"></div>Electrician run: outlets + proper lighting</div>
+        <div class="feature-item"><div class="feature-dot"></div>Built-in bar with mini fridge + sink</div>
+        <div class="feature-item"><div class="feature-dot"></div>Wood stove or mini-split (heat/cool)</div>
+        <div class="feature-item"><div class="feature-dot"></div>New wide-plank floor or refinished existing</div>
+        <div class="feature-item"><div class="feature-dot"></div>New furniture (not secondhand)</div>
+        <div class="feature-item"><div class="feature-dot"></div>Insulate walls + ceiling (front room)</div>
+        <div class="feature-item"><div class="feature-dot"></div>Solid partition wall with pass-through</div>
+        <div class="feature-item"><div class="feature-dot"></div>Painted + sealed interior walls</div>
+        <div class="feature-item"><div class="feature-dot"></div>Pendant / Edison lighting on circuit</div>
+      </div>
+      <div class="cost-breakdown">
+        <h4>Rough Cost Breakdown</h4>
+        <div class="cost-line"><span>Cleanout + prep</span><span>$500 – $1,000</span></div>
+        <div class="cost-line"><span>Electrical (panel sub-feed + wiring)</span><span>$1,500 – $3,000</span></div>
+        <div class="cost-line"><span>Built-in bar (materials + labor)</span><span>$1,200 – $2,500</span></div>
+        <div class="cost-line"><span>Mini-split or wood stove + install</span><span>$1,500 – $3,000</span></div>
+        <div class="cost-line"><span>Flooring</span><span>$600 – $1,500</span></div>
+        <div class="cost-line"><span>Insulation + drywall/paneling</span><span>$800 – $1,800</span></div>
+        <div class="cost-line"><span>Furniture + accessories</span><span>$1,500 – $3,000</span></div>
+        <div class="cost-line"><span>Storage buildout (back)</span><span>$400 – $800</span></div>
+        <div class="cost-line total"><span>Estimated Total</span><span>$8,000 – $16,600</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT C -->
+  <div class="concept-card">
+    <div class="concept-header">
+      <h3>Plan C — The Full Transformation</h3>
+      <span class="badge badge-premium">~$20,000 – $35,000+</span>
+    </div>
+    <div class="concept-body">
+      <p style="font-size:0.85rem;color:#4A5568;margin-bottom:1rem;line-height:1.6;">Treat it like a proper accessory dwelling. Full electrical, plumbing, HVAC, high-end finishes. The barn becomes a legitimate gathering space you could rent out or use as a guest suite too.</p>
+      <div class="concept-features">
+        <div class="feature-item"><div class="feature-dot"></div>Everything in Plan B</div>
+        <div class="feature-item"><div class="feature-dot"></div>Full plumbing (bar sink + bathroom rough-in)</div>
+        <div class="feature-item"><div class="feature-dot"></div>Dedicated electrical subpanel</div>
+        <div class="feature-item"><div class="feature-dot"></div>Full HVAC / mini-split system</div>
+        <div class="feature-item"><div class="feature-dot"></div>Structural foundation review + repairs</div>
+        <div class="feature-item"><div class="feature-dot"></div>Custom built-in bar with premium finish</div>
+        <div class="feature-item"><div class="feature-dot"></div>Polished concrete or reclaimed hardwood floor</div>
+        <div class="feature-item"><div class="feature-dot"></div>Custom lighting design</div>
+        <div class="feature-item"><div class="feature-dot"></div>Exterior landscaping + patio area</div>
+        <div class="feature-item"><div class="feature-dot"></div>Permit + architect drawings (if required)</div>
+      </div>
+      <div class="cost-breakdown">
+        <h4>Note on Cost</h4>
+        <div class="cost-line"><span>Rough range</span><span>$20,000 – $40,000+</span></div>
+        <div class="cost-line"><span>Permits + architecture</span><span>$2,000 – $5,000</span></div>
+        <div class="cost-line"><span>Plumbing rough-in</span><span>$3,000 – $8,000</span></div>
+        <div class="cost-line"><span>Electrical subpanel</span><span>$2,000 – $4,000</span></div>
+        <div class="cost-line"><span>Everything else</span><span>$15,000 – $25,000</span></div>
+        <div class="cost-line total"><span>Estimated Total</span><span>$22,000 – $42,000</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTES -->
+<div id="notes" class="content">
+  <div class="notes-section">
+    <h2>Things to Address Early</h2>
+
+    <div class="note-block warn">
+      <h4>Foundation & Floor</h4>
+      <p>The stone foundation looks partially open/deteriorated in the photos — get eyes on that before investing in finishes. The wood floor planks look salvageable but need inspection for rot, especially near the doors.</p>
+    </div>
+
+    <div class="note-block warn">
+      <h4>Check Local Permits</h4>
+      <p>Converting a barn/outbuilding to a recreational/habitable space often requires a permit, especially if adding electricity or plumbing. Worth a quick call to your municipality before starting Plan B or C.</p>
+    </div>
+
+    <div class="note-block">
+      <h4>Pest & Critter Check</h4>
+      <p>Any structure like this that's been sitting a while may have mice, bats, or wasps in the walls or rafters. Clear this before doing any insulation or drywall work.</p>
+    </div>
+
+    <div class="note-block tip">
+      <h4>Preserve What's Special</h4>
+      <p>The stained glass panels in the double doors are genuinely beautiful — don't replace them. The barn board walls, if cleaned, will look incredible with proper lighting. The rough wood is the design; don't fight it.</p>
+    </div>
+
+    <div class="note-block tip">
+      <h4>Best Bang-for-Buck Moves</h4>
+      <p>String lights + pendant fixtures do 80% of the atmosphere work. A good area rug grounds the lounge zone. A simple DIY bar (even two sawhorses + a slab of butcher block) signals intent immediately. Prioritize these before anything else.</p>
+    </div>
+
+    <div class="note-block tip">
+      <h4>Screen Solution</h4>
+      <p>For the double doors: a simple screen door insert that swings with the existing doors, or a custom wood-framed screen panel that fits inside the doorframe, will let you keep the doors open on summer nights without bugs. Budget $150–$400 DIY.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+</body>
+</html>
