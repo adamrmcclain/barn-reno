@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exterior & Roof Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bark:#2C1A08; --walnut:#5C3D20; --cedar:#8B5C35; --wheat:#D4A96A;
+    --linen:#F2EAD8; --cream:#FAF6EE; --sage:#7A8C6E; --rust:#B84C2B;
+    --gold:#C9922A; --smoke:#5A6070; --bg2:#F5EFE3; --steel:#6A7A8A;
+  }
+  body { background:var(--cream); font-family:'Inter',sans-serif; color:var(--bark); }
+
+  .hdr { background:var(--bark); padding:2.5rem 2rem 2rem; text-align:center; border-bottom:3px solid var(--wheat); }
+  .hdr-eye { font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:var(--wheat); opacity:.65; margin-bottom:.6rem; }
+  .hdr h1 { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,4vw,2.6rem); color:var(--wheat); line-height:1.2; }
+  .hdr h1 em { color:var(--linen); font-style:italic; }
+  .hdr-sub { margin-top:.5rem; font-size:.82rem; color:var(--linen); opacity:.55; font-weight:300; letter-spacing:.06em; }
+
+  .phase-nav { display:flex; justify-content:center; background:var(--walnut); flex-wrap:wrap; }
+  .pnav-btn {
+    padding:.8rem 1.1rem; cursor:pointer; background:transparent; border:none;
+    border-bottom:3px solid transparent; color:rgba(212,169,106,.65);
+    font-size:.75rem; font-weight:500; letter-spacing:.06em; text-transform:uppercase;
+    font-family:'Inter',sans-serif; transition:all .18s; white-space:nowrap;
+  }
+  .pnav-btn:hover { color:var(--wheat); background:rgba(255,255,255,.06); }
+  .pnav-btn.active { color:var(--linen); border-bottom-color:var(--wheat); background:rgba(255,255,255,.1); }
+
+  .main { max-width:820px; margin:0 auto; padding:2rem 1.5rem; }
+  .phase-content { display:none; }
+  .phase-content.active { display:block; }
+
+  .phase-intro {
+    background:var(--bark); color:var(--linen); border-radius:8px;
+    padding:1.4rem 1.6rem; margin-bottom:1.5rem; display:flex; gap:1.2rem; align-items:flex-start;
+  }
+  .phase-num { font-family:'Playfair Display',serif; font-size:2.8rem; color:var(--wheat); line-height:1; flex-shrink:0; opacity:.7; margin-top:-4px; }
+  .phase-intro h2 { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--wheat); margin-bottom:.4rem; }
+  .phase-intro p { font-size:.86rem; color:var(--linen); opacity:.72; line-height:1.65; font-weight:300; }
+
+  .section-head { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--walnut); margin:1.5rem 0 .75rem; padding-bottom:.4rem; border-bottom:1px solid #E5D9C4; }
+
+  .steps { display:flex; flex-direction:column; gap:1rem; margin-bottom:1.5rem; }
+  .step {
+    background:white; border:1px solid #E5D9C4; border-left:4px solid var(--cedar);
+    border-radius:0 8px 8px 0; padding:1.1rem 1.3rem; transition:box-shadow .15s;
+  }
+  .step.warn { border-left-color:var(--rust); }
+  .step.tip  { border-left-color:var(--gold); }
+  .step.roof { border-left-color:var(--steel); }
+  .step-header { display:flex; align-items:center; gap:.75rem; cursor:pointer; }
+  .step-icon { width:28px; height:28px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:600; }
+  .ic-do    { background:var(--cedar); color:white; }
+  .ic-warn  { background:var(--rust);  color:white; }
+  .ic-tip   { background:var(--gold);  color:white; }
+  .ic-roof  { background:var(--steel); color:white; }
+  .ic-check { background:var(--sage);  color:white; }
+  .step-title { font-size:.92rem; font-weight:500; color:var(--bark); flex:1; }
+  .step-meta  { font-size:.72rem; color:var(--smoke); white-space:nowrap; }
+  .step-body  { margin-top:.75rem; padding-top:.75rem; border-top:1px solid #EDE5D2; font-size:.84rem; color:var(--smoke); line-height:1.65; }
+  .step-body ul { margin:.4rem 0 0 1.1rem; }
+  .step-body li { margin-bottom:.25rem; }
+  .step-body strong { color:var(--bark); }
+
+  .tag { display:inline-block; background:var(--bg2); border:1px solid #DDD0BA; border-radius:4px; padding:.15rem .5rem; font-size:.75rem; color:var(--cedar); font-weight:500; margin:.1rem .15rem 0 0; }
+
+  /* difference callout — exterior vs interior */
+  .diff-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(92,61,32,.15); border-radius:8px; overflow:hidden; margin-bottom:1.5rem; }
+  .diff-cell { background:white; padding:1rem 1.2rem; }
+  .diff-cell h4 { font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; font-weight:500; margin-bottom:.5rem; }
+  .diff-cell.inside h4 { color:var(--cedar); }
+  .diff-cell.outside h4 { color:var(--steel); }
+  .diff-cell ul { font-size:.82rem; color:var(--smoke); line-height:1.6; list-style:none; }
+  .diff-cell ul li::before { content:'· '; color:var(--cedar); }
+  .diff-cell.outside ul li::before { color:var(--steel); }
+
+  /* rust severity picker */
+  .rust-picker { margin-bottom:1.5rem; }
+  .rust-picker h3 { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--walnut); margin-bottom:.5rem; }
+  .rust-picker p { font-size:.84rem; color:var(--smoke); margin-bottom:1rem; line-height:1.6; }
+  .rust-options { display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem; }
+  .rust-card { background:white; border:2px solid #E5D9C4; border-radius:8px; padding:1rem; cursor:pointer; transition:all .18s; text-align:center; }
+  .rust-card:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(92,61,32,.12); }
+  .rust-card.selected { border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,146,42,.2); }
+  .rust-icon { font-size:1.8rem; margin-bottom:.4rem; }
+  .rust-label { font-size:.82rem; font-weight:500; color:var(--bark); margin-bottom:.2rem; }
+  .rust-desc  { font-size:.72rem; color:var(--smoke); line-height:1.4; }
+  .rust-result { margin-top:1rem; padding:1rem 1.2rem; background:white; border:1px solid #E5D9C4; border-radius:8px; display:none; }
+  .rust-result.show { display:block; }
+  .rust-result h4 { font-size:.78rem; text-transform:uppercase; letter-spacing:.1em; color:var(--cedar); margin-bottom:.5rem; font-weight:500; }
+  .rust-result p { font-size:.84rem; color:var(--smoke); line-height:1.6; }
+  .rust-result .tag-row { margin-top:.5rem; }
+
+  /* stain options */
+  .stain-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:.75rem; margin-bottom:1rem; }
+  .stain-card { border:2px solid #E5D9C4; border-radius:8px; overflow:hidden; cursor:pointer; transition:all .18s; background:white; }
+  .stain-card:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(92,61,32,.12); }
+  .stain-card.selected { border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,146,42,.2); }
+  .stain-swatch { height:64px; }
+  .stain-info { padding:.5rem .6rem; }
+  .stain-name { font-size:.78rem; font-weight:500; color:var(--bark); margin-bottom:.15rem; }
+  .stain-desc { font-size:.7rem; color:var(--smoke); line-height:1.4; }
+  .stain-result { margin-top:1rem; padding:1rem 1.2rem; background:white; border:1px solid #E5D9C4; border-radius:8px; display:none; }
+  .stain-result.show { display:block; }
+  .stain-result h4 { font-size:.78rem; text-transform:uppercase; letter-spacing:.1em; color:var(--cedar); margin-bottom:.4rem; font-weight:500; }
+  .stain-result p { font-size:.84rem; color:var(--smoke); line-height:1.6; }
+
+  /* supply table */
+  .supply-table { width:100%; border-collapse:collapse; font-size:.83rem; margin-bottom:1.5rem; }
+  .supply-table th { background:var(--bark); color:var(--wheat); padding:.55rem .8rem; text-align:left; font-size:.7rem; text-transform:uppercase; letter-spacing:.1em; font-weight:500; }
+  .supply-table td { padding:.6rem .8rem; border-bottom:1px solid #EDE5D2; color:var(--smoke); vertical-align:top; }
+  .supply-table tr:last-child td { border-bottom:none; }
+  .supply-table tr:nth-child(even) td { background:var(--bg2); }
+  .supply-table td:first-child { font-weight:500; color:var(--bark); }
+  .cost { color:var(--cedar); font-weight:500; white-space:nowrap; }
+
+  /* two-col layout for roof section */
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem; }
+  @media(max-width:580px) { .two-col,.diff-grid,.rust-options { grid-template-columns:1fr; } }
+
+  .note { border-left:4px solid var(--sage); background:white; border-radius:0 6px 6px 0; padding:.9rem 1.1rem; margin-bottom:1rem; font-size:.84rem; color:var(--smoke); line-height:1.6; }
+  .note.warn  { border-left-color:var(--rust); }
+  .note.tip   { border-left-color:var(--gold); }
+  .note.steel { border-left-color:var(--steel); }
+
+  /* timeline */
+  .tl { display:flex; flex-direction:column; gap:0; }
+  .tl-item { display:flex; gap:1rem; }
+  .tl-left { display:flex; flex-direction:column; align-items:center; flex-shrink:0; width:44px; }
+  .tl-dot { width:14px; height:14px; border-radius:50%; background:var(--cedar); flex-shrink:0; margin-top:4px; }
+  .tl-dot.gold  { background:var(--gold); }
+  .tl-dot.steel { background:var(--steel); }
+  .tl-dot.sage  { background:var(--sage); }
+  .tl-line { width:2px; flex:1; background:#DDD0BA; min-height:24px; }
+  .tl-body { padding-bottom:1.2rem; }
+  .tl-day   { font-size:.7rem; text-transform:uppercase; letter-spacing:.1em; color:var(--cedar); font-weight:500; margin-bottom:.2rem; }
+  .tl-day.steel { color:var(--steel); }
+  .tl-title { font-size:.9rem; font-weight:500; color:var(--bark); margin-bottom:.2rem; }
+  .tl-note  { font-size:.82rem; color:var(--smoke); line-height:1.55; }
+
+  .next-row { display:flex; justify-content:flex-end; margin-top:.5rem; }
+  .next-btn { background:var(--bark); color:var(--wheat); border:none; padding:.6rem 1.4rem; border-radius:6px; font-family:'Inter',sans-serif; font-size:.82rem; font-weight:500; cursor:pointer; letter-spacing:.04em; transition:background .15s; }
+  .next-btn:hover { background:var(--walnut); }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <p class="hdr-eye">Barn Reno · Step 2</p>
+  <h1>Exterior Walls &amp; <em>Roof</em></h1>
+  <p class="hdr-sub">Corrugated metal roof · Weathered barn board siding · Assess first, finish second</p>
+</div>
+
+<div class="phase-nav">
+  <button class="pnav-btn active" onclick="show('diff',this)">Inside vs Outside</button>
+  <button class="pnav-btn" onclick="show('assess',this)">1 · Assess</button>
+  <button class="pnav-btn" onclick="show('roof',this)">2 · Roof</button>
+  <button class="pnav-btn" onclick="show('walls',this)">3 · Walls</button>
+  <button class="pnav-btn" onclick="show('stain',this)">4 · Stain &amp; Seal</button>
+  <button class="pnav-btn" onclick="show('supplies',this)">Supplies</button>
+  <button class="pnav-btn" onclick="show('timeline',this)">Timeline</button>
+</div>
+
+<div class="main">
+
+<!-- ══ INSIDE VS OUTSIDE ══ -->
+<div id="phase-diff" class="phase-content active">
+  <div class="phase-intro">
+    <div class="phase-num">≠</div>
+    <div>
+      <h2>Exterior is a fundamentally different job</h2>
+      <p>The products, process, and stakes are all different from the interior work. The biggest mistake people make is treating them the same way. Here's what changes.</p>
+    </div>
+  </div>
+
+  <div class="diff-grid">
+    <div class="diff-cell inside">
+      <h4>Interior (Step 1 — done)</h4>
+      <ul>
+        <li>Controlled environment, no weather</li>
+        <li>Goal: aesthetics + dust sealing</li>
+        <li>Penetrating sealer or poly finish</li>
+        <li>Matte or satin sheen acceptable</li>
+        <li>Clean with TSP, no pressure washing</li>
+        <li>Stain color is a style choice</li>
+        <li>Reapply every 5–10 years</li>
+        <li>Failure = looks bad</li>
+      </ul>
+    </div>
+    <div class="diff-cell outside">
+      <h4>Exterior (Step 2 — now)</h4>
+      <ul>
+        <li>Exposed to rain, UV, freeze/thaw</li>
+        <li>Goal: weatherproofing + wood preservation</li>
+        <li>Exterior-rated penetrating stain only</li>
+        <li>Flat/matte finish only — no sheen</li>
+        <li>Pressure wash or stiff brush + cleaner</li>
+        <li>Stain color affects curb appeal</li>
+        <li>Reapply every 2–4 years</li>
+        <li>Failure = rot, structural damage</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note warn">
+    <strong>Never use interior products on the exterior.</strong> Interior sealers and poly finishes are not formulated to handle UV, moisture cycling, or temperature swings. They'll peel within a season and leave the wood less protected than if you'd done nothing.
+  </div>
+
+  <div class="note tip">
+    <strong>Sequence matters:</strong> Roof before walls, always. Any roof work — cleaning, sealing, patching — will drip rust remover, sealant, and debris down the walls. Do it first so the walls start clean.
+  </div>
+
+  <div class="note steel">
+    <strong>Weather window:</strong> Exterior stain needs 2–3 dry days minimum — no rain during application and 48 hrs after. Temperature 50–90°F. In Kentucky, aim for late spring or early fall. Avoid direct midday sun on the walls when applying — the stain dries too fast and streaks.
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showIdx(1)">Start: Assess →</button></div>
+</div>
+
+<!-- ══ ASSESS ══ -->
+<div id="phase-assess" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">1</div>
+    <div>
+      <h2>Assess the full exterior — roof first, then walls</h2>
+      <p>You need to be on or very close to the roof for this. Do it on a dry day with good light. Bring a flashlight, a screwdriver, binoculars for spots you can't reach, and a notepad.</p>
+    </div>
+  </div>
+
+  <h3 class="section-head">Roof assessment</h3>
+  <div class="steps">
+    <div class="step roof">
+      <div class="step-header">
+        <div class="step-icon ic-roof">DO</div>
+        <div class="step-title">Walk the roof if safe — or use a ladder and binoculars</div>
+        <div class="step-meta">Roof · 30–45 min</div>
+      </div>
+      <div class="step-body">
+        Corrugated metal roofs are walkable but slippery when damp or mossy. Use rubber-soled shoes, step on the ridges not the valleys, and have someone spotting. If the roof pitch is steep or you're not comfortable, a good ladder and binoculars get you 80% of the way there.
+        <ul>
+          <li>Look for lifted, buckled, or missing panels</li>
+          <li>Check every fastener (screws or nails) — lifted heads mean the panel is pulling away</li>
+          <li>Look for gaps at the ridge cap (top peak) — this is the most common leak point</li>
+          <li>Check the eaves and overhangs where panels meet the fascia</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step roof">
+      <div class="step-header">
+        <div class="step-icon ic-roof">DO</div>
+        <div class="step-title">Categorize rust: surface, moderate, or through-rust</div>
+        <div class="step-meta">Roof · 20 min</div>
+      </div>
+      <div class="step-body">
+        Not all rust is the same. The treatment depends entirely on how deep it goes:
+        <ul>
+          <li><strong>Surface rust:</strong> Orange/brown discoloration but metal is still solid. Scratch with a coin — solid beneath. Treat and seal, no replacement needed.</li>
+          <li><strong>Moderate rust:</strong> Pitting visible, surface feels rough or flaky. Metal still intact but thinning. Treat aggressively, seal with rust-encapsulating primer.</li>
+          <li><strong>Through-rust:</strong> Holes or paper-thin metal that flexes when pressed. That panel needs patching or replacement.</li>
+        </ul>
+        Based on your photos, you're mostly dealing with surface rust — very manageable.
+      </div>
+    </div>
+
+    <div class="step warn">
+      <div class="step-header">
+        <div class="step-icon ic-warn">!</div>
+        <div class="step-title">Check the interior ceiling for water stains while you're at it</div>
+        <div class="step-meta">Inside · 10 min</div>
+      </div>
+      <div class="step-body">
+        Before touching the roof from outside, look at the rafters and ceiling from inside after a rain — active drips or fresh dark staining tells you exactly where the leaks are. Old brown staining may be historical. New dark wet patches are current problems. Mark the indoor locations, then find the corresponding spots on the roof outside.
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section-head">Wall assessment</h3>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Check for rot at ground level and foundation contact points</div>
+        <div class="step-meta">Walls · 20 min</div>
+      </div>
+      <div class="step-body">
+        The bottom 2–3 feet of exterior barn board takes the most abuse — splash-back from rain, ground moisture wicking up, snow sitting against it in winter. Probe with a screwdriver along the base of every wall. Pay extra attention where the wood meets the stone foundation.
+        <ul>
+          <li>Soft or spongy = rot, needs replacement before staining</li>
+          <li>Gray and weathered but firm = fine, stain will revive it</li>
+          <li>Cracked and checking (surface splits along the grain) = normal weathering, stain will stabilize it</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Look for gaps, missing boards, and open knot holes</div>
+        <div class="step-meta">Walls · 20 min</div>
+      </div>
+      <div class="step-body">
+        Walk every wall and note anything that goes all the way through to the interior. These are water and critter entry points that need to be caulked or patched before staining — stain won't seal a gap. A daylight inspection from inside (doors closed, lights off) makes through-gaps obvious.
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">Note which walls get the most sun and which face the weather</div>
+        <div class="step-meta">Walls · 5 min</div>
+      </div>
+      <div class="step-body">
+        The wall that faces southwest gets the most UV and will need the most stain coverage and the most frequent reapplication. The wall facing the prevailing weather direction (usually west or southwest in Kentucky) will show the most moisture wear. These walls may need two coats while the others need one.
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showIdx(2)">Next: Roof →</button></div>
+</div>
+
+<!-- ══ ROOF ══ -->
+<div id="phase-roof" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">2</div>
+    <div>
+      <h2>Corrugated metal roof — clean, treat rust, seal</h2>
+      <p>Good news: surface rust on an intact corrugated metal roof is a weekend job. You're not replacing anything — you're stopping the rust where it is and putting a protective coat over everything.</p>
+    </div>
+  </div>
+
+  <!-- rust severity picker -->
+  <div class="rust-picker">
+    <h3>How bad is your rust?</h3>
+    <p>Pick the description that best matches what you see — the treatment approach changes based on severity.</p>
+    <div class="rust-options">
+      <div class="rust-card" onclick="pickRust('surface',this)">
+        <div class="rust-icon">🟠</div>
+        <div class="rust-label">Surface rust</div>
+        <div class="rust-desc">Orange staining, metal solid underneath, no pitting</div>
+      </div>
+      <div class="rust-card" onclick="pickRust('moderate',this)">
+        <div class="rust-icon">🔴</div>
+        <div class="rust-label">Moderate rust</div>
+        <div class="rust-desc">Visible pitting, flaky in spots, metal still intact</div>
+      </div>
+      <div class="rust-card" onclick="pickRust('through',this)">
+        <div class="rust-icon">⛔</div>
+        <div class="rust-label">Through-rust</div>
+        <div class="rust-desc">Holes or paper-thin panels that flex under pressure</div>
+      </div>
+    </div>
+    <div id="rust-result" class="rust-result">
+      <h4 id="rr-title"></h4>
+      <p id="rr-body"></p>
+      <div class="tag-row" id="rr-tags"></div>
+    </div>
+  </div>
+
+  <h3 class="section-head">Step-by-step roof process</h3>
+  <div class="steps">
+    <div class="step roof">
+      <div class="step-header">
+        <div class="step-icon ic-roof">DO</div>
+        <div class="step-title">Clear debris from valleys and around fasteners</div>
+        <div class="step-meta">~1 hr</div>
+      </div>
+      <div class="step-body">
+        Leaves, moss, and debris trapped in the corrugated valleys hold moisture against the metal and accelerate rust. Clear by hand or with a stiff brush — don't pressure wash yet, you'll push debris into gaps. Pay special attention around every fastener; debris piled around screw heads is where rust concentrates.
+      </div>
+    </div>
+
+    <div class="step roof">
+      <div class="step-header">
+        <div class="step-icon ic-roof">DO</div>
+        <div class="step-title">Re-secure loose fasteners and replace missing ones</div>
+        <div class="step-meta">~1–2 hrs</div>
+      </div>
+      <div class="step-body">
+        Any screw or nail that's lifted, stripped, or missing needs to be dealt with before applying any coating — otherwise you're sealing over a leak point. Replace old nails with hex-head self-tapping metal roofing screws with neoprene washers. The washer creates a watertight seal around the fastener hole.
+        <ul>
+          <li>Use 1.5" or 2" self-tapping hex-head screws rated for metal roofing</li>
+          <li>If an old nail hole is stripped out, move 1–2 inches and put the new screw in fresh metal</li>
+          <li>Don't overtighten — the neoprene washer should compress slightly, not flatten completely</li>
+        </ul>
+        <span class="tag">Hex-head metal roofing screws</span>
+        <span class="tag">Neoprene washer screws</span>
+      </div>
+    </div>
+
+    <div class="step roof">
+      <div class="step-header">
+        <div class="step-icon ic-roof">DO</div>
+        <div class="step-title">Wire brush all rust spots, then apply rust converter</div>
+        <div class="step-meta">~2–3 hrs</div>
+      </div>
+      <div class="step-body">
+        <strong>Wire brush first</strong> to knock off loose flaky rust and expose the solid metal underneath. Then apply a rust converter — this is a chemical that reacts with iron oxide and turns it into a stable black compound (iron tannate) that actually bonds to the metal and stops rust from spreading.
+        <ul>
+          <li>Apply with a brush directly to all rusted areas</li>
+          <li>It will turn black as it reacts — that's correct</li>
+          <li>Allow full cure: 24 hrs minimum before priming or painting over</li>
+          <li>No need to remove all rust — the converter handles what's left after brushing</li>
+        </ul>
+        <span class="tag">Corroseal Rust Converter</span>
+        <span class="tag">Rust-Oleum Rust Reformer</span>
+        <span class="tag">Permatex Rust Treatment</span>
+      </div>
+    </div>
+
+    <div class="step roof">
+      <div class="step-header">
+        <div class="step-icon ic-roof">DO</div>
+        <div class="step-title">Seal laps, ridge cap, and any gaps with butyl tape or roof caulk</div>
+        <div class="step-meta">~1–2 hrs</div>
+      </div>
+      <div class="step-body">
+        The ridge cap (peak), panel overlaps, and any penetrations (if you ever add a stovepipe or mini-split line) are where water gets in. Before applying any coating, seal these with butyl tape or a metal roof sealant.
+        <ul>
+          <li><strong>Butyl tape</strong> is best for panel laps — press firmly into the overlap before screwing down</li>
+          <li><strong>Geocel or Sika roof sealant</strong> for the ridge cap and any existing gaps</li>
+          <li>Apply sealant in temperatures above 40°F for proper adhesion</li>
+          <li>Smooth with a wet finger — don't leave raised ridges that will catch debris</li>
+        </ul>
+        <span class="tag">Butyl tape (3" wide)</span>
+        <span class="tag">Geocel 2300 metal roof sealant</span>
+        <span class="tag">Sika Sikaflex roof sealant</span>
+      </div>
+    </div>
+
+    <div class="step roof">
+      <div class="step-header">
+        <div class="step-icon ic-roof">DO</div>
+        <div class="step-title">Apply metal roof coating — full surface</div>
+        <div class="step-meta">~3–4 hrs + dry time</div>
+      </div>
+      <div class="step-body">
+        A quality elastomeric or acrylic metal roof coating goes over everything — it's not a paint, it's a flexible waterproof membrane that expands and contracts with the metal through temperature cycles without cracking.
+        <ul>
+          <li>Apply with a 9" roller on a pole — get into the valleys with a brush</li>
+          <li>Work ridge to eave, overlapping each pass by 4–6 inches</li>
+          <li>One coat is a minimum; two coats is strongly recommended for a roof with any existing rust history</li>
+          <li>Gray or aluminum-colored coatings reflect heat — worthwhile in Kentucky summers</li>
+          <li>Coverage: roughly 100 sq ft per gallon for one coat</li>
+        </ul>
+        <span class="tag">Henry 887 ElastoBarrier</span>
+        <span class="tag">Rust-Oleum LeakSeal Metal Roof</span>
+        <span class="tag">Gaco Roof Coating</span>
+      </div>
+    </div>
+
+    <div class="step warn">
+      <div class="step-header">
+        <div class="step-icon ic-warn">!</div>
+        <div class="step-title">Never coat a wet or damp roof</div>
+      </div>
+      <div class="step-body">
+        Moisture trapped under the coating causes it to bubble, lift, and peel within months. The roof must be bone dry — wait at least 48 hours after any rain, and don't apply in the morning when dew is still present. If you're unsure, run your hand across the metal — if it feels even slightly cool and damp, wait.
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showIdx(3)">Next: Walls →</button></div>
+</div>
+
+<!-- ══ WALLS ══ -->
+<div id="phase-walls" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">3</div>
+    <div>
+      <h2>Exterior walls — clean, repair, prep</h2>
+      <p>Old barn board exterior is thirsty and weathered — it'll accept stain beautifully once it's clean. The prep work here is more aggressive than the interior because you're dealing with decades of outdoor exposure.</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step warn">
+      <div class="step-header">
+        <div class="step-icon ic-warn">!</div>
+        <div class="step-title">Replace rotted boards before doing anything else</div>
+        <div class="step-meta">Varies</div>
+      </div>
+      <div class="step-body">
+        Any boards that failed the screwdriver test during assessment get replaced first. Staining over rotted wood seals in moisture and accelerates decay. Match the new boards in thickness — use rough-sawn lumber from a sawmill if possible, which will weather closer to the existing boards than smooth-milled lumber.
+        <br/><br/>
+        New wood will look noticeably brighter than aged barn board even after staining. Accept this — it'll weather in over 1–2 seasons to blend more naturally.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Caulk all gaps and through-holes</div>
+        <div class="step-meta">~2 hrs</div>
+      </div>
+      <div class="step-body">
+        Any gap that goes through to the interior gets filled before cleaning. Use an exterior-rated paintable caulk or backer rod + caulk for larger gaps. This step also blocks water from getting behind the siding during pressure washing.
+        <ul>
+          <li>Gaps under ¼ inch: exterior caulk, tool smooth with a wet finger</li>
+          <li>Gaps ¼–¾ inch: backer rod first, then caulk over top</li>
+          <li>Gaps over ¾ inch: replace the board or use a thin wood filler strip</li>
+        </ul>
+        <span class="tag">DAP Alex Flex exterior caulk</span>
+        <span class="tag">Backer rod (foam rope)</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Pressure wash the walls — low pressure, wide fan</div>
+        <div class="step-meta">~2–3 hrs</div>
+      </div>
+      <div class="step-body">
+        The exterior can handle a pressure washer where the interior couldn't. But old barn board is soft — use low pressure (1200–1500 PSI max, 25–40 degree fan tip) and keep the wand moving. High pressure will raise the grain, fuzz the wood surface, and drive water deep into the boards.
+        <ul>
+          <li>Keep nozzle 12–18 inches from the surface</li>
+          <li>Spray with the grain, never across it</li>
+          <li>Don't linger on one spot</li>
+          <li>Start at the top and work down — let dirty water run off below your clean section</li>
+          <li>Allow 48–72 hrs of dry time before any stain or sealer — this is non-negotiable</li>
+        </ul>
+        <span class="tag">25° or 40° fan tip only</span>
+        <span class="tag">Max 1500 PSI on old wood</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Apply wood brightener after washing (optional but recommended)</div>
+        <div class="step-meta">~1 hr + 30 min dry</div>
+      </div>
+      <div class="step-body">
+        Pressure washing alone cleans the surface but can leave it looking gray-flat and can raise the wood pH (especially after a TSP wash). A wood brightener — an oxalic acid solution — neutralizes the pH, brightens the wood tone, and opens the grain for better stain penetration. Apply with a garden sprayer or brush, let dwell 15–20 min, rinse thoroughly.
+        <br/><br/>
+        This step makes a noticeable difference in how evenly the stain absorbs. Highly recommended if you want consistent color.
+        <span class="tag" style="margin-top:.5rem;display:inline-block">Defy Wood Brightener</span>
+        <span class="tag">Olympic Wood Cleaner &amp; Brightener</span>
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">Protect the stone foundation and vegetation before washing</div>
+      </div>
+      <div class="step-body">
+        Cover plants within 3 feet of the walls with plastic sheeting before washing and staining — deck cleaner and wood brightener will damage plants and grass. Wet the stone foundation before washing — saturated stone absorbs less of any cleaning solution that runs down. Rinse plants thoroughly after you're done even if covered.
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showIdx(4)">Next: Stain &amp; Seal →</button></div>
+</div>
+
+<!-- ══ STAIN & SEAL ══ -->
+<div id="phase-stain" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">4</div>
+    <div>
+      <h2>Exterior stain &amp; sealer — one product, two coats</h2>
+      <p>Unlike the interior where stain and sealer are separate steps, the best exterior products for old barn board are penetrating semi-transparent stains that stain and seal in one application. Simpler and more durable.</p>
+    </div>
+  </div>
+
+  <div class="note tip">
+    <strong>Semi-transparent, not solid.</strong> A solid stain hides the wood grain completely and starts to peel as the wood moves. A semi-transparent penetrating stain soaks into the wood, shows the grain and texture, and wears away gradually rather than peeling. For old barn board, semi-transparent is always the right choice.
+  </div>
+
+  <!-- exterior stain picker -->
+  <h3 class="section-head">Pick your exterior color direction</h3>
+  <p style="font-size:.84rem;color:var(--smoke);margin-bottom:1rem;line-height:1.6">These are the main paths for weathered barn board. The exterior color doesn't have to match the interior — in fact, a slight contrast between outside and inside can look very intentional.</p>
+
+  <div class="stain-grid">
+    <div class="stain-card" onclick="pickStain('natural',this)">
+      <div class="stain-swatch" style="background:linear-gradient(135deg,#A08060,#7A5835)"></div>
+      <div class="stain-info"><div class="stain-name">Natural / cedar</div><div class="stain-desc">Warm brown, classic barn look</div></div>
+    </div>
+    <div class="stain-card" onclick="pickStain('driftwood',this)">
+      <div class="stain-swatch" style="background:linear-gradient(135deg,#8A8478,#6A6460)"></div>
+      <div class="stain-info"><div class="stain-name">Driftwood gray</div><div class="stain-desc">Lean into the weathered tone</div></div>
+    </div>
+    <div class="stain-card" onclick="pickStain('dark',this)">
+      <div class="stain-swatch" style="background:linear-gradient(135deg,#4A3020,#2A1808)"></div>
+      <div class="stain-info"><div class="stain-name">Dark brown / bark</div><div class="stain-desc">Rich, dramatic, sharp contrast</div></div>
+    </div>
+    <div class="stain-card" onclick="pickStain('none',this)">
+      <div class="stain-swatch" style="background:repeating-linear-gradient(45deg,#DDD0BA,#DDD0BA 4px,#F0E8D8 4px,#F0E8D8 12px)"></div>
+      <div class="stain-info"><div class="stain-name">Clear sealer only</div><div class="stain-desc">No color change, protective only</div></div>
+    </div>
+  </div>
+
+  <div id="stain-result" class="stain-result">
+    <h4 id="sr-title"></h4>
+    <p id="sr-body"></p>
+  </div>
+
+  <h3 class="section-head">Application</h3>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Apply with a brush, not a sprayer — for old rough wood</div>
+        <div class="step-meta">~4–6 hrs per side</div>
+      </div>
+      <div class="step-body">
+        Spraying is faster but misses the crevices, checks, and rough texture of old barn board. A 4–5 inch natural bristle brush forces stain into every crack and groove. Work top to bottom, one board at a time, full board length without stopping.
+        <ul>
+          <li>Don't apply in direct sun — the stain dries too fast and streaks</li>
+          <li>Ideal conditions: overcast, 55–80°F, low humidity</li>
+          <li>Keep a wet edge — don't let a section dry before connecting to the next</li>
+          <li>Back-brush any drips or runs immediately</li>
+          <li>Allow 24–48 hrs between coats</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Two coats on the worst-weathered walls, one on the others</div>
+        <div class="step-meta">Day 2</div>
+      </div>
+      <div class="step-body">
+        The south and west-facing walls (most UV exposure, most weather) will absorb the first coat almost entirely. They need a second coat. The north and east walls may look fully saturated after one coat — feel for dry or lighter-colored areas; if the wood absorbed everything, it needs more.
+        <br/><br/>
+        Test by pressing your fingertip to the surface — if stain transfers to your finger, it's still wet. Bone dry = ready for second coat.
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">Coordinate exterior and interior stain tones deliberately</div>
+      </div>
+      <div class="step-body">
+        You don't need to match exactly — but a relationship between the two looks intentional. If you went dark walnut on the interior floor, a natural cedar tone on the exterior creates a warm gradient from outside in. If you went driftwood gray interior, matching driftwood exterior feels cohesive. The jarring combination to avoid: very dark exterior with very light interior — it makes the space feel like a cave the moment you step in.
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showIdx(5)">View Supply List →</button></div>
+</div>
+
+<!-- ══ SUPPLIES ══ -->
+<div id="phase-supplies" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">★</div>
+    <div>
+      <h2>Exterior supply list</h2>
+      <p>Roof and walls are separate supply runs. Estimate your roof area first (approx. 15.5 × 26 ft building footprint + overhang × 2 for the two roof planes = roughly 900 sq ft). Wall area: approx 700 sq ft total for all four sides.</p>
+    </div>
+  </div>
+
+  <h3 class="section-head">Roof supplies</h3>
+  <table class="supply-table">
+    <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
+    <tbody>
+      <tr><td>Wire brush (stiff, handheld)</td><td>Removing loose rust</td><td class="cost">$8–12</td></tr>
+      <tr><td>Rust converter (1 qt)</td><td>Neutralize rust chemically</td><td class="cost">$15–25</td></tr>
+      <tr><td>Hex-head metal roofing screws (1 lb box)</td><td>Replace loose/missing fasteners</td><td class="cost">$12–18</td></tr>
+      <tr><td>Butyl tape, 3" wide (1 roll)</td><td>Seal panel laps</td><td class="cost">$18–28</td></tr>
+      <tr><td>Metal roof sealant (1 tube)</td><td>Ridge cap + gaps</td><td class="cost">$10–16</td></tr>
+      <tr><td>Elastomeric roof coating (2–3 gal)</td><td>Full surface protective coat</td><td class="cost">$25–40/gal</td></tr>
+      <tr><td>9" roller + pole</td><td>Applying roof coating</td><td class="cost">$15–20</td></tr>
+      <tr><td>Extension ladder (if you don't own one)</td><td>Roof access</td><td class="cost">Rent $40/day</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="section-head">Exterior wall supplies</h3>
+  <table class="supply-table">
+    <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
+    <tbody>
+      <tr><td>Pressure washer (rent)</td><td>Wall cleaning</td><td class="cost">$60–80/day</td></tr>
+      <tr><td>25° or 40° fan tip</td><td>Low-pressure washing of old wood</td><td class="cost">$8–12</td></tr>
+      <tr><td>Wood brightener (1 gal)</td><td>Neutralize + open grain after washing</td><td class="cost">$20–30</td></tr>
+      <tr><td>Exterior caulk + backer rod</td><td>Gaps + through-holes</td><td class="cost">$20–35</td></tr>
+      <tr><td>Semi-transparent exterior stain (3–4 gal)</td><td>Walls — 2 coats worst walls</td><td class="cost">$35–55/gal</td></tr>
+      <tr><td>4–5" natural bristle brush (×2)</td><td>Application</td><td class="cost">$12–18 each</td></tr>
+      <tr><td>Plastic sheeting (drop cloth)</td><td>Protect plants + foundation</td><td class="cost">$10–15</td></tr>
+      <tr><td>N95 respirator</td><td>Stain fumes + dust</td><td class="cost">$8–12</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <strong>Estimated total:</strong> Roof work (rust treatment + sealing + coating) roughly $200–350 in materials. Exterior walls (wash + stain, 2 coats on worst walls) roughly $300–500. Grand total exterior: <strong>$500–850 in materials</strong> plus ladder/pressure washer rental. Labor is entirely DIY.
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showIdx(6)">View Timeline →</button></div>
+</div>
+
+<!-- ══ TIMELINE ══ -->
+<div id="phase-timeline" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">◷</div>
+    <div>
+      <h2>Exterior timeline — weather dependent</h2>
+      <p>The exterior needs a solid 4–5 day dry weather window for the final stages. Plan around the forecast. In Kentucky, late May, September, and early October are ideal windows.</p>
+    </div>
+  </div>
+
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot steel"></div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-day steel">Weekend 1 — any weather</div>
+        <div class="tl-title">Full exterior assessment</div>
+        <div class="tl-note">Walk the roof, probe the walls, mark all problem areas. Inside inspection for leak staining. Takes most of a Saturday.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot steel"></div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-day steel">Weekend 1 — Sunday</div>
+        <div class="tl-title">Supplies run + board replacement</div>
+        <div class="tl-note">Buy everything. Replace any rotted boards while the weather window doesn't matter yet. Caulk gaps in the walls.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot gold"></div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-day">Dry Weekend 2 — Saturday (watch forecast)</div>
+        <div class="tl-title">Roof work: debris clear + fasteners + rust treatment</div>
+        <div class="tl-note">Full day on the roof. Clear all valleys, re-secure fasteners, wire brush rust spots, apply rust converter. Let converter cure overnight — do not cover.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot gold"></div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-day">Dry Weekend 2 — Sunday</div>
+        <div class="tl-title">Roof: seal laps + ridge cap + coat 1</div>
+        <div class="tl-note">Butyl tape and sealant on all joints, then elastomeric coating over the entire surface. Roof must stay dry for 24 hrs after.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot steel"></div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-day">Weekday gap — 24–48 hrs</div>
+        <div class="tl-title">Roof coat 1 curing</div>
+        <div class="tl-note">No rain. Meanwhile pressure wash the walls (this step is fine in between dry days since walls need 48–72 hrs to dry before staining anyway).</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot gold"></div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-day">Dry Weekend 3 — Saturday</div>
+        <div class="tl-title">Roof coat 2 + wood brightener on walls</div>
+        <div class="tl-note">Second coat of roof coating in the morning. Apply wood brightener to walls in the afternoon. Rinse brightener after 20 min dwell time.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-day">Dry Weekend 3 — Sunday + 2 weekday evenings</div>
+        <div class="tl-title">Wall stain — all four sides</div>
+        <div class="tl-note">Start with the worst-weathered wall (usually south or west). Weekday evenings can knock out a wall each if you have 2–3 hrs of daylight. Two coats on south/west, one on north/east.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot sage"></div></div>
+      <div class="tl-body">
+        <div class="tl-day">48 hrs after final coat</div>
+        <div class="tl-title">Done — exterior protected</div>
+        <div class="tl-note">Full cure in 5–7 days. Plan to re-stain the south and west walls in 2–3 years; north and east should hold 4+ years.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note warn" style="margin-top:1rem">
+    <strong>Total elapsed time:</strong> 3 weekends over roughly 4–5 weeks, weather permitting. The roof can be done independently of the walls if you get a good 2-day window early. Don't try to compress the roof and wall work into the same weekend — you'll be rushed on the roof and the walls won't have dried properly.
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+const phases = ['diff','assess','roof','walls','stain','supplies','timeline'];
+
+function show(id, btn) {
+  phases.forEach(p => document.getElementById('phase-'+p).classList.remove('active'));
+  document.querySelectorAll('.pnav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('phase-'+id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  else document.querySelectorAll('.pnav-btn')[phases.indexOf(id)].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showIdx(i) { show(phases[i], null); }
+
+const rustData = {
+  surface: {
+    title: 'Surface rust — treat and coat, no replacement needed',
+    body: 'Good news. Wire brush to remove loose flakes, apply rust converter to all orange areas, let cure 24 hrs, then apply two coats of elastomeric roof coating over the entire surface. Your roof has plenty of life left. Expect the coating to last 5–10 years before reapplication.',
+    tags: ['Rust converter', 'Elastomeric coating ×2 gal', 'Wire brush']
+  },
+  moderate: {
+    title: 'Moderate rust — aggressive treatment, then encapsulating primer',
+    body: 'Wire brush thoroughly to remove all loose and flaking rust. Apply rust converter, let fully cure. Then apply a rust-encapsulating primer (like Rust-Oleum Stops Rust) over all affected areas before the full elastomeric coating. This two-step approach stops the rust and creates a proper bond for the top coat. Watch these areas again in 2–3 years.',
+    tags: ['Rust converter', 'Rust-encapsulating primer', 'Elastomeric coating ×3 gal']
+  },
+  through: {
+    title: 'Through-rust — those panels need patching or replacement',
+    body: 'Panels with actual holes or paper-thin metal cannot be sealed over — water will work its way through any coating applied over a gap. Options: (1) Cut a patch from matching corrugated metal, overlap by 4 inches on all sides, seal with butyl tape and screw down. (2) Replace the full panel — corrugated metal roofing is sold by the sheet at any building supply store. Match the corrugation profile. Get a roofer\'s eyes on it if more than 2–3 panels are affected.',
+    tags: ['Corrugated metal patch sheets', 'Butyl tape', 'Roofer consultation if >3 panels']
+  }
+};
+
+function pickRust(key, el) {
+  document.querySelectorAll('.rust-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const d = rustData[key];
+  document.getElementById('rr-title').textContent = d.title;
+  document.getElementById('rr-body').textContent = d.body;
+  document.getElementById('rr-tags').innerHTML = d.tags.map(t => `<span class="tag">${t}</span>`).join('');
+  document.getElementById('rust-result').classList.add('show');
+}
+
+const stainData = {
+  natural: {
+    title: 'Natural / cedar tone — recommended for your barn',
+    body: 'A warm cedar or medium brown semi-transparent stain is the most flattering choice for the existing weathered barn board tone. It warms up the gray, shows all the grain and texture, and complements the stone foundation beautifully. This is the direction that will look most like a lovingly maintained historic barn rather than a renovated one. Top picks: Cabot Australian Timber Oil (Teak Brown), TWP 100 Series (Cedar), or Defy Extreme Semi-Transparent (Redwood).'
+  },
+  driftwood: {
+    title: 'Driftwood gray — embrace what decades of weather created',
+    body: 'If you love the existing silvery-gray tone of the weathered wood, a driftwood or gray semi-transparent stain unifies the color, fills in the blotchy areas, and seals everything without changing the character. This works especially well if the exterior is already fairly uniform in tone. Top picks: Defy Extreme Semi-Transparent (Driftwood Gray), Cabot Semi-Solid (Driftwood), TWP 200 Series (Driftwood).'
+  },
+  dark: {
+    title: 'Dark brown / bark — bold and high-contrast',
+    body: 'A very dark brown or bark-tone stain creates a sharp, dramatic look — especially striking against the stone foundation and with the green surroundings. The risk is that dark stains show water marks and dirt more visibly and tend to fade faster in UV. Expect to reapply the south wall every 2 years with a dark color. Top picks: TWP 100 Series (Rustic Oak), Cabot Semi-Solid (Cordovan Brown), Defy Extreme (Walnut).'
+  },
+  none: {
+    title: 'Clear sealer only — protection without color change',
+    body: 'A clear penetrating exterior sealer protects the wood without changing its color at all — whatever the wood looks like now is what it will look like after. The downside is that clear sealers provide less UV protection than tinted stains and need reapplication more frequently (every 1–2 years). Best option if you love exactly how the barn looks right now. Top picks: Seal-Once Nano+Poly, Cabot Clear Solution, TWP 1501 Clear.'
+  }
+};
+
+function pickStain(key, el) {
+  document.querySelectorAll('.stain-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const d = stainData[key];
+  document.getElementById('sr-title').textContent = d.title;
+  document.getElementById('sr-body').textContent = d.body;
+  document.getElementById('stain-result').classList.add('show');
+}
+</script>
+</body>
+</html>
