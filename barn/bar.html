@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Step 3 — The Bar Build — Barn Reno</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-brand">
+      <div class="brand-title">Backyard <em>Barn</em></div>
+      <div class="brand-sub">Renovation Guide</div>
+    </div>
+    <div class="topnav-links">
+      <a href="index.html" class="NAV_index"><span class="nav-icon">🏠</span> Overview</a>
+      <a href="floorplans.html" class="NAV_floorplans"><span class="nav-icon">📐</span> Floor Plans</a>
+      <a href="interior.html" class="NAV_interior"><span class="nav-icon">🪵</span> Interior</a>
+      <a href="exterior.html" class="NAV_exterior"><span class="nav-icon">🏚</span> Exterior</a>
+      <a href="bar.html" class="NAV_bar active"><span class="nav-icon">🍺</span> Bar</a>
+      <a href="storage.html" class="NAV_storage"><span class="nav-icon">📦</span> Storage</a>
+      <a href="basement.html" class="NAV_basement"><span class="nav-icon">🪨</span> Basement</a>
+      <a href="timeline.html" class="NAV_timeline"><span class="nav-icon">📅</span> Timeline</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hdr">
+  <p class="eye">Barn Reno · Step 3</p>
+  <h1>Step 3 — The Bar Build</h1>
+  <p>Reclaimed wood · Drop-in sink · RV portable water</p>
+</div>
+<div class="phase-nav">
+  <button class="pnav-btn active" onclick="showPhase('phase-overview',this)">Overview</button>
+  <button class="pnav-btn" onclick="showPhase('phase-diagram',this)">Diagram</button>
+  <button class="pnav-btn" onclick="showPhase('phase-frame',this)">1 · Frame</button>
+  <button class="pnav-btn" onclick="showPhase('phase-top',this)">2 · Top</button>
+  <button class="pnav-btn" onclick="showPhase('phase-water',this)">3 · Water</button>
+  <button class="pnav-btn" onclick="showPhase('phase-shelving',this)">4 · Shelving</button>
+  <button class="pnav-btn" onclick="showPhase('phase-finish',this)">5 · Finish</button>
+  <button class="pnav-btn" onclick="showPhase('phase-supplies',this)">Supplies</button>
+</div>
+<div class="main">
+
+
+<div class="main">
+
+<!-- ══ OVERVIEW ══ -->
+<div id="phase-overview" class="phase-content active">
+  <div class="phase-intro">
+    <div class="phase-num">✦</div>
+    <div>
+      <h2>What you're building</h2>
+      <p>A wall-mounted reclaimed wood bar — roughly 8 ft wide, 42 inches tall (bar height), 20 inches deep. A drop-in utility sink fed by a self-contained RV-style fresh water tank with a 12V pump. Open bottle shelving above on the wall. The whole thing is built into the left wall of the entertaining space.</p>
+    </div>
+  </div>
+
+  <h3 class="section-head">Key dimensions</h3>
+  <table class="dim-table">
+    <thead><tr><th>Element</th><th>Dimension</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Bar width</td><td>8 ft (96")</td><td>Full left wall, leaving clearance at both ends</td></tr>
+      <tr><td>Bar height</td><td>42"</td><td>Standard bar height — comfortable for standing and bar stools</td></tr>
+      <tr><td>Bar depth</td><td>20"</td><td>Deep enough for drinks + elbows, not so deep it crowds the room</td></tr>
+      <tr><td>Counter overhang</td><td>8–10"</td><td>Front overhang for bar stool knee clearance</td></tr>
+      <tr><td>Shelf height (bottom)</td><td>54–58" off floor</td><td>12–16" above the bar top — easy reach, clears heads</td></tr>
+      <tr><td>Shelf spacing</td><td>12–14" apart</td><td>Fits standard bottles; 3 shelves = full liquor display</td></tr>
+      <tr><td>Sink cutout</td><td>Per sink specs</td><td>Measure your actual sink — typically 12×16" for a small bar sink</td></tr>
+      <tr><td>Water tank location</td><td>Below bar, left side</td><td>7-gal tank fits in a 14"W × 18"D × 14"H space</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note tip">
+    <strong>Wall-mounted vs freestanding:</strong> Building this directly against the left wall (screwing ledger boards into the studs) is the right approach. It's more stable than a freestanding bar, it uses the wall as the back panel, and it won't shift or tip. Locate the studs before anything else.
+  </div>
+
+  <div class="note water">
+    <strong>The RV water system:</strong> A 5–7 gallon fresh water tank, a 12V demand pump, and a simple faucet. The pump runs on a small rechargeable battery or a standard outlet (once you have power). Drain goes into a grey water bucket under the sink — just empty it after use. Zero plumbing. Your dad's instinct was exactly right — this is the standard setup for off-grid outdoor kitchens and bar builds.
+  </div>
+
+  <div class="note">
+    <strong>Estimated cost:</strong> $600–900 total depending on sink choice and reclaimed wood source. Reclaimed lumber from a salvage yard will be the biggest variable — free to $150+ depending on what you find.
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showIdx(1)">See the diagram →</button></div>
+</div>
+
+<!-- ══ DIAGRAM ══ -->
+<div id="phase-diagram" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">▦</div>
+    <div>
+      <h2>Bar cross-section &amp; front elevation</h2>
+      <p>Two views: a cross-section showing how the pieces stack up, and a front elevation showing the full bar face with sink placement and shelving.</p>
+    </div>
+  </div>
+
+  <!-- Cross section diagram -->
+  <h3 class="section-head">Cross-section view (side profile)</h3>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- barn wall (left) -->
+      <rect x="60" y="20" width="28" height="300" rx="2" fill="#5C3D20" opacity=".85"/>
+      <text font-family="Inter,sans-serif" font-size="11" fill="#8B5C35" x="54" y="175" text-anchor="middle" transform="rotate(-90 54 175)">barn wall</text>
+
+      <!-- ledger board -->
+      <rect x="88" y="148" width="16" height="12" rx="1" fill="#8B5C35"/>
+      <rect x="88" y="258" width="16" height="12" rx="1" fill="#8B5C35"/>
+      <text font-family="Inter,sans-serif" font-size="10" fill="#8B5C35" x="108" y="157">ledger</text>
+
+      <!-- vertical support legs -->
+      <rect x="104" y="160" width="10" height="110" rx="1" fill="#7A5535"/>
+      <rect x="200" y="160" width="10" height="110" rx="1" fill="#7A5535"/>
+
+      <!-- lower shelf / base platform -->
+      <rect x="88" y="264" width="155" height="8" rx="1" fill="#C8A060"/>
+
+      <!-- bar frame / carcass -->
+      <rect x="88" y="158" width="155" height="8" rx="1" fill="#C8A060"/>
+
+      <!-- front face board -->
+      <rect x="235" y="158" width="10" height="116" rx="1" fill="#8B5C35"/>
+
+      <!-- bar top (butcher block / slab) -->
+      <rect x="82" y="142" width="178" height="16" rx="2" fill="#D4A96A"/>
+      <text font-family="Inter,sans-serif" font-size="11" fill="white" x="172" y="154" text-anchor="middle" font-weight="500">bar top</text>
+
+      <!-- overhang label -->
+      <line x1="235" y1="130" x2="260" y2="130" stroke="#C9922A" stroke-width="1" marker-end="url(#arr)" marker-start="url(#arr)"/>
+      <text font-family="Inter,sans-serif" font-size="10" fill="#C9922A" x="262" y="134">8–10" overhang</text>
+
+      <!-- sink cutout in top -->
+      <rect x="150" y="142" width="50" height="16" rx="1" fill="#3A7A9A" opacity=".7"/>
+      <text font-family="Inter,sans-serif" font-size="9" fill="white" x="175" y="153" text-anchor="middle">sink</text>
+
+      <!-- drain pipe -->
+      <line x1="175" y1="158" x2="175" y2="240" stroke="#3A7A9A" stroke-width="3" stroke-dasharray="4 3"/>
+
+      <!-- grey water bucket -->
+      <rect x="157" y="240" width="36" height="30" rx="3" fill="#3A7A9A" opacity=".5"/>
+      <text font-family="Inter,sans-serif" font-size="9" fill="#1A4A5A" x="175" y="259" text-anchor="middle">grey bucket</text>
+
+      <!-- RV water tank -->
+      <rect x="94" y="215" width="50" height="38" rx="4" fill="#3A7A9A" opacity=".35"/>
+      <text font-family="Inter,sans-serif" font-size="9" fill="#1A4A5A" x="119" y="231" text-anchor="middle">water</text>
+      <text font-family="Inter,sans-serif" font-size="9" fill="#1A4A5A" x="119" y="243" text-anchor="middle">tank</text>
+
+      <!-- pump -->
+      <circle cx="152" cy="221" r="10" fill="#3A7A9A" opacity=".6"/>
+      <text font-family="Inter,sans-serif" font-size="8" fill="white" x="152" y="224" text-anchor="middle">pump</text>
+
+      <!-- water line from tank to pump to faucet -->
+      <path d="M144 221 L152 221" stroke="#3A7A9A" stroke-width="1.5" fill="none"/>
+      <path d="M152 211 L152 195 L163 195 L163 158" stroke="#3A7A9A" stroke-width="1.5" fill="none" stroke-dasharray="3 2"/>
+
+      <!-- floor -->
+      <rect x="60" y="272" width="300" height="8" rx="0" fill="#7A5535" opacity=".4"/>
+      <text font-family="Inter,sans-serif" font-size="10" fill="#8B5C35" x="210" y="284">floor</text>
+
+      <!-- height dimension -->
+      <line x1="46" y1="142" x2="46" y2="272" stroke="#8B5C35" stroke-width="1" marker-end="url(#arr)" marker-start="url(#arr)"/>
+      <text font-family="Inter,sans-serif" font-size="10" fill="#8B5C35" x="40" y="210" text-anchor="middle" transform="rotate(-90 40 210)">42" bar height</text>
+
+      <!-- depth dimension -->
+      <line x1="88" y1="300" x2="243" y2="300" stroke="#8B5C35" stroke-width="1" marker-end="url(#arr)" marker-start="url(#arr)"/>
+      <text font-family="Inter,sans-serif" font-size="10" fill="#8B5C35" x="166" y="316" text-anchor="middle">20" deep</text>
+
+      <!-- wall shelves -->
+      <rect x="82" y="90" width="160" height="8" rx="1" fill="#8B5C35" opacity=".7"/>
+      <text font-family="Inter,sans-serif" font-size="10" fill="#5C3D20" x="250" y="97">shelf (bottle storage)</text>
+      <rect x="82" y="60" width="160" height="8" rx="1" fill="#8B5C35" opacity=".7"/>
+      <text font-family="Inter,sans-serif" font-size="10" fill="#5C3D20" x="250" y="67">shelf</text>
+
+      <!-- shelf bracket hints -->
+      <line x1="88" y1="90" x2="88" y2="98" stroke="#8B5C35" stroke-width="2"/>
+      <line x1="88" y1="60" x2="88" y2="68" stroke="#8B5C35" stroke-width="2"/>
+
+      <!-- bottles on shelves (simple shapes) -->
+      <rect x="98"  y="72" width="6" height="18" rx="1" fill="#2A5A2A" opacity=".8"/>
+      <rect x="108" y="72" width="6" height="18" rx="1" fill="#4A2A0A" opacity=".8"/>
+      <rect x="118" y="72" width="6" height="18" rx="1" fill="#1A2A4A" opacity=".8"/>
+      <rect x="128" y="72" width="6" height="18" rx="1" fill="#4A1A0A" opacity=".8"/>
+      <rect x="138" y="72" width="6" height="18" rx="1" fill="#2A4A1A" opacity=".8"/>
+      <rect x="98"  y="102" width="6" height="18" rx="1" fill="#4A2A0A" opacity=".8"/>
+      <rect x="108" y="102" width="6" height="18" rx="1" fill="#1A3A4A" opacity=".8"/>
+      <rect x="118" y="102" width="6" height="18" rx="1" fill="#3A1A1A" opacity=".8"/>
+      <rect x="128" y="102" width="6" height="18" rx="1" fill="#2A5A2A" opacity=".8"/>
+
+      <!-- label callouts right side -->
+      <text font-family="Inter,sans-serif" font-size="10" fill="#5C3D20" x="310" y="150">reclaimed wood top</text>
+      <line x1="260" y1="148" x2="308" y2="148" stroke="#C9922A" stroke-width="1" stroke-dasharray="3 2"/>
+
+      <text font-family="Inter,sans-serif" font-size="10" fill="#5C3D20" x="310" y="180">reclaimed frame + face</text>
+      <line x1="245" y1="200" x2="308" y2="178" stroke="#C9922A" stroke-width="1" stroke-dasharray="3 2"/>
+
+      <text font-family="Inter,sans-serif" font-size="10" fill="#3A7A9A" x="310" y="225">RV tank + pump</text>
+      <line x1="145" y1="228" x2="308" y2="223" stroke="#3A7A9A" stroke-width="1" stroke-dasharray="3 2"/>
+    </svg>
+  </div>
+
+  <!-- Front elevation -->
+  <h3 class="section-head">Front elevation (what you see from the room)</h3>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- bar face board -->
+      <rect x="80" y="120" width="520" height="118" rx="2" fill="#8B5C35" opacity=".15" stroke="#8B5C35" stroke-width="1.5"/>
+
+      <!-- bar top edge -->
+      <rect x="76" y="114" width="528" height="12" rx="2" fill="#D4A96A"/>
+      <text font-family="Inter,sans-serif" font-size="10" fill="#5C3D20" x="340" y="124" text-anchor="middle" font-weight="500">reclaimed wood top</text>
+
+      <!-- vertical board breaks (plank lines) -->
+      <line x1="200" y1="120" x2="200" y2="238" stroke="#7A5535" stroke-width="1" opacity=".4"/>
+      <line x1="320" y1="120" x2="320" y2="238" stroke="#7A5535" stroke-width="1" opacity=".4"/>
+      <line x1="440" y1="120" x2="440" y2="238" stroke="#7A5535" stroke-width="1" opacity=".4"/>
+
+      <!-- sink cutout -->
+      <rect x="295" y="130" width="100" height="70" rx="3" fill="#3A7A9A" opacity=".25" stroke="#3A7A9A" stroke-width="1.5"/>
+      <text font-family="Inter,sans-serif" font-size="11" fill="#1A5A7A" x="345" y="168" text-anchor="middle" font-weight="500">sink</text>
+      <text font-family="Inter,sans-serif" font-size="9"  fill="#3A7A9A" x="345" y="183" text-anchor="middle">drop-in</text>
+
+      <!-- faucet -->
+      <rect x="337" y="118" width="16" height="14" rx="2" fill="#3A7A9A" opacity=".6"/>
+      <text font-family="Inter,sans-serif" font-size="8" fill="white" x="345" y="128" text-anchor="middle">tap</text>
+
+      <!-- floor line -->
+      <line x1="76" y1="238" x2="608" y2="238" stroke="#7A5535" stroke-width="2" opacity=".3"/>
+
+      <!-- bar stools (circles, front view) -->
+      <ellipse cx="130" cy="246" rx="22" ry="8" fill="#D4A96A" opacity=".5" stroke="#8B5C35" stroke-width="1"/>
+      <ellipse cx="200" cy="246" rx="22" ry="8" fill="#D4A96A" opacity=".5" stroke="#8B5C35" stroke-width="1"/>
+      <ellipse cx="490" cy="246" rx="22" ry="8" fill="#D4A96A" opacity=".5" stroke="#8B5C35" stroke-width="1"/>
+      <ellipse cx="560" cy="246" rx="22" ry="8" fill="#D4A96A" opacity=".5" stroke="#8B5C35" stroke-width="1"/>
+      <text font-family="Inter,sans-serif" font-size="10" fill="#8B5C35" x="340" y="262" text-anchor="middle">bar stools</text>
+
+      <!-- open storage zone label -->
+      <text font-family="Inter,sans-serif" font-size="10" fill="#5C3D20" x="140" y="175" text-anchor="middle">open</text>
+      <text font-family="Inter,sans-serif" font-size="10" fill="#5C3D20" x="140" y="188" text-anchor="middle">storage</text>
+      <text font-family="Inter,sans-serif" font-size="9" fill="#8B5C35" x="140" y="200" text-anchor="middle">(water tank hidden)</text>
+
+      <!-- wall shelves above bar -->
+      <rect x="80" y="60" width="520" height="7" rx="1" fill="#8B5C35" opacity=".7"/>
+      <rect x="80" y="28" width="520" height="7" rx="1" fill="#8B5C35" opacity=".7"/>
+
+      <!-- bracket hints -->
+      <rect x="88"  y="35" width="8" height="25" rx="1" fill="#C9922A" opacity=".5"/>
+      <rect x="260" y="35" width="8" height="25" rx="1" fill="#C9922A" opacity=".5"/>
+      <rect x="432" y="35" width="8" height="25" rx="1" fill="#C9922A" opacity=".5"/>
+      <rect x="592" y="35" width="8" height="25" rx="1" fill="#C9922A" opacity=".5"/>
+      <rect x="88"  y="67" width="8" height="25" rx="1" fill="#C9922A" opacity=".5"/>
+      <rect x="260" y="67" width="8" height="25" rx="1" fill="#C9922A" opacity=".5"/>
+      <rect x="432" y="67" width="8" height="25" rx="1" fill="#C9922A" opacity=".5"/>
+      <rect x="592" y="67" width="8" height="25" rx="1" fill="#C9922A" opacity=".5"/>
+
+      <!-- bottles on shelves -->
+      <rect x="100" y="38" width="7" height="22" rx="1" fill="#2A5A2A" opacity=".8"/>
+      <rect x="112" y="38" width="7" height="22" rx="1" fill="#4A2A0A" opacity=".8"/>
+      <rect x="124" y="38" width="7" height="22" rx="1" fill="#1A2A4A" opacity=".8"/>
+      <rect x="136" y="38" width="7" height="22" rx="1" fill="#4A1A0A" opacity=".8"/>
+      <rect x="148" y="38" width="7" height="22" rx="1" fill="#2A4A1A" opacity=".8"/>
+      <rect x="180" y="38" width="7" height="22" rx="1" fill="#3A1A2A" opacity=".8"/>
+      <rect x="192" y="38" width="7" height="22" rx="1" fill="#1A3A1A" opacity=".8"/>
+      <rect x="380" y="38" width="7" height="22" rx="1" fill="#2A5A2A" opacity=".8"/>
+      <rect x="392" y="38" width="7" height="22" rx="1" fill="#4A2A0A" opacity=".8"/>
+      <rect x="404" y="38" width="7" height="22" rx="1" fill="#1A2A4A" opacity=".8"/>
+      <rect x="450" y="38" width="7" height="22" rx="1" fill="#4A1A0A" opacity=".8"/>
+      <rect x="480" y="38" width="7" height="22" rx="1" fill="#2A4A1A" opacity=".8"/>
+      <rect x="520" y="38" width="7" height="22" rx="1" fill="#3A1A2A" opacity=".8"/>
+      <rect x="550" y="38" width="7" height="22" rx="1" fill="#1A3A2A" opacity=".8"/>
+
+      <!-- width label -->
+      <line x1="80" y1="288" x2="600" y2="288" stroke="#8B5C35" stroke-width="1" marker-end="url(#arr)" marker-start="url(#arr)"/>
+      <text font-family="Inter,sans-serif" font-size="11" fill="#8B5C35" x="340" y="300" text-anchor="middle">8 ft (96") total width</text>
+    </svg>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showIdx(2)">Next: Frame it →</button></div>
+</div>
+
+<!-- ══ FRAME ══ -->
+<div id="phase-frame" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">1</div>
+    <div>
+      <h2>Build the frame first — everything else hangs off it</h2>
+      <p>The frame is a simple box structure: ledger boards screwed into the wall studs, vertical legs at the front, horizontal rails connecting them. Reclaimed 2×4s or rough-sawn 2×6s work perfectly.</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Locate and mark all studs on the left wall</div>
+        <div class="step-meta">~20 min</div>
+      </div>
+      <div class="step-body">
+        The ledger boards — horizontal lumber screwed into the wall that the bar top and shelf rest on — need to hit studs. In a barn, studs may not be standard 16" on center. Use a stud finder, or knock and listen, or probe with a small nail. Mark every stud from floor to about 5 ft up across the full 8 ft section.
+        <br/><br/>
+        You need at least 4 stud connections for the lower ledger and 4 for the upper ledger to hold bar weight confidently.
+        <span class="tag">Stud finder ($15–25)</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Mount the lower ledger board at 40" off the floor</div>
+        <div class="step-meta">~1 hr</div>
+      </div>
+      <div class="step-body">
+        The lower ledger sits at 40" — the bar top will rest on top of it, bringing the finished height to 42". Use a 2×4 or 2×6 reclaimed board, level it carefully, and drive 3" structural screws into every stud you can hit.
+        <ul>
+          <li>Use a 4 ft level — any tilt shows in the finished top</li>
+          <li>Pre-drill to avoid splitting reclaimed lumber</li>
+          <li>Minimum 2 screws per stud connection</li>
+          <li>Check level again after final tightening — it can shift slightly</li>
+        </ul>
+        <span class="tag">2×6 ledger board</span>
+        <span class="tag">3" structural screws</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Add front legs and connect with horizontal rails</div>
+        <div class="step-meta">~2 hrs</div>
+      </div>
+      <div class="step-body">
+        Two or three front vertical legs (4×4 posts work well, or doubled 2×4s) run from floor to 40". These carry the front edge of the bar top. Connect them to the ledger with horizontal 2×4 rails — one near the top and one near the floor for rigidity.
+        <ul>
+          <li>Space front legs no more than 48" apart — closer if you can</li>
+          <li>Toenail or use metal joist hangers to connect rails to legs</li>
+          <li>Check for square before final tightening — measure diagonals</li>
+          <li>The lower rail near the floor creates a shelf for the water tank and grey bucket to sit on</li>
+        </ul>
+        <span class="tag">4×4 posts or 2×4 doubled</span>
+        <span class="tag">Joist hanger brackets</span>
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">Leave the sink bay open on the bottom</div>
+      </div>
+      <div class="step-body">
+        Wherever the sink will sit — plan that section of the lower frame to be open and accessible from the front. You need to be able to reach in to swap the water tank, empty the grey bucket, and check the pump. A simple curtain or a hinged reclaimed wood panel covers the opening when not in use.
+      </div>
+    </div>
+
+    <div class="step warn">
+      <div class="step-header">
+        <div class="step-icon ic-warn">!</div>
+        <div class="step-title">Reclaimed lumber needs to be flat and straight for the frame</div>
+      </div>
+      <div class="step-body">
+        The face boards and top surface can have character — checking, knots, rough texture are great. But the structural frame boards need to be reasonably straight. A bowed ledger means a bowed bar top. Sort through your reclaimed pile and use the straightest boards for the frame; save the most characterful pieces for the visible face and top.
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showIdx(3)">Next: Bar top →</button></div>
+</div>
+
+<!-- ══ TOP ══ -->
+<div id="phase-top" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">2</div>
+    <div>
+      <h2>The bar top — the most visible piece</h2>
+      <p>A few good options depending on what you find. Butcher block is the easiest to work with and looks great. A wide reclaimed slab is more dramatic but harder to source. Both work for this build.</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Choose your top material — three real options</div>
+      </div>
+      <div class="step-body">
+        <strong>Option 1 — Butcher block:</strong> $80–180 for an 8 ft section at IKEA (Numerar) or any home center. Easy to cut, sands beautifully, takes stain well, and pairs perfectly with reclaimed wood. Easiest option for an intermediate builder.
+        <br/><br/>
+        <strong>Option 2 — Reclaimed wide plank:</strong> Source a single wide board (12–14" wide) from a salvage yard or old barn flooring. More character and authenticity, but you'll need to flatten and joint it if it's warped. More work, more reward.
+        <br/><br/>
+        <strong>Option 3 — Board-and-batten top:</strong> Edge-glue several narrower reclaimed boards together, biscuit-joined or doweled, fill gaps with epoxy, sand flat. Fully DIY, uses whatever lumber you have, looks fantastic when done well.
+        <br/><br/>
+        <span class="tag">IKEA Numerar (butcher block)</span>
+        <span class="tag">Home Depot butcher block countertop</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Cut the sink opening before mounting the top</div>
+        <div class="step-meta">~1 hr</div>
+      </div>
+      <div class="step-body">
+        Always cut the sink hole before the top is mounted — it's much easier to work on a flat surface than leaning over a mounted bar. Follow the template that comes with your sink (most drop-in sinks include one). Use a jigsaw.
+        <ul>
+          <li>Drill a starter hole inside the cut line before using the jigsaw</li>
+          <li>Cut slightly inside the template line — you can always trim more, you can't add back</li>
+          <li>Support the cutout piece from below so it doesn't fall and split when you finish the cut</li>
+          <li>Test-fit the sink before final mounting</li>
+        </ul>
+        <span class="tag">Jigsaw with wood blade</span>
+        <span class="tag">Drill + 1" spade bit for starter hole</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Sand, stain, and seal the top before mounting</div>
+        <div class="step-meta">~2 hrs + dry time</div>
+      </div>
+      <div class="step-body">
+        Much easier to finish the top on sawhorses before mounting. Sand to 150 grit, stain to match or complement your floor (or go natural — butcher block tops look great with a clear food-safe oil), then seal with a waterproof finish around the sink area specifically.
+        <ul>
+          <li>Use food-safe mineral oil or cutting board oil if going natural/clear</li>
+          <li>Use a spar urethane or bar top epoxy if you want maximum water resistance</li>
+          <li>Apply extra sealer around the sink cutout edges — end grain absorbs water</li>
+          <li>Let fully cure before mounting — 24–48 hrs for oil, 72 hrs for poly</li>
+        </ul>
+        <span class="tag">Waterlox Original (food-safe)</span>
+        <span class="tag">Bar top epoxy (maximum protection)</span>
+        <span class="tag">Spar urethane (middle ground)</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Mount the top — screws up through the frame</div>
+        <div class="step-meta">~30 min</div>
+      </div>
+      <div class="step-body">
+        Set the top onto the ledger and front rails, check it's flush and level, then drive 2.5" screws up through the frame into the underside of the top. Don't go through the top surface. 6–8 screws across the length is plenty. Apply a bead of construction adhesive along the ledger first for extra bond — optional but good.
+        <span class="tag">2.5" screws driven from below</span>
+        <span class="tag">Liquid Nails (optional adhesive)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showIdx(4)">Next: Water system →</button></div>
+</div>
+
+<!-- ══ WATER ══ -->
+<div id="phase-water" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">3</div>
+    <div>
+      <h2>The RV water system — simpler than it sounds</h2>
+      <p>Three components: a fresh water tank, a 12V demand pump, and a faucet. The pump only runs when the faucet is open (demand pump = it senses pressure drop and kicks on automatically). Total install time is about 2 hours.</p>
+    </div>
+  </div>
+
+  <div class="water-grid">
+    <div class="water-card">
+      <h4>Fresh water tank</h4>
+      <p>A 5 or 7 gallon RV/marine fresh water tank. Sits under the bar on the lower shelf. Fills via a screw cap on top — just pour water in from a jug or garden hose. A 7-gallon tank holds enough for a full evening of use.</p>
+      <ul>
+        <li>Reliance Aqua-Tainer (7 gal) — $25</li>
+        <li>Or a dedicated RV portable tank — $30–50</li>
+      </ul>
+    </div>
+    <div class="water-card">
+      <h4>12V demand pump</h4>
+      <p>Shurflo 2088 is the standard — it's what's in most RVs and off-grid setups. Runs on 12V DC. Connect to a small sealed lead-acid battery (rechargeable) or to a 12V adapter plugged into an outlet once you have power.</p>
+      <ul>
+        <li>Shurflo 2088-554-144 — ~$50–65</li>
+        <li>12V 7Ah sealed battery — $20–30</li>
+        <li>Or 12V wall adapter if you have an outlet</li>
+      </ul>
+    </div>
+    <div class="water-card">
+      <h4>Faucet</h4>
+      <p>Any standard RV or bar faucet with 3/8" push-connect or barbed fittings. Single-handle is easiest. RV faucets are cheap ($20–40) and come with the right fitting sizes for 1/2" tubing.</p>
+      <ul>
+        <li>Dura Faucet RV bar faucet — $25–35</li>
+        <li>Or a standard kitchen faucet — needs adapter fittings</li>
+      </ul>
+    </div>
+    <div class="water-card">
+      <h4>Grey water bucket</h4>
+      <p>The drain from the sink goes into a 5-gallon bucket under the bar. Just a simple PVC drain tailpiece, a short section of 1.5" flexible drain hose, and the bucket. Empty after each use — takes 30 seconds.</p>
+      <ul>
+        <li>5-gal bucket with lid — $8</li>
+        <li>PVC drain kit — $12–18</li>
+        <li>Flexible drain hose — $8–12</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="section-head">Installation steps</h3>
+  <div class="steps">
+    <div class="step water">
+      <div class="step-header">
+        <div class="step-icon ic-water">DO</div>
+        <div class="step-title">Mount the pump to a board under the bar</div>
+        <div class="step-meta">~30 min</div>
+      </div>
+      <div class="step-body">
+        Screw the Shurflo pump to a small piece of plywood or directly to the lower shelf rail. It needs to be accessible but secured — vibration from the pump can walk it around if it's just sitting loose.
+        <ul>
+          <li>Mount near the fresh water tank, not the drain side</li>
+          <li>Leave enough slack in the tubing to pull the tank out for refilling</li>
+          <li>The pump has an inlet and outlet marked — inlet from tank, outlet to faucet</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step water">
+      <div class="step-header">
+        <div class="step-icon ic-water">DO</div>
+        <div class="step-title">Run 1/2" tubing: tank → pump → faucet</div>
+        <div class="step-meta">~45 min</div>
+      </div>
+      <div class="step-body">
+        Use 1/2" ID clear vinyl tubing — sold by the foot at hardware stores. Use barbed fittings and hose clamps at every connection. Route the tubing up through a small hole in the bar top near where the faucet sits.
+        <ul>
+          <li>Keep tubing runs short and direct — less pressure drop</li>
+          <li>Secure tubing with zip ties or cable staples so it doesn't flop around</li>
+          <li>Apply thread tape (Teflon tape) to all threaded fittings before assembly</li>
+          <li>Test all connections before closing up the bar front</li>
+        </ul>
+        <span class="tag">1/2" clear vinyl tubing</span>
+        <span class="tag">Barbed fittings + hose clamps</span>
+        <span class="tag">Teflon tape</span>
+      </div>
+    </div>
+
+    <div class="step water">
+      <div class="step-header">
+        <div class="step-icon ic-water">DO</div>
+        <div class="step-title">Wire the pump to a battery or 12V adapter</div>
+        <div class="step-meta">~30 min</div>
+      </div>
+      <div class="step-body">
+        The Shurflo 2088 has two wires — red (positive) and black (negative). Connect to a 12V sealed battery with ring terminals and a small inline fuse (the pump draws about 5A max, use a 10A fuse). Add a simple rocker switch in the line so you can kill the pump when the bar isn't in use.
+        <br/><br/>
+        Once you have a proper electrical circuit in the barn (Plan B electrical work), you can swap the battery for a 12V DC wall adapter and never worry about charging it.
+        <span class="tag">10A inline fuse holder</span>
+        <span class="tag">12V rocker switch</span>
+        <span class="tag">Ring terminal connectors</span>
+      </div>
+    </div>
+
+    <div class="step water">
+      <div class="step-header">
+        <div class="step-icon ic-water">DO</div>
+        <div class="step-title">Install the drain — simple gravity setup</div>
+        <div class="step-meta">~30 min</div>
+      </div>
+      <div class="step-body">
+        Drop-in bar sinks come with a drain hole — install a standard 1.5" basket strainer drain. Connect 1.5" flexible drain hose (or PVC elbow + pipe) from the drain down to the grey water bucket below. The bucket just needs to be lower than the sink drain — gravity does the rest.
+        <ul>
+          <li>Make sure the grey bucket has a lid to reduce evaporation and smell</li>
+          <li>Put the bucket on a small tray in case of drips</li>
+          <li>Label it clearly so guests don't mistake it for something else</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">Winterize the system if the barn isn't heated in winter</div>
+      </div>
+      <div class="step-body">
+        If the barn will go unheated in winter, drain the tank, run the pump briefly to clear the lines, and leave the faucet open to drain any residual water. A frozen pump or burst line is a $60 fix but an avoidable headache. Takes 5 minutes each fall.
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showIdx(5)">Next: Shelving →</button></div>
+</div>
+
+<!-- ══ SHELVING ══ -->
+<div id="phase-shelving" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">4</div>
+    <div>
+      <h2>Wall shelving — the bottle display above the bar</h2>
+      <p>Three shelves above the bar, running the full 8 ft. These are purely decorative/functional — they hold bottles, glasses, and whatever else. Simple floating shelves on wall-mounted brackets.</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Mount a French cleat system on the wall</div>
+        <div class="step-meta">~1.5 hrs</div>
+      </div>
+      <div class="step-body">
+        A French cleat is two boards cut at 45° angles — one screws to the wall, the other to the shelf. The shelf just hooks on. Advantages: dead simple, incredibly strong, and you can reposition shelves without any new holes in the wall.
+        <ul>
+          <li>Rip a 2×4 at 45° on a table saw or circular saw with a rip guide</li>
+          <li>Screw the wall piece into studs — every stud across the full 8 ft</li>
+          <li>The shelf piece attaches to the underside of each shelf board</li>
+          <li>Start the lowest cleat at 54–56" off the floor (12–14" above the bar top)</li>
+          <li>Space subsequent cleats 12–14" apart for each shelf above</li>
+        </ul>
+        <span class="tag">French cleat system</span>
+        <span class="tag">3" screws into studs</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Cut and finish the shelf boards</div>
+        <div class="step-meta">~1 hr</div>
+      </div>
+      <div class="step-body">
+        Shelf boards should be 8–10" deep (deep enough for a bottle, not so deep they crowd the bar) and 8 ft long. Reclaimed 1×10 or 1×12 is perfect. Sand lightly — just enough to remove splinters — and apply the same stain you used on the bar top for consistency. Seal with a matte or satin finish.
+        <br/><br/>
+        The front edge of each shelf can be left raw and rough for character, or given a slight chamfer with a block plane for a cleaner look. Either works.
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">Add a small lip to the front edge of shelves</div>
+      </div>
+      <div class="step-body">
+        A 1×1" or 1×2" strip of wood glued and nailed to the front underside of each shelf creates a lip that keeps bottles from sliding off if someone bumps the shelf. Optional but smart in an entertaining space. Takes 20 minutes and $10 in lumber.
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">Add under-shelf lighting between cleats</div>
+      </div>
+      <div class="step-body">
+        A strip of warm LED tape light on the underside of the middle and upper shelves, pointed down at the bottles, looks absolutely incredible under string lights and creates the backlit bar atmosphere. Peel-and-stick LED strips are $15–25 for 16 ft and run on USB or 12V — same battery as your pump if you want to keep it off-grid.
+        <span class="tag">Govee or Kasa LED strip (warm white 2700K)</span>
+        <span class="tag">USB power bank (if no outlet yet)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showIdx(6)">Next: Finishing →</button></div>
+</div>
+
+<!-- ══ FINISH ══ -->
+<div id="phase-finish" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">5</div>
+    <div>
+      <h2>Face boards, details &amp; finishing touches</h2>
+      <p>The frame is hidden behind face boards — reclaimed lumber cut to cover the front and sides. This is where the bar goes from looking like a construction project to looking like it was always there.</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Clad the front frame with reclaimed face boards</div>
+        <div class="step-meta">~2 hrs</div>
+      </div>
+      <div class="step-body">
+        Cut reclaimed 1×6 or 1×8 boards to height (from floor to just below the bar top edge) and nail or screw them to the front rails. You don't need them to be perfectly tight — slight gaps are part of the character. Run them vertically for a traditional look, or horizontal for something more modern.
+        <ul>
+          <li>Vertical boards with slight gaps = classic barn look</li>
+          <li>Pre-finish the face boards before nailing — easier to get into edges</li>
+          <li>Use a nail gun with 2" finish nails for a clean look, or hand-nail for authenticity</li>
+          <li>The sink access bay gets a curtain rod + canvas drop cloth, or a simple hinged panel</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Add a bar rail (foot rest) along the bottom front</div>
+        <div class="step-meta">~30 min</div>
+      </div>
+      <div class="step-body">
+        A horizontal pipe or wooden rail at about 8–10" off the floor running the length of the bar is the traditional foot rail for bar stools. It's one of those details that makes the bar feel like a real bar.
+        <ul>
+          <li>Simplest: a 1.5" black iron pipe, threaded, with floor flanges at each end — $30–45 total</li>
+          <li>Or a natural round branch/dowel mounted on wall-mount brackets for a more rustic feel</li>
+          <li>Mount at the base of the face board, centered on the stool spacing</li>
+        </ul>
+        <span class="tag">1.5" black iron pipe + floor flanges</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Caulk the top-to-wall joint and seal any gaps</div>
+        <div class="step-meta">~30 min</div>
+      </div>
+      <div class="step-body">
+        Where the bar top meets the barn wall, run a bead of paintable caulk — this stops water, critters, and drafts from getting behind the bar. Color-match to your stain. Also caulk around the sink with waterproof silicone — 100% silicone, not paintable caulk, for the sink perimeter.
+        <span class="tag">GE Silicone II (clear) for sink</span>
+        <span class="tag">Paintable caulk (color-matched) for wall joint</span>
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">The small details make the biggest difference</div>
+      </div>
+      <div class="step-body">
+        A few finishing moves that elevate the whole bar: a magnetic bottle opener mounted on the face board, two or three hooks underneath for bar towels, a small reclaimed wood menu board or chalkboard mounted on the wall nearby, and a vintage-style bar mat on the counter. None of these cost more than $30 total but they signal that the space was designed, not just built.
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showIdx(7)">View Supply List →</button></div>
+</div>
+
+<!-- ══ SUPPLIES ══ -->
+<div id="phase-supplies" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">★</div>
+    <div>
+      <h2>Full supply list — bar build</h2>
+      <p>Organized by category. Source reclaimed lumber first — it sets the character of the whole build. Everything else is hardware store or Amazon.</p>
+    </div>
+  </div>
+
+  <h3 class="section-head">Lumber (reclaimed where possible)</h3>
+  <table class="supply-table">
+    <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
+    <tbody>
+      <tr><td>2×6 × 8ft boards (×3)</td><td>Ledger boards + frame rails</td><td class="cost">Free–$30 reclaimed</td></tr>
+      <tr><td>4×4 posts, 42" each (×2–3)</td><td>Front legs</td><td class="cost">Free–$20 reclaimed</td></tr>
+      <tr><td>1×8 × 8ft boards (×8–10)</td><td>Face boards + shelf boards</td><td class="cost">Free–$80 reclaimed</td></tr>
+      <tr><td>Bar top — butcher block 8ft</td><td>Counter surface</td><td class="cost">$80–180</td></tr>
+      <tr><td>Small reclaimed pieces</td><td>French cleats, lip strips</td><td class="cost">Offcuts / free</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="section-head">Hardware &amp; fasteners</h3>
+  <table class="supply-table">
+    <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
+    <tbody>
+      <tr><td>3" structural screws (1 lb box)</td><td>Frame + ledger</td><td class="cost">$10–15</td></tr>
+      <tr><td>2.5" screws (1 lb box)</td><td>Top mounting + face boards</td><td class="cost">$8–12</td></tr>
+      <tr><td>2" finish nails or brad nails</td><td>Face boards</td><td class="cost">$6–10</td></tr>
+      <tr><td>Joist hanger brackets (×4–6)</td><td>Rail-to-leg connections</td><td class="cost">$12–18</td></tr>
+      <tr><td>1.5" black iron pipe + flanges</td><td>Foot rail</td><td class="cost">$30–45</td></tr>
+      <tr><td>Silicone caulk + paintable caulk</td><td>Sink seal + wall joint</td><td class="cost">$12–18</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="section-head">Sink &amp; water system</h3>
+  <table class="supply-table">
+    <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
+    <tbody>
+      <tr><td>Drop-in bar sink (stainless, small)</td><td>Bar sink</td><td class="cost">$35–80</td></tr>
+      <tr><td>RV bar faucet (single handle)</td><td>Faucet</td><td class="cost">$25–40</td></tr>
+      <tr><td>Shurflo 2088 12V demand pump</td><td>Water pressure</td><td class="cost">$50–65</td></tr>
+      <tr><td>7-gal fresh water tank (Reliance)</td><td>Fresh water supply</td><td class="cost">$25–35</td></tr>
+      <tr><td>12V 7Ah sealed battery</td><td>Pump power</td><td class="cost">$20–30</td></tr>
+      <tr><td>12V rocker switch + inline fuse</td><td>Pump on/off + safety</td><td class="cost">$8–12</td></tr>
+      <tr><td>1/2" vinyl tubing (6 ft)</td><td>Fresh water lines</td><td class="cost">$6–10</td></tr>
+      <tr><td>Barbed fittings + hose clamps</td><td>Tube connections</td><td class="cost">$10–15</td></tr>
+      <tr><td>1.5" flexible drain hose (3 ft)</td><td>Sink drain to bucket</td><td class="cost">$8–12</td></tr>
+      <tr><td>5-gal bucket with lid</td><td>Grey water collection</td><td class="cost">$8–10</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="section-head">Finishing + tools needed</h3>
+  <table class="supply-table">
+    <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
+    <tbody>
+      <tr><td>Stain + sealer for top and shelves</td><td>Bar top + shelf finish</td><td class="cost">$25–50</td></tr>
+      <tr><td>Sandpaper — 80, 120, 150 grit</td><td>Top prep</td><td class="cost">$8–12</td></tr>
+      <tr><td>LED strip lights, warm white 2700K</td><td>Under-shelf lighting</td><td class="cost">$20–30</td></tr>
+      <tr><td>Magnetic bottle opener</td><td>Face board mount</td><td class="cost">$8–15</td></tr>
+      <tr><td>Bar towel hooks (×3)</td><td>Under bar top</td><td class="cost">$10–15</td></tr>
+      <tr><td>Jigsaw (if you don't own one)</td><td>Sink cutout</td><td class="cost">Borrow or $40–60</td></tr>
+      <tr><td>Circular saw or miter saw</td><td>All cuts</td><td class="cost">Own or borrow</td></tr>
+      <tr><td>Stud finder</td><td>Ledger placement</td><td class="cost">$15–25</td></tr>
+      <tr><td>4 ft level</td><td>Ledger leveling</td><td class="cost">Own or $15</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note tip">
+    <strong>Total estimated cost:</strong> $600–900 depending on how much reclaimed lumber you source for free vs buy, and which bar top you choose. Butcher block at the low end of the top range keeps the whole build under $700 comfortably. A wide reclaimed slab top pushes it toward $900.
+  </div>
+
+  <div class="note water">
+    <strong>The water system alone</strong> (pump, tank, faucet, tubing, bucket) runs $160–220. That's the price of having a functional sink with zero plumbing. Very much worth it.
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+const phases = ['overview','diagram','frame','top','water','shelving','finish','supplies'];
+function show(id, btn) {
+  phases.forEach(p => document.getElementById('phase-'+p).classList.remove('active'));
+  document.querySelectorAll('.pnav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('phase-'+id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  else document.querySelectorAll('.pnav-btn')[phases.indexOf(id)].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showIdx(i) { show(phases[i], null); }
+</script>
+
+</div>
+<script>
+function showPhase(id, btn) {
+  document.querySelectorAll('.phase-content').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.pnav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+function toggle(el, phase) {
+  el.classList.toggle('checked');
+  const cl = document.getElementById('cl-'+phase);
+  if (!cl) return;
+  const done = cl.querySelectorAll('.check-item.checked').length;
+  const total = cl.querySelectorAll('.check-item').length;
+  const prog = document.getElementById('prog-'+phase);
+  if (prog) prog.textContent = done+'/'+total;
+}
+
+const phases = ['overview','diagram','frame','top','water','shelving','finish','supplies'];
+function show(id, btn) {
+  phases.forEach(p => document.getElementById('phase-'+p).classList.remove('active'));
+  document.querySelectorAll('.pnav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('phase-'+id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  else document.querySelectorAll('.pnav-btn')[phases.indexOf(id)].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showIdx(i) { show(phases[i], null); }
+
+</script>
+</body>
+</html>
