@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barn Reno — Master Timeline</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bark:#2C1A08; --walnut:#5C3D20; --cedar:#8B5C35; --wheat:#D4A96A;
+    --linen:#F2EAD8; --cream:#FAF6EE; --sage:#7A8C6E; --rust:#B84C2B;
+    --gold:#C9922A; --smoke:#5A6070; --bg2:#F5EFE3;
+    --p1:#5C3D20; --p2:#3A6A9A; --p3:#7A8C6E; --p4:#8B5C35; --p5:#B84C2B; --p6:#6A5A8A;
+  }
+
+  body { background:var(--cream); font-family:'Inter',sans-serif; color:var(--bark); }
+
+  .hdr { background:var(--bark); padding:2.5rem 2rem 2rem; text-align:center; border-bottom:3px solid var(--wheat); }
+  .hdr-eye { font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:var(--wheat); opacity:.65; margin-bottom:.6rem; }
+  .hdr h1 { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,4vw,2.6rem); color:var(--wheat); }
+  .hdr h1 em { color:var(--linen); font-style:italic; }
+  .hdr-sub { margin-top:.5rem; font-size:.82rem; color:var(--linen); opacity:.55; font-weight:300; letter-spacing:.06em; }
+
+  /* summary strip */
+  .summary { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px; background:rgba(212,169,106,.2); }
+  .summary-cell { background:var(--bark); padding:1.2rem 1rem; text-align:center; }
+  .summary-cell .s-val { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--wheat); line-height:1; }
+  .summary-cell .s-label { font-size:.68rem; text-transform:uppercase; letter-spacing:.12em; color:var(--linen); opacity:.55; margin-top:.3rem; }
+
+  .main { max-width:860px; margin:0 auto; padding:2rem 1.5rem; }
+
+  /* phase nav */
+  .phase-nav { display:flex; justify-content:center; background:var(--walnut); flex-wrap:wrap; margin-bottom:2rem; border-radius:0 0 6px 6px; }
+  .pnav-btn { padding:.75rem 1rem; cursor:pointer; background:transparent; border:none; border-bottom:3px solid transparent; color:rgba(212,169,106,.65); font-size:.73rem; font-weight:500; letter-spacing:.06em; text-transform:uppercase; font-family:'Inter',sans-serif; transition:all .18s; white-space:nowrap; }
+  .pnav-btn:hover { color:var(--wheat); background:rgba(255,255,255,.06); }
+  .pnav-btn.active { color:var(--linen); border-bottom-color:var(--wheat); background:rgba(255,255,255,.1); }
+
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+
+  /* ── TIMELINE VIEW ── */
+  .month-block { margin-bottom:2.5rem; }
+  .month-header {
+    display:flex; align-items:center; gap:1rem; margin-bottom:1rem;
+    padding-bottom:.6rem; border-bottom:2px solid #E5D9C4;
+  }
+  .month-badge {
+    background:var(--bark); color:var(--wheat); font-family:'Playfair Display',serif;
+    font-size:1rem; padding:.35rem .9rem; border-radius:4px; white-space:nowrap;
+  }
+  .month-phase-tag {
+    font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:.1em;
+    padding:.2rem .6rem; border-radius:20px; color:white; white-space:nowrap;
+  }
+  .month-note { font-size:.82rem; color:var(--smoke); font-weight:300; }
+
+  .weekend-row { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; margin-bottom:.75rem; }
+  @media(max-width:520px) { .weekend-row { grid-template-columns:1fr; } }
+
+  .weekend-card {
+    background:white; border:1px solid #E5D9C4; border-radius:8px;
+    padding:1rem 1.1rem; border-left:4px solid var(--cedar);
+    position:relative; overflow:hidden;
+  }
+  .weekend-card::before {
+    content:''; position:absolute; top:0; right:0;
+    width:3px; height:100%;
+  }
+  .wk-label { font-size:.68rem; text-transform:uppercase; letter-spacing:.12em; color:var(--smoke); margin-bottom:.3rem; }
+  .wk-title { font-size:.9rem; font-weight:500; color:var(--bark); margin-bottom:.3rem; }
+  .wk-tasks { list-style:none; }
+  .wk-tasks li { font-size:.78rem; color:var(--smoke); padding:.15rem 0; display:flex; gap:.4rem; align-items:flex-start; line-height:1.4; }
+  .wk-tasks li::before { content:'·'; color:var(--cedar); flex-shrink:0; }
+  .wk-cost { margin-top:.5rem; padding-top:.5rem; border-top:1px solid #EDE5D2; font-size:.75rem; color:var(--cedar); font-weight:500; }
+
+  .gap-card {
+    background:var(--bg2); border:1px solid #E5D9C4; border-radius:8px;
+    padding:.75rem 1.1rem; margin-bottom:.75rem;
+    display:flex; align-items:center; gap:.75rem;
+  }
+  .gap-icon { font-size:1.2rem; flex-shrink:0; }
+  .gap-text { font-size:.82rem; color:var(--smoke); line-height:1.5; }
+  .gap-text strong { color:var(--bark); }
+
+  /* ── COST VIEW ── */
+  .cost-section { margin-bottom:2rem; }
+  .cost-section h2 { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--walnut); margin-bottom:1rem; padding-bottom:.4rem; border-bottom:1px solid #E5D9C4; }
+
+  .cost-table { width:100%; border-collapse:collapse; font-size:.84rem; margin-bottom:1rem; }
+  .cost-table th { background:var(--walnut); color:var(--wheat); padding:.55rem .8rem; text-align:left; font-size:.7rem; text-transform:uppercase; letter-spacing:.1em; font-weight:500; }
+  .cost-table td { padding:.65rem .8rem; border-bottom:1px solid #EDE5D2; color:var(--smoke); vertical-align:top; }
+  .cost-table tr:last-child td { border-bottom:none; }
+  .cost-table tr:nth-child(even) td { background:var(--bg2); }
+  .cost-table td:first-child { font-weight:500; color:var(--bark); }
+  .cost-lo { color:var(--sage); font-weight:500; }
+  .cost-hi { color:var(--rust); font-weight:500; }
+  .cost-total td { background:var(--bark) !important; color:var(--wheat) !important; font-weight:600; font-size:.9rem; }
+
+  /* cumulative cost chart */
+  .cost-bar-wrap { background:white; border:1px solid #E5D9C4; border-radius:8px; padding:1.2rem; margin-bottom:1.5rem; }
+  .cost-bar-wrap h3 { font-size:.8rem; text-transform:uppercase; letter-spacing:.1em; color:var(--cedar); margin-bottom:1rem; font-weight:500; }
+  .bar-row { display:flex; align-items:center; gap:.75rem; margin-bottom:.6rem; }
+  .bar-label { font-size:.78rem; color:var(--smoke); width:140px; flex-shrink:0; line-height:1.3; }
+  .bar-track { flex:1; background:#EDE5D2; border-radius:4px; height:22px; position:relative; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:4px; display:flex; align-items:center; padding-left:.5rem; font-size:.72rem; font-weight:500; color:white; transition:width .3s; }
+  .bar-amt { font-size:.75rem; color:var(--smoke); white-space:nowrap; margin-left:.5rem; }
+
+  /* ── CHECKLIST VIEW ── */
+  .check-phase { margin-bottom:1.5rem; }
+  .check-phase-header { display:flex; align-items:center; gap:.75rem; margin-bottom:.75rem; cursor:pointer; }
+  .check-phase-header h3 { font-family:'Playfair Display',serif; font-size:1rem; color:var(--walnut); }
+  .check-phase-header .phase-pill { font-size:.7rem; font-weight:600; text-transform:uppercase; letter-spacing:.08em; padding:.2rem .6rem; border-radius:20px; color:white; }
+  .check-phase-progress { margin-left:auto; font-size:.75rem; color:var(--smoke); white-space:nowrap; }
+
+  .checklist { display:flex; flex-direction:column; gap:.4rem; }
+  .check-item { display:flex; align-items:flex-start; gap:.75rem; background:white; border:1px solid #E5D9C4; border-radius:6px; padding:.7rem .9rem; cursor:pointer; transition:all .15s; }
+  .check-item:hover { background:var(--bg2); }
+  .check-item.checked { opacity:.55; }
+  .check-item.checked .check-title { text-decoration:line-through; }
+  .check-box { width:18px; height:18px; border:2px solid #DDD0BA; border-radius:4px; flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; font-size:.7rem; color:var(--sage); transition:all .15s; }
+  .check-item.checked .check-box { background:var(--sage); border-color:var(--sage); color:white; }
+  .check-title { font-size:.84rem; color:var(--bark); font-weight:500; }
+  .check-sub { font-size:.75rem; color:var(--smoke); margin-top:.1rem; }
+
+  /* ── DEPENDENCIES VIEW ── */
+  .dep-list { display:flex; flex-direction:column; gap:1rem; }
+  .dep-item { background:white; border:1px solid #E5D9C4; border-radius:8px; padding:1.1rem 1.3rem; }
+  .dep-header { display:flex; align-items:center; gap:.75rem; margin-bottom:.5rem; flex-wrap:wrap; }
+  .dep-title { font-size:.92rem; font-weight:500; color:var(--bark); }
+  .dep-arrow { font-size:.75rem; color:var(--smoke); }
+  .dep-body { font-size:.83rem; color:var(--smoke); line-height:1.6; }
+  .dep-body strong { color:var(--bark); }
+
+  .note { border-left:4px solid var(--sage); background:white; border-radius:0 6px 6px 0; padding:.9rem 1.1rem; margin-bottom:1rem; font-size:.84rem; color:var(--smoke); line-height:1.6; }
+  .note.tip { border-left-color:var(--gold); }
+  .note.warn { border-left-color:var(--rust); }
+  .note strong { color:var(--bark); }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <p class="hdr-eye">Barn Reno · Master Plan</p>
+  <h1>The <em>Full Timeline</em></h1>
+  <p class="hdr-sub">2 weekends/month · 6–8 months · Start to first gathering</p>
+</div>
+
+<!-- summary strip -->
+<div class="summary">
+  <div class="summary-cell">
+    <div class="s-val">~30</div>
+    <div class="s-label">Total weekends</div>
+  </div>
+  <div class="summary-cell">
+    <div class="s-val">6–8</div>
+    <div class="s-label">Months to done</div>
+  </div>
+  <div class="summary-cell">
+    <div class="s-val">5</div>
+    <div class="s-label">Major phases</div>
+  </div>
+  <div class="summary-cell">
+    <div class="s-val">$3.5K</div>
+    <div class="s-label">Est. low (Plan A)</div>
+  </div>
+  <div class="summary-cell">
+    <div class="s-val">$9K</div>
+    <div class="s-label">Est. high (Plan B)</div>
+  </div>
+</div>
+
+<div style="background:var(--walnut)">
+<div class="phase-nav">
+  <button class="pnav-btn active" onclick="showTab('timeline',this)">Timeline</button>
+  <button class="pnav-btn" onclick="showTab('costs',this)">Costs</button>
+  <button class="pnav-btn" onclick="showTab('checklist',this)">Checklist</button>
+  <button class="pnav-btn" onclick="showTab('dependencies',this)">Dependencies</button>
+</div>
+</div>
+
+<div class="main">
+
+<!-- ══ TIMELINE ══ -->
+<div id="tab-timeline" class="tab-content active">
+
+  <div class="note tip">
+    <strong>How to read this:</strong> Each month has 2 weekends. Gap cards show mandatory waiting time — dry time, cure time, weather windows. You cannot compress these. Plan A costs are used throughout; Plan B upgrades are called out where they diverge.
+  </div>
+
+  <!-- MONTH 1 -->
+  <div class="month-block">
+    <div class="month-header">
+      <div class="month-badge">Month 1</div>
+      <span class="month-phase-tag" style="background:#5C3D20">Phase 0 · Prep</span>
+      <span class="month-note">Cleanout · Sort · Assess</span>
+    </div>
+    <div class="weekend-row">
+      <div class="weekend-card" style="border-left-color:#5C3D20">
+        <div class="wk-label">Weekend 1</div>
+        <div class="wk-title">Full cleanout — both halves</div>
+        <ul class="wk-tasks">
+          <li>Everything out of both halves</li>
+          <li>Sort into: trash / donate / keep / elsewhere</li>
+          <li>Haul-away or dumpster rental</li>
+          <li>Lead paint test on walls</li>
+          <li>Photo documentation of every problem area</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $100–300 (haul-away)</div>
+      </div>
+      <div class="weekend-card" style="border-left-color:#5C3D20">
+        <div class="wk-label">Weekend 2</div>
+        <div class="wk-title">Full assessment + supplies run</div>
+        <ul class="wk-tasks">
+          <li>Walk roof — categorize rust, check fasteners</li>
+          <li>Probe floor boards for rot</li>
+          <li>Locate all wall studs, mark them</li>
+          <li>Check for active moisture / mold</li>
+          <li>Buy interior cleaning supplies</li>
+          <li>Stain sample purchase (2–3 options)</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $80–150 (supplies)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONTH 2 -->
+  <div class="month-block">
+    <div class="month-header">
+      <div class="month-badge">Month 2</div>
+      <span class="month-phase-tag" style="background:#3A6A9A">Phase 1 · Interior Prep</span>
+      <span class="month-note">Clean · Repair · Stain test</span>
+    </div>
+    <div class="weekend-row">
+      <div class="weekend-card" style="border-left-color:#3A6A9A">
+        <div class="wk-label">Weekend 3</div>
+        <div class="wk-title">Interior wall cleaning (both halves)</div>
+        <ul class="wk-tasks">
+          <li>Knock down cobwebs — rafters to floor</li>
+          <li>TSP wash all walls, top to bottom</li>
+          <li>Re-secure loose wall boards</li>
+          <li>Fill gaps with exterior caulk</li>
+          <li>Leave doors open to ventilate — 48 hrs dry time</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $40–80</div>
+      </div>
+      <div class="weekend-card" style="border-left-color:#3A6A9A">
+        <div class="wk-label">Weekend 4</div>
+        <div class="wk-title">Floor repair + clean + stain test patches</div>
+        <ul class="wk-tasks">
+          <li>Replace / sister any rotted floor boards</li>
+          <li>Re-screw all loose / squeaky boards</li>
+          <li>Deck cleaner scrub on entire floor</li>
+          <li>Apply 2–3 stain test patches (wall + floor)</li>
+          <li>Evaluate test patches under evening lighting</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $60–120</div>
+      </div>
+    </div>
+    <div class="gap-card">
+      <div class="gap-icon">⏱</div>
+      <div class="gap-text"><strong>48–72 hr gap:</strong> Floor must dry completely before staining. Use this time to finalize stain color decision and order full cans.</div>
+    </div>
+  </div>
+
+  <!-- MONTH 3 -->
+  <div class="month-block">
+    <div class="month-header">
+      <div class="month-badge">Month 3</div>
+      <span class="month-phase-tag" style="background:#3A6A9A">Phase 1 cont. · Stain + Seal</span>
+      <span class="month-note">Walls · Floor · Full cure</span>
+    </div>
+    <div class="weekend-row">
+      <div class="weekend-card" style="border-left-color:#3A6A9A">
+        <div class="wk-label">Weekend 5</div>
+        <div class="wk-title">Stain all walls — both halves</div>
+        <ul class="wk-tasks">
+          <li>Full day staining — entertaining half first</li>
+          <li>Storage half walls same day or next morning</li>
+          <li>Wipe excess as you go, work board by board</li>
+          <li>Leave doors open overnight to ventilate</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $80–160 (stain)</div>
+      </div>
+      <div class="weekend-card" style="border-left-color:#3A6A9A">
+        <div class="wk-label">Weekend 6</div>
+        <div class="wk-title">Floor stain coat 1 + wall sealer</div>
+        <ul class="wk-tasks">
+          <li>Penetrating sealer on all walls (both halves)</li>
+          <li>Floor stain coat 1 — far corner to door</li>
+          <li>Stay off floor 24 hrs minimum</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $60–120 (sealer + stain)</div>
+      </div>
+    </div>
+    <div class="gap-card">
+      <div class="gap-icon">⏱</div>
+      <div class="gap-text"><strong>24 hr gap between floor coats.</strong> Floor stain coat 2 + poly coat 1 happen across weekday evenings or the following weekend.</div>
+    </div>
+    <div class="weekend-row">
+      <div class="weekend-card" style="border-left-color:#3A6A9A">
+        <div class="wk-label">Weekend 7 (or weekday evenings)</div>
+        <div class="wk-title">Floor stain coat 2 + poly coats 1 &amp; 2</div>
+        <ul class="wk-tasks">
+          <li>Floor stain coat 2 (if needed)</li>
+          <li>220-grit sand + tack cloth</li>
+          <li>Water-based poly coat 1 — satin</li>
+          <li>24 hr dry, light sand, poly coat 2</li>
+          <li>7-day cure before furniture</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $50–100 (poly)</div>
+      </div>
+      <div class="weekend-card" style="border-left-color:#7A8C6E">
+        <div class="wk-label">Weekend 8 (while floor cures)</div>
+        <div class="wk-title">Storage: sort bins + buy storage supplies</div>
+        <ul class="wk-tasks">
+          <li>Final sort of storage items into zones</li>
+          <li>Label all seasonal bins now</li>
+          <li>Buy shelving, bike hooks, bins, label maker</li>
+          <li>Stain / prep center shelving unit</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $250–400</div>
+      </div>
+    </div>
+    <div class="gap-card">
+      <div class="gap-icon">⏱</div>
+      <div class="gap-text"><strong>7-day cure:</strong> No furniture, no heavy traffic on the floor. Use this full week — don't rush it. The poly will scratch and scuff if you move in early.</div>
+    </div>
+  </div>
+
+  <!-- MONTH 4 -->
+  <div class="month-block">
+    <div class="month-header">
+      <div class="month-badge">Month 4</div>
+      <span class="month-phase-tag" style="background:#7A8C6E">Phase 2 · Storage Buildout</span>
+      <span class="month-note">Shelving · Bikes · Bins · Done</span>
+    </div>
+    <div class="weekend-row">
+      <div class="weekend-card" style="border-left-color:#7A8C6E">
+        <div class="wk-label">Weekend 9</div>
+        <div class="wk-title">Storage: install all shelving</div>
+        <ul class="wk-tasks">
+          <li>Mount pegboard on left wall (tools zone)</li>
+          <li>Install back wall shelves (below window)</li>
+          <li>Position + anchor center shelving unit</li>
+          <li>French cleats across left wall if using</li>
+          <li>Install sports zone hooks + ball bin</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $100–180</div>
+      </div>
+      <div class="weekend-card" style="border-left-color:#7A8C6E">
+        <div class="wk-label">Weekend 10</div>
+        <div class="wk-title">Storage: bikes + fill bins + done</div>
+        <ul class="wk-tasks">
+          <li>Mount bike hook cleat board on bottom wall</li>
+          <li>Hang all bikes — kids low, adults higher</li>
+          <li>Helmet shelf above hooks</li>
+          <li>Fill and label all bins, put on shelves</li>
+          <li>Zone map card near partition opening</li>
+          <li>Storage half: done ✓</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $80–150 (hooks + hardware)</div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:0">
+      <strong>Milestone:</strong> After weekend 10 the storage half is fully functional. Everything has a home. You can now work on the entertaining space without shuffling anything around.
+    </div>
+  </div>
+
+  <!-- MONTH 5 — EXTERIOR (weather window) -->
+  <div class="month-block">
+    <div class="month-header">
+      <div class="month-badge">Month 5</div>
+      <span class="month-phase-tag" style="background:#8B5C35">Phase 3 · Exterior</span>
+      <span class="month-note">Roof · Walls · Weather dependent</span>
+    </div>
+    <div class="note warn" style="margin-bottom:1rem">
+      <strong>Weather window required.</strong> You need 4–5 consecutive dry days, 50–85°F, for the roof coating and wall staining. In Kentucky, September–October is ideal. If Month 5 lands in poor weather, swap with Month 6 bar work and come back to exterior when conditions are right.
+    </div>
+    <div class="weekend-row">
+      <div class="weekend-card" style="border-left-color:#8B5C35">
+        <div class="wk-label">Weekend 11</div>
+        <div class="wk-title">Roof: debris + fasteners + rust treatment</div>
+        <ul class="wk-tasks">
+          <li>Clear all debris from roof valleys</li>
+          <li>Replace lifted / missing fasteners</li>
+          <li>Wire brush all rust spots</li>
+          <li>Apply rust converter to all affected areas</li>
+          <li>Seal ridge cap + panel laps with butyl tape</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $80–140</div>
+      </div>
+      <div class="weekend-card" style="border-left-color:#8B5C35">
+        <div class="wk-label">Weekend 12</div>
+        <div class="wk-title">Roof coat + wall pressure wash</div>
+        <ul class="wk-tasks">
+          <li>Elastomeric roof coating — coat 1 (full surface)</li>
+          <li>Pressure wash all exterior walls (low PSI)</li>
+          <li>Apply wood brightener to walls</li>
+          <li>Rinse brightener, allow 48–72 hr dry</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $120–200 (coating + rental)</div>
+      </div>
+    </div>
+    <div class="gap-card">
+      <div class="gap-icon">🌤</div>
+      <div class="gap-text"><strong>48–72 hr dry window needed</strong> before wall staining. Watch the forecast carefully — don't start wall stain if rain is within 48 hrs of finishing.</div>
+    </div>
+    <div class="weekend-row">
+      <div class="weekend-card" style="border-left-color:#8B5C35">
+        <div class="wk-label">Weekend 13</div>
+        <div class="wk-title">Roof coat 2 + exterior wall stain</div>
+        <ul class="wk-tasks">
+          <li>Second coat of roof elastomeric coating</li>
+          <li>Stain south + west walls (worst weathered) — 2 coats</li>
+          <li>Stain north + east walls — 1 coat</li>
+          <li>Back-brush all drips immediately</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $150–280 (stain + coating)</div>
+      </div>
+      <div class="weekend-card" style="border-left-color:#8B5C35">
+        <div class="wk-label">Weekend 14</div>
+        <div class="wk-title">Second coats on exposed walls + touch-ups</div>
+        <ul class="wk-tasks">
+          <li>Second coat south / west walls if needed</li>
+          <li>Touch up any missed areas</li>
+          <li>Check all caulking around windows + doors</li>
+          <li>Exterior: done ✓</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $40–80</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONTH 6 — BAR BUILD -->
+  <div class="month-block">
+    <div class="month-header">
+      <div class="month-badge">Month 6</div>
+      <span class="month-phase-tag" style="background:#B84C2B">Phase 4 · Bar Build</span>
+      <span class="month-note">Frame · Top · Water · Shelving</span>
+    </div>
+    <div class="weekend-row">
+      <div class="weekend-card" style="border-left-color:#B84C2B">
+        <div class="wk-label">Weekend 15</div>
+        <div class="wk-title">Source lumber + frame the bar</div>
+        <ul class="wk-tasks">
+          <li>Salvage yard / Facebook for reclaimed lumber</li>
+          <li>Mount ledger board into studs at 40"</li>
+          <li>Cut + install front legs and rails</li>
+          <li>Check for square and level throughout</li>
+          <li>Leave sink bay open + accessible</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $80–180 (lumber)</div>
+      </div>
+      <div class="weekend-card" style="border-left-color:#B84C2B">
+        <div class="wk-label">Weekend 16</div>
+        <div class="wk-title">Bar top: cut, finish, mount</div>
+        <ul class="wk-tasks">
+          <li>Cut sink hole in bar top (jigsaw)</li>
+          <li>Sand + stain + seal bar top on sawhorses</li>
+          <li>Allow 48 hr cure before mounting</li>
+          <li>Mount top — screws up through frame</li>
+          <li>Drop in sink, test fit</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $120–220 (top + sink)</div>
+      </div>
+    </div>
+    <div class="gap-card">
+      <div class="gap-icon">⏱</div>
+      <div class="gap-text"><strong>48 hr cure on bar top finish</strong> before mounting. Buy water system components during this gap — Shurflo pump, tank, faucet, tubing.</div>
+    </div>
+    <div class="weekend-row">
+      <div class="weekend-card" style="border-left-color:#B84C2B">
+        <div class="wk-label">Weekend 17</div>
+        <div class="wk-title">RV water system install + face boards</div>
+        <ul class="wk-tasks">
+          <li>Mount Shurflo pump under bar</li>
+          <li>Run tubing: tank → pump → faucet</li>
+          <li>Install drain + grey water bucket</li>
+          <li>Wire pump to battery + rocker switch</li>
+          <li>Test system fully before closing up</li>
+          <li>Clad front with reclaimed face boards</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $180–260 (water system)</div>
+      </div>
+      <div class="weekend-card" style="border-left-color:#B84C2B">
+        <div class="wk-label">Weekend 18</div>
+        <div class="wk-title">Bottle shelving + finishing details</div>
+        <ul class="wk-tasks">
+          <li>Install French cleats on wall above bar</li>
+          <li>Cut, finish, hang 3 shelf boards (full 8 ft)</li>
+          <li>Add shelf lips + LED strip lights underneath</li>
+          <li>Install foot rail (black iron pipe)</li>
+          <li>Caulk top-to-wall joint + around sink</li>
+          <li>Bar: done ✓</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $80–150</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONTH 7 — ENTERTAINING SPACE FITOUT -->
+  <div class="month-block">
+    <div class="month-header">
+      <div class="month-badge">Month 7</div>
+      <span class="month-phase-tag" style="background:#6A5A8A">Phase 5 · Entertaining Space</span>
+      <span class="month-note">Lighting · Furniture · Screen · TV</span>
+    </div>
+    <div class="weekend-row">
+      <div class="weekend-card" style="border-left-color:#6A5A8A">
+        <div class="wk-label">Weekend 19</div>
+        <div class="wk-title">Lighting + electrical (if Plan B)</div>
+        <ul class="wk-tasks">
+          <li><strong>Plan A:</strong> Hang string lights across rafters, plug-in pendants, extension cord management</li>
+          <li><strong>Plan B:</strong> Electrician visit — subpanel, circuits, pendant fixtures on dimmer</li>
+          <li>TV wall mount — locate studs, mount bracket</li>
+          <li>Run any power cords before furniture comes in</li>
+        </ul>
+        <div class="wk-cost">Plan A: $80–150 / Plan B: $1,500–3,000</div>
+      </div>
+      <div class="weekend-card" style="border-left-color:#6A5A8A">
+        <div class="wk-label">Weekend 20</div>
+        <div class="wk-title">Screen door panels + TV mount</div>
+        <ul class="wk-tasks">
+          <li>Build / install screen panel behind double doors</li>
+          <li>Mount TV on wall bracket</li>
+          <li>Run HDMI / power cables cleanly</li>
+          <li>Test picture + sound</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $200–500 (screen + TV)</div>
+      </div>
+    </div>
+    <div class="weekend-row">
+      <div class="weekend-card" style="border-left-color:#6A5A8A">
+        <div class="wk-label">Weekend 21</div>
+        <div class="wk-title">Furniture move-in + layout</div>
+        <ul class="wk-tasks">
+          <li>Sofa + armchairs into position</li>
+          <li>Area rug laid, coffee table placed</li>
+          <li>Bar stools at bar</li>
+          <li>Side tables + any accent pieces</li>
+          <li>Move bottles to bar shelving</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $500–1,500 (furniture)</div>
+      </div>
+      <div class="weekend-card" style="border-left-color:#6A5A8A">
+        <div class="wk-label">Weekend 22</div>
+        <div class="wk-title">Final details + first gathering</div>
+        <ul class="wk-tasks">
+          <li>Bar accessories: opener, towel hooks, bar mat</li>
+          <li>Fill water tank, test sink + faucet</li>
+          <li>Stock the shelves</li>
+          <li>Light everything up at night — final check</li>
+          <li>Invite people over ✓</li>
+        </ul>
+        <div class="wk-cost">Est. cost: $50–100 (accessories)</div>
+      </div>
+    </div>
+    <div class="note" style="background:var(--bark);color:var(--linen);border:none;border-left:4px solid var(--wheat)">
+      <strong style="color:var(--wheat)">🎉 Done.</strong> &nbsp;From cleanout to first gathering: roughly 22 working weekends over 6–8 months. The space is finished, functional, and ready to use year-round (Plan B) or spring through fall (Plan A).
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ COSTS ══ -->
+<div id="tab-costs" class="tab-content">
+
+  <div class="cost-bar-wrap">
+    <h3>Cumulative spend by phase — Plan A low estimate</h3>
+    <div class="bar-row">
+      <div class="bar-label">Phase 0<br>Prep + cleanout</div>
+      <div class="bar-track"><div class="bar-fill" style="width:5%;background:#5C3D20">$200</div></div>
+      <div class="bar-amt">$200</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Phase 1<br>Interior finish</div>
+      <div class="bar-track"><div class="bar-fill" style="width:18%;background:#3A6A9A">$500</div></div>
+      <div class="bar-amt">$700 cumul.</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Phase 2<br>Storage buildout</div>
+      <div class="bar-track"><div class="bar-fill" style="width:22%;background:#7A8C6E">$600</div></div>
+      <div class="bar-amt">$1,300 cumul.</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Phase 3<br>Exterior + roof</div>
+      <div class="bar-track"><div class="bar-fill" style="width:28%;background:#8B5C35">$500</div></div>
+      <div class="bar-amt">$1,800 cumul.</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Phase 4<br>Bar build</div>
+      <div class="bar-track"><div class="bar-fill" style="width:50%;background:#B84C2B">$650</div></div>
+      <div class="bar-amt">$2,450 cumul.</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Phase 5<br>Entertaining space</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:#6A5A8A">$1,000</div></div>
+      <div class="bar-amt">$3,450 total</div>
+    </div>
+  </div>
+
+  <div class="cost-section">
+    <h2>Phase-by-phase cost breakdown</h2>
+    <table class="cost-table">
+      <thead><tr><th>Phase</th><th>What's included</th><th>Plan A (low)</th><th>Plan B (high)</th></tr></thead>
+      <tbody>
+        <tr><td>Phase 0 · Prep</td><td>Haul-away, lead test, cleaning supplies, stain samples</td><td class="cost-lo">$200–350</td><td class="cost-hi">$200–350</td></tr>
+        <tr><td>Phase 1 · Interior</td><td>TSP, floor cleaner, stain (both halves), wall sealer, poly (floor)</td><td class="cost-lo">$350–550</td><td class="cost-hi">$350–550</td></tr>
+        <tr><td>Phase 2 · Storage</td><td>Shelving, bike hooks, bins (×10), label maker, hardware</td><td class="cost-lo">$450–650</td><td class="cost-hi">$450–650</td></tr>
+        <tr><td>Phase 3 · Exterior</td><td>Rust treatment, roof coating, pressure wash rental, wall stain</td><td class="cost-lo">$500–850</td><td class="cost-hi">$500–850</td></tr>
+        <tr><td>Phase 4 · Bar</td><td>Lumber, top, sink, RV water system, shelving, hardware</td><td class="cost-lo">$600–900</td><td class="cost-hi">$600–900</td></tr>
+        <tr><td>Phase 5A · Lighting</td><td>String lights, plug-in pendants, extension cords</td><td class="cost-lo">$80–150</td><td class="cost-hi">$1,500–3,000</td></tr>
+        <tr><td>Phase 5B · TV + screen</td><td>55" TV, wall mount, screen door panel</td><td class="cost-lo">$300–600</td><td class="cost-hi">$300–600</td></tr>
+        <tr><td>Phase 5C · Furniture</td><td>Sofa, chairs, rug, coffee table, side tables, stools</td><td class="cost-lo">$600–1,500</td><td class="cost-hi">$1,500–3,500</td></tr>
+        <tr><td>Phase 5D · Accessories</td><td>Bar accessories, throw pillows, lanterns, misc</td><td class="cost-lo">$100–200</td><td class="cost-hi">$200–400</td></tr>
+        <tr class="cost-total"><td>Total</td><td>All phases, all materials, DIY labor</td><td>$3,180–5,750</td><td>$5,700–10,800</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note tip">
+    <strong>Biggest variables:</strong> Furniture is where cost swings most — secondhand from Facebook Marketplace keeps Phase 5C under $800; buying new pushes it to $3,500+. Electrical is the other swing — Plan A (no electrician) vs Plan B ($1,500–3,000) is the single biggest cost difference in the whole project.
+  </div>
+
+  <div class="note">
+    <strong>What's not included:</strong> Your labor (entirely DIY). Any structural repairs beyond what assessment turns up. Plan B additions like insulation, wood stove/mini-split, or a dedicated electrical subpanel are add-ons on top of these figures.
+  </div>
+
+</div>
+
+<!-- ══ CHECKLIST ══ -->
+<div id="tab-checklist" class="tab-content">
+
+  <div class="note tip" style="margin-bottom:1.5rem">
+    Click any item to mark it done. Progress saves in your browser session.
+  </div>
+
+  <div class="check-phase">
+    <div class="check-phase-header">
+      <span class="phase-pill" style="background:#5C3D20">Phase 0</span>
+      <h3>Prep + Cleanout</h3>
+      <span class="check-phase-progress" id="prog-0">0/5</span>
+    </div>
+    <div class="checklist" id="cl-0">
+      <div class="check-item" onclick="toggle(this,'0')"><div class="check-box">✓</div><div><div class="check-title">Full cleanout — everything out of both halves</div><div class="check-sub">Haul-away or dumpster arranged</div></div></div>
+      <div class="check-item" onclick="toggle(this,'0')"><div class="check-box">✓</div><div><div class="check-title">Lead paint test on walls</div><div class="check-sub">3M LeadCheck swabs — result before any sanding</div></div></div>
+      <div class="check-item" onclick="toggle(this,'0')"><div class="check-box">✓</div><div><div class="check-title">Full assessment — floor rot probe, roof rust, moisture check</div><div class="check-sub">Photo document every problem area</div></div></div>
+      <div class="check-item" onclick="toggle(this,'0')"><div class="check-box">✓</div><div><div class="check-title">Locate + mark all wall studs both halves</div><div class="check-sub">Stud finder or knock-and-probe method</div></div></div>
+      <div class="check-item" onclick="toggle(this,'0')"><div class="check-box">✓</div><div><div class="check-title">Stain samples purchased and test patches applied</div><div class="check-sub">Evaluate in evening lighting before buying full cans</div></div></div>
+    </div>
+  </div>
+
+  <div class="check-phase">
+    <div class="check-phase-header">
+      <span class="phase-pill" style="background:#3A6A9A">Phase 1</span>
+      <h3>Interior Walls + Floor</h3>
+      <span class="check-phase-progress" id="prog-1">0/8</span>
+    </div>
+    <div class="checklist" id="cl-1">
+      <div class="check-item" onclick="toggle(this,'1')"><div class="check-box">✓</div><div><div class="check-title">TSP wash all interior walls — both halves</div><div class="check-sub">Top to bottom, allow 48 hr dry</div></div></div>
+      <div class="check-item" onclick="toggle(this,'1')"><div class="check-box">✓</div><div><div class="check-title">Re-secure loose wall boards, caulk gaps</div></div></div>
+      <div class="check-item" onclick="toggle(this,'1')"><div class="check-box">✓</div><div><div class="check-title">Replace / sister rotted floor boards</div><div class="check-sub">Probe again after cleaning to confirm all bad spots found</div></div></div>
+      <div class="check-item" onclick="toggle(this,'1')"><div class="check-box">✓</div><div><div class="check-title">Re-screw all squeaky / loose floor boards</div></div></div>
+      <div class="check-item" onclick="toggle(this,'1')"><div class="check-box">✓</div><div><div class="check-title">Deck cleaner scrub on entire floor — 48 hr dry</div></div></div>
+      <div class="check-item" onclick="toggle(this,'1')"><div class="check-box">✓</div><div><div class="check-title">Stain all walls — both halves</div><div class="check-sub">Work board by board, wipe excess, ventilate</div></div></div>
+      <div class="check-item" onclick="toggle(this,'1')"><div class="check-box">✓</div><div><div class="check-title">Penetrating sealer on all walls</div><div class="check-sub">One coat, allow to cure</div></div></div>
+      <div class="check-item" onclick="toggle(this,'1')"><div class="check-box">✓</div><div><div class="check-title">Floor: stain (2 coats) + water-based poly (2–3 coats) + 7-day cure</div></div></div>
+    </div>
+  </div>
+
+  <div class="check-phase">
+    <div class="check-phase-header">
+      <span class="phase-pill" style="background:#7A8C6E">Phase 2</span>
+      <h3>Storage Buildout</h3>
+      <span class="check-phase-progress" id="prog-2">0/7</span>
+    </div>
+    <div class="checklist" id="cl-2">
+      <div class="check-item" onclick="toggle(this,'2')"><div class="check-box">✓</div><div><div class="check-title">Final sort — all items into zones A–E</div><div class="check-sub">Label seasonal bins during sort, not after</div></div></div>
+      <div class="check-item" onclick="toggle(this,'2')"><div class="check-box">✓</div><div><div class="check-title">Install pegboard (tools zone, left wall above window)</div></div></div>
+      <div class="check-item" onclick="toggle(this,'2')"><div class="check-box">✓</div><div><div class="check-title">Install back wall + right wall shelving</div><div class="check-sub">Stay below window sill height on back wall</div></div></div>
+      <div class="check-item" onclick="toggle(this,'2')"><div class="check-box">✓</div><div><div class="check-title">Position, stain, and anchor center shelving unit</div><div class="check-sub">Anchor to wall — anti-tip strap or L-bracket</div></div></div>
+      <div class="check-item" onclick="toggle(this,'2')"><div class="check-box">✓</div><div><div class="check-title">Mount bike hook cleat board on bottom wall</div><div class="check-sub">Hang all bikes — kids low, adults higher, stagger heights</div></div></div>
+      <div class="check-item" onclick="toggle(this,'2')"><div class="check-box">✓</div><div><div class="check-title">Fill and label all bins, place on shelves</div></div></div>
+      <div class="check-item" onclick="toggle(this,'2')"><div class="check-box">✓</div><div><div class="check-title">Zone map posted near partition opening</div></div></div>
+    </div>
+  </div>
+
+  <div class="check-phase">
+    <div class="check-phase-header">
+      <span class="phase-pill" style="background:#8B5C35">Phase 3</span>
+      <h3>Exterior + Roof</h3>
+      <span class="check-phase-progress" id="prog-3">0/7</span>
+    </div>
+    <div class="checklist" id="cl-3">
+      <div class="check-item" onclick="toggle(this,'3')"><div class="check-box">✓</div><div><div class="check-title">Replace rotted exterior boards, caulk all gaps</div></div></div>
+      <div class="check-item" onclick="toggle(this,'3')"><div class="check-box">✓</div><div><div class="check-title">Roof: clear debris, re-secure fasteners</div></div></div>
+      <div class="check-item" onclick="toggle(this,'3')"><div class="check-box">✓</div><div><div class="check-title">Roof: wire brush rust + apply rust converter — 24 hr cure</div></div></div>
+      <div class="check-item" onclick="toggle(this,'3')"><div class="check-box">✓</div><div><div class="check-title">Roof: butyl tape + sealant on laps + ridge cap</div></div></div>
+      <div class="check-item" onclick="toggle(this,'3')"><div class="check-box">✓</div><div><div class="check-title">Roof: elastomeric coating — 2 coats</div></div></div>
+      <div class="check-item" onclick="toggle(this,'3')"><div class="check-box">✓</div><div><div class="check-title">Pressure wash walls + wood brightener — 72 hr dry</div></div></div>
+      <div class="check-item" onclick="toggle(this,'3')"><div class="check-box">✓</div><div><div class="check-title">Exterior wall stain — 2 coats exposed walls, 1 coat others</div></div></div>
+    </div>
+  </div>
+
+  <div class="check-phase">
+    <div class="check-phase-header">
+      <span class="phase-pill" style="background:#B84C2B">Phase 4</span>
+      <h3>Bar Build</h3>
+      <span class="check-phase-progress" id="prog-4">0/9</span>
+    </div>
+    <div class="checklist" id="cl-4">
+      <div class="check-item" onclick="toggle(this,'4')"><div class="check-box">✓</div><div><div class="check-title">Source reclaimed lumber + bar top material</div></div></div>
+      <div class="check-item" onclick="toggle(this,'4')"><div class="check-box">✓</div><div><div class="check-title">Mount ledger board into studs at 40"</div><div class="check-sub">Level carefully — everything follows from this</div></div></div>
+      <div class="check-item" onclick="toggle(this,'4')"><div class="check-box">✓</div><div><div class="check-title">Install front legs, rails, lower shelf platform</div></div></div>
+      <div class="check-item" onclick="toggle(this,'4')"><div class="check-box">✓</div><div><div class="check-title">Cut sink hole, sand, stain + seal bar top — 48 hr cure</div></div></div>
+      <div class="check-item" onclick="toggle(this,'4')"><div class="check-box">✓</div><div><div class="check-title">Mount bar top + drop in sink</div></div></div>
+      <div class="check-item" onclick="toggle(this,'4')"><div class="check-box">✓</div><div><div class="check-title">Install RV water system — pump, tank, faucet, drain</div><div class="check-sub">Test all connections before closing up face boards</div></div></div>
+      <div class="check-item" onclick="toggle(this,'4')"><div class="check-box">✓</div><div><div class="check-title">Clad front with reclaimed face boards</div></div></div>
+      <div class="check-item" onclick="toggle(this,'4')"><div class="check-box">✓</div><div><div class="check-title">Install bottle shelving (3 tiers, full 8 ft, LED strips)</div></div></div>
+      <div class="check-item" onclick="toggle(this,'4')"><div class="check-box">✓</div><div><div class="check-title">Foot rail, caulk wall joint, bar accessories</div></div></div>
+    </div>
+  </div>
+
+  <div class="check-phase">
+    <div class="check-phase-header">
+      <span class="phase-pill" style="background:#6A5A8A">Phase 5</span>
+      <h3>Entertaining Space Fitout</h3>
+      <span class="check-phase-progress" id="prog-5">0/8</span>
+    </div>
+    <div class="checklist" id="cl-5">
+      <div class="check-item" onclick="toggle(this,'5')"><div class="check-box">✓</div><div><div class="check-title">Lighting installed — string lights or electrician (Plan B)</div></div></div>
+      <div class="check-item" onclick="toggle(this,'5')"><div class="check-box">✓</div><div><div class="check-title">TV wall mount installed + TV hung</div></div></div>
+      <div class="check-item" onclick="toggle(this,'5')"><div class="check-box">✓</div><div><div class="check-title">Screen panel behind double doors installed</div></div></div>
+      <div class="check-item" onclick="toggle(this,'5')"><div class="check-box">✓</div><div><div class="check-title">Sofa, chairs, and rug in position</div></div></div>
+      <div class="check-item" onclick="toggle(this,'5')"><div class="check-box">✓</div><div><div class="check-title">Coffee table, side tables, bar stools placed</div></div></div>
+      <div class="check-item" onclick="toggle(this,'5')"><div class="check-box">✓</div><div><div class="check-title">Bottles moved to bar shelving</div></div></div>
+      <div class="check-item" onclick="toggle(this,'5')"><div class="check-box">✓</div><div><div class="check-title">Water tank filled, sink tested</div></div></div>
+      <div class="check-item" onclick="toggle(this,'5')"><div class="check-box">✓</div><div><div class="check-title">Everything lit up at night — final check ✓</div></div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ DEPENDENCIES ══ -->
+<div id="tab-dependencies" class="tab-content">
+
+  <div class="note" style="margin-bottom:1.5rem">
+    These are the hard sequencing rules — things that <strong>cannot</strong> be reordered without causing problems. Everything else is flexible.
+  </div>
+
+  <div class="dep-list">
+    <div class="dep-item">
+      <div class="dep-header">
+        <span class="month-phase-tag" style="background:#5C3D20;font-size:.7rem;padding:.2rem .6rem">Cleanout</span>
+        <span class="dep-arrow">must come before</span>
+        <span class="month-phase-tag" style="background:#3A6A9A;font-size:.7rem;padding:.2rem .6rem">Interior cleaning</span>
+      </div>
+      <div class="dep-body">You cannot clean or stain around stuff. Everything out first, no exceptions. Trying to work around clutter means uneven cleaning and you'll miss problem areas.</div>
+    </div>
+    <div class="dep-item">
+      <div class="dep-header">
+        <span class="month-phase-tag" style="background:#3A6A9A;font-size:.7rem;padding:.2rem .6rem">Interior floor cleaning</span>
+        <span class="dep-arrow">must come before</span>
+        <span class="month-phase-tag" style="background:#3A6A9A;font-size:.7rem;padding:.2rem .6rem">Staining</span>
+      </div>
+      <div class="dep-body">Stain applied to a dirty or damp surface won't penetrate evenly and will peel. <strong>48–72 hours of dry time</strong> after cleaning before any stain touches the wood.</div>
+    </div>
+    <div class="dep-item">
+      <div class="dep-header">
+        <span class="month-phase-tag" style="background:#3A6A9A;font-size:.7rem;padding:.2rem .6rem">Staining</span>
+        <span class="dep-arrow">must come before</span>
+        <span class="month-phase-tag" style="background:#3A6A9A;font-size:.7rem;padding:.2rem .6rem">Sealing / poly</span>
+      </div>
+      <div class="dep-body">Always stain before sealing — sealer locks in the color and protects it. Reversing this order means the stain can't penetrate.</div>
+    </div>
+    <div class="dep-item">
+      <div class="dep-header">
+        <span class="month-phase-tag" style="background:#3A6A9A;font-size:.7rem;padding:.2rem .6rem">Floor poly — 7-day cure</span>
+        <span class="dep-arrow">must come before</span>
+        <span class="month-phase-tag" style="background:#7A8C6E;font-size:.7rem;padding:.2rem .6rem">Any furniture or shelving</span>
+      </div>
+      <div class="dep-body">Uncured poly scratches and scuffs immediately under load. <strong>7 full days</strong> before anything heavy sits on it. Non-negotiable.</div>
+    </div>
+    <div class="dep-item">
+      <div class="dep-header">
+        <span class="month-phase-tag" style="background:#8B5C35;font-size:.7rem;padding:.2rem .6rem">Roof work</span>
+        <span class="dep-arrow">must come before</span>
+        <span class="month-phase-tag" style="background:#8B5C35;font-size:.7rem;padding:.2rem .6rem">Exterior wall staining</span>
+      </div>
+      <div class="dep-body">Any rust remover, sealant, or coating dripping down from the roof will contaminate freshly stained walls. Always roof first, walls second.</div>
+    </div>
+    <div class="dep-item">
+      <div class="dep-header">
+        <span class="month-phase-tag" style="background:#B84C2B;font-size:.7rem;padding:.2rem .6rem">Bar frame</span>
+        <span class="dep-arrow">must come before</span>
+        <span class="month-phase-tag" style="background:#B84C2B;font-size:.7rem;padding:.2rem .6rem">Bar top mounting</span>
+      </div>
+      <div class="dep-body">The top rests on and attaches to the frame. Build the frame, check it for level and square, then cut and mount the top.</div>
+    </div>
+    <div class="dep-item">
+      <div class="dep-header">
+        <span class="month-phase-tag" style="background:#B84C2B;font-size:.7rem;padding:.2rem .6rem">Bar top — sink cut + finish</span>
+        <span class="dep-arrow">must happen before mounting</span>
+        <span class="month-phase-tag" style="background:#B84C2B;font-size:.7rem;padding:.2rem .6rem">Top goes on frame</span>
+      </div>
+      <div class="dep-body">Cut the sink hole and finish (stain + seal) the top while it's flat on sawhorses. Doing either operation after mounting is awkward and risks damaging the frame or the finished walls.</div>
+    </div>
+    <div class="dep-item">
+      <div class="dep-header">
+        <span class="month-phase-tag" style="background:#B84C2B;font-size:.7rem;padding:.2rem .6rem">Water system test</span>
+        <span class="dep-arrow">must come before</span>
+        <span class="month-phase-tag" style="background:#B84C2B;font-size:.7rem;padding:.2rem .6rem">Face boards go on</span>
+      </div>
+      <div class="dep-body">Test every connection in the RV water system — pump, tubing, faucet, drain — with the underside fully accessible. Discovering a leak after the face boards are on means pulling them off again.</div>
+    </div>
+    <div class="dep-item">
+      <div class="dep-header">
+        <span class="month-phase-tag" style="background:#6A5A8A;font-size:.7rem;padding:.2rem .6rem">Electrical / lighting</span>
+        <span class="dep-arrow">must come before</span>
+        <span class="month-phase-tag" style="background:#6A5A8A;font-size:.7rem;padding:.2rem .6rem">Furniture placement</span>
+      </div>
+      <div class="dep-body">Run all cords, mount all fixtures, and hang the TV before furniture comes in. Moving a sofa back out to run a cord behind it is the kind of thing that kills a weekend.</div>
+    </div>
+  </div>
+
+</div>
+
+</div><!-- /main -->
+
+<script>
+  const tabs = ['timeline','costs','checklist','dependencies'];
+  function showTab(id, btn) {
+    tabs.forEach(t => document.getElementById('tab-'+t).classList.remove('active'));
+    document.querySelectorAll('.pnav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-'+id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function toggle(el, phase) {
+    el.classList.toggle('checked');
+    updateProgress(phase);
+  }
+
+  function updateProgress(phase) {
+    const cl = document.getElementById('cl-'+phase);
+    const items = cl.querySelectorAll('.check-item');
+    const done = cl.querySelectorAll('.check-item.checked').length;
+    document.getElementById('prog-'+phase).textContent = done+'/'+items.length;
+  }
+</script>
+</body>
+</html>

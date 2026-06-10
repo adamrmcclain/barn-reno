@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storage Zone Map — Corrected</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bark:#2C1A08; --walnut:#5C3D20; --cedar:#8B5C35; --wheat:#D4A96A;
+    --linen:#F2EAD8; --cream:#FAF6EE; --smoke:#5A6070; --bg2:#F5EFE3;
+    --bike:#3A6A9A; --seasonal:#7A8C6E; --tools:#8B5C35; --sports:#B84C2B; --overflow:#6A5A8A;
+  }
+  body { background:var(--cream); font-family:'Inter',sans-serif; color:var(--bark); padding:1.5rem; }
+
+  .hdr { background:var(--bark); padding:2rem 1.5rem 1.5rem; text-align:center; border-radius:8px; margin-bottom:1.5rem; border-bottom:3px solid var(--wheat); }
+  .hdr-eye { font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:var(--wheat); opacity:.65; margin-bottom:.5rem; }
+  .hdr h1 { font-family:'Playfair Display',serif; font-size:clamp(1.4rem,3.5vw,2.2rem); color:var(--wheat); }
+  .hdr h1 em { color:var(--linen); font-style:italic; }
+  .hdr-sub { margin-top:.4rem; font-size:.82rem; color:var(--linen); opacity:.5; font-weight:300; }
+
+  .plan-wrap { background:white; border:1px solid #E5D9C4; border-radius:8px; padding:1.2rem; margin-bottom:1.5rem; max-width:700px; margin-left:auto; margin-right:auto; }
+  .plan-wrap h2 { font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--walnut); margin-bottom:.75rem; }
+  svg { display:block; width:100%; height:auto; }
+
+  .change-note { background:white; border-left:4px solid var(--wheat); border-radius:0 8px 8px 0; padding:1rem 1.2rem; margin-bottom:1rem; max-width:700px; margin-left:auto; margin-right:auto; }
+  .change-note h3 { font-size:.8rem; text-transform:uppercase; letter-spacing:.1em; color:var(--cedar); margin-bottom:.5rem; font-weight:500; }
+  .change-note ul { font-size:.84rem; color:var(--smoke); line-height:1.7; list-style:none; }
+  .change-note ul li::before { content:'→ '; color:var(--cedar); }
+
+  .zone-legend { display:flex; flex-wrap:wrap; gap:.5rem 1rem; max-width:700px; margin:0 auto 1.5rem; }
+  .legend-item { display:flex; align-items:center; gap:.4rem; font-size:.78rem; color:var(--smoke); }
+  .legend-dot { width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <p class="hdr-eye">Barn Reno · Storage Section · Corrected Layout</p>
+  <h1>Storage Zone Map — <em>Updated</em></h1>
+  <p class="hdr-sub">12 × 15.5 ft · Correct door + window positions</p>
+</div>
+
+<div class="change-note">
+  <h3>What changed from the previous version</h3>
+  <ul>
+    <li>Single door moved to the <strong>right wall</strong> (not bottom-right corner)</li>
+    <li>Large multi-pane window on the <strong>bottom wall</strong></li>
+    <li>Second window on the <strong>left wall</strong></li>
+    <li>Bikes moved to <strong>bottom wall flanking the window</strong> — hooks on either side</li>
+    <li>Seasonal bins moved to <strong>right wall</strong> (solid, no openings)</li>
+    <li>Tools stay <strong>left wall upper section</strong> (above the window)</li>
+    <li>Sports zone moved to <strong>left wall lower section</strong> (below the window)</li>
+    <li>Built-in bookcase shown at top-left near partition</li>
+  </ul>
+</div>
+
+<div class="plan-wrap">
+  <h2>Storage section — corrected zone map</h2>
+  <svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+
+    <!-- dimension labels -->
+    <line x1="100" y1="28" x2="540" y2="28" stroke="#8B5C35" stroke-width=".5" marker-end="url(#ar)" marker-start="url(#ar)"/>
+    <text font-family="Inter,sans-serif" font-size="11" fill="#8B5C35" x="320" y="22" text-anchor="middle">15.5 ft wide</text>
+    <line x1="76" y1="44" x2="76" y2="454" stroke="#8B5C35" stroke-width=".5" marker-end="url(#ar)" marker-start="url(#ar)"/>
+    <text font-family="Inter,sans-serif" font-size="11" fill="#8B5C35" x="70" y="252" text-anchor="middle" transform="rotate(-90 70 252)">12 ft deep</text>
+
+    <!-- room fill -->
+    <rect x="100" y="44" width="440" height="410" fill="#F5EFE3" stroke="#5C3D20" stroke-width="6" rx="2"/>
+
+    <!-- ── TOP WALL — partition to entertaining space ── -->
+    <text font-family="Inter,sans-serif" font-size="10" fill="#8B5C35" x="320" y="62" text-anchor="middle" opacity=".7">← partition · to entertaining space →</text>
+
+    <!-- built-in bookcase at top-left near partition -->
+    <rect x="106" y="50" width="70" height="55" rx="2" fill="#5C3D20" opacity=".2" stroke="#5C3D20" stroke-width="1.5"/>
+    <line x1="120" y1="50" x2="120" y2="105" stroke="#5C3D20" stroke-width=".8" opacity=".4"/>
+    <line x1="140" y1="50" x2="140" y2="105" stroke="#5C3D20" stroke-width=".8" opacity=".4"/>
+    <line x1="160" y1="50" x2="160" y2="105" stroke="#5C3D20" stroke-width=".8" opacity=".4"/>
+    <line x1="106" y1="72" x2="176" y2="72" stroke="#5C3D20" stroke-width=".8" opacity=".4"/>
+    <line x1="106" y1="88" x2="176" y2="88" stroke="#5C3D20" stroke-width=".8" opacity=".4"/>
+    <text font-family="Inter,sans-serif" font-size="8" fill="#5C3D20" x="141" y="116" text-anchor="middle">built-in</text>
+    <text font-family="Inter,sans-serif" font-size="8" fill="#5C3D20" x="141" y="126" text-anchor="middle">bookcase</text>
+    <text font-family="Inter,sans-serif" font-size="7" fill="#8B5C35" x="141" y="136" text-anchor="middle">(stays, storage use)</text>
+
+    <!-- ── LEFT WALL — window + tools above + sports below ── -->
+
+    <!-- ZONE C — Tools, left wall ABOVE window -->
+    <rect x="106" y="50" width="58" height="130" rx="2" fill="#8B5C35" opacity=".12"/>
+    <rect x="110" y="54" width="50" height="122" rx="2" fill="none" stroke="#8B5C35" stroke-width="1.5" stroke-dasharray="5 3"/>
+    <!-- pegboard dots -->
+    <circle cx="122" cy="76" r="2.5" fill="#8B5C35" opacity=".5"/>
+    <circle cx="135" cy="76" r="2.5" fill="#8B5C35" opacity=".5"/>
+    <circle cx="148" cy="76" r="2.5" fill="#8B5C35" opacity=".5"/>
+    <circle cx="122" cy="90" r="2.5" fill="#8B5C35" opacity=".5"/>
+    <circle cx="135" cy="90" r="2.5" fill="#8B5C35" opacity=".5"/>
+    <circle cx="148" cy="90" r="2.5" fill="#8B5C35" opacity=".5"/>
+    <circle cx="122" cy="104" r="2.5" fill="#8B5C35" opacity=".5"/>
+    <circle cx="135" cy="104" r="2.5" fill="#8B5C35" opacity=".5"/>
+    <circle cx="148" cy="104" r="2.5" fill="#8B5C35" opacity=".5"/>
+    <text font-family="Inter,sans-serif" font-size="10" font-weight="500" fill="#8B5C35" x="135" y="152" text-anchor="middle">C · Tools</text>
+    <text font-family="Inter,sans-serif" font-size="8" fill="#8B5C35" x="135" y="163" text-anchor="middle">pegboard</text>
+
+    <!-- LEFT WALL window -->
+    <rect x="100" y="188" width="12" height="80" rx="1" fill="#A8C5DA" stroke="#5C3D20" stroke-width="1.5"/>
+    <line x1="100" y1="228" x2="112" y2="228" stroke="#5C3D20" stroke-width="1"/>
+    <text font-family="Inter,sans-serif" font-size="9" fill="#3A6A8A" x="96" y="232" text-anchor="end">window</text>
+
+    <!-- ZONE D — Sports, left wall BELOW window -->
+    <rect x="106" y="278" width="58" height="170" rx="2" fill="#B84C2B" opacity=".12"/>
+    <rect x="110" y="282" width="50" height="162" rx="2" fill="none" stroke="#B84C2B" stroke-width="1.5" stroke-dasharray="5 3"/>
+    <!-- ball bin icon -->
+    <rect x="116" y="295" width="36" height="36" rx="3" fill="#B84C2B" opacity=".18"/>
+    <circle cx="126" cy="308" r="5" fill="#B84C2B" opacity=".45"/>
+    <circle cx="140" cy="312" r="4" fill="#B84C2B" opacity=".45"/>
+    <circle cx="130" cy="320" r="3.5" fill="#B84C2B" opacity=".45"/>
+    <!-- hooks row -->
+    <line x1="115" y1="348" x2="158" y2="348" stroke="#B84C2B" stroke-width="1.5" opacity=".4"/>
+    <circle cx="124" cy="348" r="3" fill="#B84C2B" opacity=".5"/>
+    <circle cx="139" cy="348" r="3" fill="#B84C2B" opacity=".5"/>
+    <circle cx="154" cy="348" r="3" fill="#B84C2B" opacity=".5"/>
+    <text font-family="Inter,sans-serif" font-size="10" font-weight="500" fill="#B84C2B" x="135" y="408" text-anchor="middle">D · Sports</text>
+    <text font-family="Inter,sans-serif" font-size="8" fill="#B84C2B" x="135" y="420" text-anchor="middle">bins + hooks</text>
+
+    <!-- ── RIGHT WALL — seasonal shelving (solid wall) ── -->
+    <!-- ZONE B — Seasonal -->
+    <rect x="476" y="50" width="62" height="404" rx="2" fill="#7A8C6E" opacity=".15"/>
+    <rect x="480" y="54" width="54" height="396" rx="2" fill="none" stroke="#7A8C6E" stroke-width="1.5" stroke-dasharray="5 3"/>
+    <!-- shelf lines -->
+    <line x1="480" y1="120" x2="534" y2="120" stroke="#7A8C6E" stroke-width="1.5" opacity=".5"/>
+    <line x1="480" y1="190" x2="534" y2="190" stroke="#7A8C6E" stroke-width="1.5" opacity=".5"/>
+    <line x1="480" y1="260" x2="534" y2="260" stroke="#7A8C6E" stroke-width="1.5" opacity=".5"/>
+    <line x1="480" y1="330" x2="534" y2="330" stroke="#7A8C6E" stroke-width="1.5" opacity=".5"/>
+    <!-- bin rectangles -->
+    <rect x="484" y="126" width="46" height="58" rx="2" fill="#7A8C6E" opacity=".2"/>
+    <rect x="484" y="196" width="46" height="58" rx="2" fill="#7A8C6E" opacity=".2"/>
+    <rect x="484" y="266" width="46" height="58" rx="2" fill="#7A8C6E" opacity=".2"/>
+    <text font-family="Inter,sans-serif" font-size="9" fill="#4A6A4A" x="507" y="157" text-anchor="middle">bin</text>
+    <text font-family="Inter,sans-serif" font-size="9" fill="#4A6A4A" x="507" y="227" text-anchor="middle">bin</text>
+    <text font-family="Inter,sans-serif" font-size="9" fill="#4A6A4A" x="507" y="297" text-anchor="middle">bin</text>
+    <text font-family="Inter,sans-serif" font-size="10" font-weight="500" fill="#7A8C6E" x="507" y="370" text-anchor="middle">B</text>
+    <text font-family="Inter,sans-serif" font-size="9" fill="#7A8C6E" x="507" y="382" text-anchor="middle">Seasonal</text>
+    <text font-family="Inter,sans-serif" font-size="8" fill="#7A8C6E" x="507" y="394" text-anchor="middle">shelving</text>
+    <text font-family="Inter,sans-serif" font-size="7" fill="#5A6A5A" x="507" y="440" text-anchor="middle">solid wall</text>
+    <text font-family="Inter,sans-serif" font-size="7" fill="#5A6A5A" x="507" y="450" text-anchor="middle">no openings</text>
+
+    <!-- single door on right wall -->
+    <rect x="528" y="200" width="12" height="55" fill="#F5EFE3"/>
+    <line x1="540" y1="200" x2="566" y2="214" stroke="#5C3D20" stroke-width="1.5"/>
+    <path d="M540 200 Q564 216 563 255" fill="none" stroke="#8B5C35" stroke-width="1" stroke-dasharray="4 3"/>
+    <text font-family="Inter,sans-serif" font-size="9" fill="#5C3D20" x="570" y="222" text-anchor="start">door</text>
+
+    <!-- ── BOTTOM WALL — large window + bike hooks flanking ── -->
+
+    <!-- ZONE A — Bikes, flanking the window on bottom wall -->
+    <!-- left bike section -->
+    <rect x="106" y="402" width="130" height="50" rx="2" fill="#3A6A9A" opacity=".15"/>
+    <rect x="110" y="406" width="122" height="42" rx="2" fill="none" stroke="#3A6A9A" stroke-width="1.5" stroke-dasharray="5 3"/>
+    <line x1="126" y1="427" x2="142" y2="418" stroke="#3A6A9A" stroke-width="2"/>
+    <line x1="152" y1="427" x2="168" y2="418" stroke="#3A6A9A" stroke-width="2"/>
+    <line x1="178" y1="427" x2="194" y2="418" stroke="#3A6A9A" stroke-width="2"/>
+    <text font-family="Inter,sans-serif" font-size="8" fill="#3A6A9A" x="160" y="440" text-anchor="middle">bike hooks</text>
+
+    <!-- bottom wall window -->
+    <rect x="240" y="446" width="190" height="12" rx="1" fill="#A8C5DA" stroke="#5C3D20" stroke-width="1.5"/>
+    <line x1="335" y1="446" x2="335" y2="458" stroke="#5C3D20" stroke-width="1"/>
+    <text font-family="Inter,sans-serif" font-size="9" fill="#3A6A8A" x="335" y="472" text-anchor="middle">large window (bottom wall)</text>
+
+    <!-- right bike section -->
+    <rect x="436" y="402" width="38" height="50" rx="2" fill="#3A6A9A" opacity=".15"/>
+    <rect x="440" y="406" width="34" height="42" rx="2" fill="none" stroke="#3A6A9A" stroke-width="1.5" stroke-dasharray="5 3"/>
+    <line x1="448" y1="427" x2="464" y2="418" stroke="#3A6A9A" stroke-width="2"/>
+    <text font-family="Inter,sans-serif" font-size="8" fill="#3A6A9A" x="455" y="440" text-anchor="middle">hooks</text>
+
+    <!-- A zone label -->
+    <text font-family="Inter,sans-serif" font-size="9" font-weight="500" fill="#3A6A9A" x="270" y="404" text-anchor="middle">A · Bikes — hooks on bottom wall, flanking window</text>
+
+    <!-- ── CENTER — flex zone + center shelving ── -->
+    <!-- center shelving unit -->
+    <rect x="192" y="64" width="270" height="110" rx="3" fill="#D4A96A" opacity=".2" stroke="#D4A96A" stroke-width="1.5"/>
+    <line x1="192" y1="95"  x2="462" y2="95"  stroke="#C9922A" stroke-width="1" opacity=".5"/>
+    <line x1="192" y1="126" x2="462" y2="126" stroke="#C9922A" stroke-width="1" opacity=".5"/>
+    <line x1="192" y1="152" x2="462" y2="152" stroke="#C9922A" stroke-width="1" opacity=".5"/>
+    <text font-family="Inter,sans-serif" font-size="10" fill="#8B6030" x="327" y="85" text-anchor="middle">center shelving unit</text>
+    <text font-family="Inter,sans-serif" font-size="9"  fill="#8B6030" x="327" y="99" text-anchor="middle">(labeled bins — visible from entertaining space)</text>
+
+    <!-- flex / overflow zone -->
+    <rect x="192" y="186" width="270" height="200" rx="3" fill="#6A5A8A" opacity=".08"/>
+    <rect x="196" y="190" width="262" height="192" rx="2" fill="none" stroke="#6A5A8A" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <text font-family="Inter,sans-serif" font-size="10" font-weight="500" fill="#6A5A8A" x="327" y="284" text-anchor="middle">E · Flex / overflow</text>
+    <text font-family="Inter,sans-serif" font-size="9"  fill="#6A5A8A" x="327" y="298" text-anchor="middle">lawn equipment · active rotation</text>
+    <text font-family="Inter,sans-serif" font-size="8"  fill="#6A5A8A" x="327" y="312" text-anchor="middle">keep intentionally small</text>
+
+    <!-- compass / orientation note -->
+    <text font-family="Inter,sans-serif" font-size="8" fill="#8B5C35" x="538" y="490" text-anchor="end" opacity=".5">not to scale</text>
+  </svg>
+</div>
+
+<!-- zone legend -->
+<div class="zone-legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#3A6A9A;opacity:.8"></div>A · Bikes (bottom wall)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7A8C6E;opacity:.8"></div>B · Seasonal (right wall)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#8B5C35;opacity:.8"></div>C · Tools (left wall, above window)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#B84C2B;opacity:.8"></div>D · Sports (left wall, below window)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#6A5A8A;opacity:.6"></div>E · Flex / overflow (center)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#D4A96A;opacity:.8"></div>Center shelving (visible from entertaining)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#A8C5DA"></div>Windows</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#5C3D20;opacity:.7"></div>Built-in bookcase</div>
+</div>
+
+</body>
+</html>
