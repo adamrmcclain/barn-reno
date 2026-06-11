@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Step 5 — Basement — Barn Reno</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-brand">
+      <div class="brand-title">Backyard <em>Barn</em></div>
+      <div class="brand-sub">Renovation Guide</div>
+    </div>
+    <div class="topnav-links">
+      <a href="index.html"><span class="nav-icon">🏠</span> Overview</a>
+      <a href="floorplans.html"><span class="nav-icon">📐</span> Floor Plans</a>
+      <a href="interior.html"><span class="nav-icon">🪵</span> Interior</a>
+      <a href="exterior.html"><span class="nav-icon">🏚</span> Exterior</a>
+      <a href="bar.html"><span class="nav-icon">🍺</span> Bar</a>
+      <a href="storage.html"><span class="nav-icon">📦</span> Storage</a>
+      <a href="basement.html" class="active"><span class="nav-icon">🪨</span> Basement</a>
+      <a href="timeline.html"><span class="nav-icon">📅</span> Timeline</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hdr">
+  <p class="eye">Barn Reno · Step 5</p>
+  <h1>The Stone <em>Basement</em></h1>
+  <p>13 × 13 ft · Limestone walls · Brick floor · New door · Fixed windows · Bulk storage</p>
+</div>
+
+<div class="phase-nav">
+  <button class="pnav-btn active" onclick="showPhase('phase-overview',this)">Overview</button>
+  <button class="pnav-btn" onclick="showPhase('phase-assess',this)">1 · Assess</button>
+  <button class="pnav-btn" onclick="showPhase('phase-moisture',this)">2 · Moisture</button>
+  <button class="pnav-btn" onclick="showPhase('phase-cleanout',this)">3 · Clean Out</button>
+  <button class="pnav-btn" onclick="showPhase('phase-door',this)">4 · New Door</button>
+  <button class="pnav-btn" onclick="showPhase('phase-windows',this)">5 · Windows</button>
+  <button class="pnav-btn" onclick="showPhase('phase-floor',this)">6 · Brick Floor</button>
+  <button class="pnav-btn" onclick="showPhase('phase-storage',this)">7 · Storage Setup</button>
+  <button class="pnav-btn" onclick="showPhase('phase-supplies',this)">Supplies</button>
+</div>
+
+<div class="main">
+
+<!-- ══ OVERVIEW ══ -->
+<div id="phase-overview" class="phase-content active">
+  <div class="phase-intro">
+    <div class="phase-num">✦</div>
+    <div>
+      <h2>What you're working with — and what it becomes</h2>
+      <p>A 13×13 ft dry-stacked limestone basement with a brick floor and ~7 ft ceiling. Currently an open junk space with no door and three unglazed window openings. The goal: clean, weathertight, dry storage for bikes, seasonal bins, and lawn equipment — at very low cost.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="info-card">
+      <h4>What's there now</h4>
+      <ul>
+        <li>Dry-stacked limestone walls — solid and beautiful</li>
+        <li>Brick floor — fairly flat, appears intact</li>
+        <li>~7 ft ceiling height — full standing clearance</li>
+        <li>Three window openings — unglazed or mesh-covered</li>
+        <li>One doorway opening — frame present, no door</li>
+        <li>Existing timber shelf structure / loft framing above</li>
+        <li>Active junk: hoses, garden tools, old lumber</li>
+        <li>Unknown moisture history — needs rain check</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>What it becomes</h4>
+      <ul>
+        <li>Weathertight exterior door — locking</li>
+        <li>Three fixed glazed windows — light + ventilation</li>
+        <li>Sealed brick floor — swept clean, stabilized</li>
+        <li>Dehumidifier on a drain or bucket</li>
+        <li>Bike hooks on wall — all bikes off the floor</li>
+        <li>Wall shelving for labeled seasonal totes</li>
+        <li>Lawn equipment zone — mower, hoses, tools</li>
+        <li>Stone walls left raw — they're already stunning</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note stone">
+    <strong>The stone walls don't need anything done to them.</strong> Dry-stacked limestone like this is self-draining by design — water moves through the gaps rather than pooling behind the wall. Don't seal, paint, or parge the interior stone face. Leave it raw. It will look incredible once the space is clean and lit.
+  </div>
+
+  <div class="note tip">
+    <strong>Cost perspective:</strong> This is the lowest cost-per-square-foot addition in the whole project. You're getting 169 sq ft of covered, lockable storage for roughly $800–1,800 in materials. The limestone walls and brick floor are already there — you're just making them usable.
+  </div>
+
+  <div class="two-col" style="margin-top:1rem">
+    <div class="info-card" style="border-left-color:#8A9A7A">
+      <h4>Dimensions</h4>
+      <p>13 × 13 ft footprint · ~169 sq ft<br>
+      ~7 ft ceiling height<br>
+      3 window openings<br>
+      1 door opening (frame in place)</p>
+    </div>
+    <div class="info-card" style="border-left-color:#8A9A7A">
+      <h4>Estimated cost</h4>
+      <p>Door + installation: $300–700<br>
+      Windows (×3): $150–400<br>
+      Floor sealer + cleaning: $60–120<br>
+      Storage hardware: $200–400<br>
+      <strong>Total: ~$800–1,800</strong></p>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showPhase('phase-assess',this)">Start: Assess →</button></div>
+</div>
+
+<!-- ══ ASSESS ══ -->
+<div id="phase-assess" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">1</div>
+    <div>
+      <h2>Assessment — before touching anything</h2>
+      <p>The basement has some specific things to check that differ from the upper barn. Stone foundations and brick floors have their own failure modes. Spend a focused hour down there with good lighting before buying a single thing.</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step stone">
+      <div class="step-header">
+        <div class="step-icon ic-stone">DO</div>
+        <div class="step-title">Check the stone wall mortar — or lack of it</div>
+        <div class="step-meta">Walls · 20 min</div>
+      </div>
+      <div class="step-body">
+        Dry-stacked limestone (no mortar) is what you appear to have — this is actually the traditional and preferred construction for this region. The stones hold each other by weight and friction. What to check:
+        <ul>
+          <li>Are any stones visibly shifted, tilted, or leaning inward? These need to be reset before loading the space with heavy storage</li>
+          <li>Any large gaps (2"+ wide) that go all the way through to exterior? These are critter entry points — stuff with hardware cloth before closing up</li>
+          <li>Are the top courses (where the wall meets the wood structure above) solid? This is the most common failure point</li>
+        </ul>
+        If any stones seem genuinely unstable, this is a job for a stonemason before you proceed. Most old Kentucky limestone foundations are remarkably solid — don't be alarmed by surface weathering.
+      </div>
+    </div>
+
+    <div class="step stone">
+      <div class="step-header">
+        <div class="step-icon ic-stone">DO</div>
+        <div class="step-title">Inspect the brick floor — look for heaving or soft spots</div>
+        <div class="step-meta">Floor · 15 min</div>
+      </div>
+      <div class="step-body">
+        Walk every square foot. What you're looking for:
+        <ul>
+          <li><strong>Heaved bricks</strong> — ones that have pushed up higher than neighbors, usually from frost or tree roots. These get knocked flat and re-set before sealing</li>
+          <li><strong>Sunken areas</strong> — depressions where the subbase has settled. Fill with sand-set mortar before sealing</li>
+          <li><strong>Loose or missing bricks</strong> — mark them, they need to be reset or replaced</li>
+          <li><strong>White efflorescence</strong> (chalky mineral deposits) — normal and harmless, clean off with diluted white vinegar before sealing</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Measure all three window openings precisely</div>
+        <div class="step-meta">Windows · 20 min</div>
+      </div>
+      <div class="step-body">
+        Measure each opening in at least three places — width at top, middle, and bottom; height on left, center, and right. Stone openings are almost never perfectly square. The smallest measurement is your rough opening size — your window unit needs to fit within that. Write each one down separately; they're likely all different sizes.
+        <br><br>
+        Also note the wall thickness at each opening — typically 12–18" for limestone foundations. This determines what type of window frame and sill you need.
+        <span class="tag">Tape measure</span>
+        <span class="tag">Notepad — measure 3× per opening</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Measure the door opening — height, width, and squareness</div>
+        <div class="step-meta">Door · 15 min</div>
+      </div>
+      <div class="step-body">
+        Same approach as windows — measure at multiple points. Also check:
+        <ul>
+          <li>Is the existing door frame/lintel still solid? The lintel (the stone or timber spanning the top of the opening) carries the wall weight above — if it's cracked or sagging it needs attention before hanging a door</li>
+          <li>Is the threshold (bottom of the opening) at grade, above grade, or below? This affects drainage and whether you need a threshold sill</li>
+          <li>Which direction does the door need to swing? From the photos it appears to open outward — confirm this is what you want</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step warn">
+      <div class="step-header">
+        <div class="step-icon ic-warn">!</div>
+        <div class="step-title">Check for active critter habitation before spending time down there</div>
+        <div class="step-meta">Safety · 5 min</div>
+      </div>
+      <div class="step-body">
+        Open spaces like this with multiple unglazed openings are prime habitat for bats, snakes, and wasps. Do a quick sweep with a flashlight before spending extended time in the space. Bats in Kentucky are protected — if you find a colony, contact your county extension office before disturbing them. Wasps can be handled with standard wasp spray at dusk.
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">Do your moisture check now — visit after a significant rain</div>
+      </div>
+      <div class="step-body">
+        The best assessment happens 24 hours after a heavy rain. Walk the floor looking for standing water, wet patches, or water staining on the walls. Dry-stacked stone allows water to weep through and drain — some seeping during heavy rain is normal and not a dealbreaker. Standing water that doesn't drain within a few hours is a concern requiring grading work outside before you store anything down here.
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showPhase('phase-moisture',this)">Next: Moisture →</button></div>
+</div>
+
+<!-- ══ MOISTURE ══ -->
+<div id="phase-moisture" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">2</div>
+    <div>
+      <h2>Moisture control — the make-or-break step</h2>
+      <p>A limestone basement that stays dry is a fantastic storage space. One that stays wet is a mold factory. Address moisture before anything else goes in — no exceptions.</p>
+    </div>
+  </div>
+
+  <h3 class="section-head">Understand what you're dealing with first</h3>
+  <div class="steps">
+    <div class="step stone">
+      <div class="step-header">
+        <div class="step-icon ic-stone">DO</div>
+        <div class="step-title">Identify the moisture source — there are three types</div>
+      </div>
+      <div class="step-body">
+        <strong>Type 1 — Condensation:</strong> Warm humid air hits the cool stone walls and condenses. Looks like sweating walls, especially in summer. Fix: ventilation + dehumidifier. Very common and easy to manage.
+        <br><br>
+        <strong>Type 2 — Seepage through walls:</strong> Water migrates through the stone and mortar during rain. Creates wet patches or weeping on wall face. Fix: exterior grading to direct water away from foundation. Do NOT seal the interior wall — you'll trap water inside the stone.
+        <br><br>
+        <strong>Type 3 — Floor infiltration:</strong> Water comes up through or around the brick floor. Usually from a high water table or poor drainage. Fix: this is the most serious type and may require a French drain or sump — get a waterproofing contractor's opinion if you see this.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Check and improve exterior grading around the foundation</div>
+        <div class="step-meta">Outside · 1–2 hrs</div>
+      </div>
+      <div class="step-body">
+        The ground around the basement should slope away from the foundation at least 6 inches over 10 feet. From the exterior photos there's significant vegetation, debris, and ivy growing against the stone — this traps moisture and accelerates wall damage. Clear it all back 2–3 feet from the foundation, then assess the grade.
+        <ul>
+          <li>Remove ivy, brush, and debris from against the foundation — this is exterior work that should happen anyway</li>
+          <li>If the ground slopes toward the building, add topsoil to create positive drainage away</li>
+          <li>Make sure downspouts discharge at least 6 ft from the foundation</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Install a dehumidifier with continuous drain</div>
+        <div class="step-meta">Year-round · essential</div>
+      </div>
+      <div class="step-body">
+        Even a dry basement will see elevated humidity in summer. A 30–50 pint dehumidifier running continuously is the single most effective thing you can do for long-term storage protection. Set it to maintain 50–55% relative humidity.
+        <ul>
+          <li>Place it in the center of the space for best air circulation</li>
+          <li>Connect to a drain hose that runs to a floor drain or exits through a window opening — you don't want to be emptying a bucket in a basement storage space</li>
+          <li>The drain hose can run out through one of the window openings before you glaze them — plan the routing before installing windows</li>
+          <li>Run it May through October at minimum; year-round is better</li>
+        </ul>
+        <span class="tag">Frigidaire 50-pt dehumidifier — $180–250</span>
+        <span class="tag">20 ft drain hose — $15</span>
+      </div>
+    </div>
+
+    <div class="step warn">
+      <div class="step-header">
+        <div class="step-icon ic-warn">!</div>
+        <div class="step-title">Never store fabric, paper, or electronics here without confirmed dryness</div>
+      </div>
+      <div class="step-body">
+        Plastic totes with sealed lids protect most seasonal items fine. But anything fabric (camping gear, tarps, blankets), cardboard boxes, or electronics needs the dehumidifier running and humidity confirmed below 60% before storing. If in doubt, store those categories upstairs and put only hard plastic, metal, and rubber items in the basement.
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showPhase('phase-cleanout',this)">Next: Clean out →</button></div>
+</div>
+
+<!-- ══ CLEAN OUT ══ -->
+<div id="phase-cleanout" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">3</div>
+    <div>
+      <h2>Clean out — fully, before any other work</h2>
+      <p>Everything out. The existing timber shelf structure, all the tools, hoses, lumber, leaves — all of it. You cannot assess the floor, walls, or openings properly with junk in the way. This is also when you discover what surprises are hiding in the corners.</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Remove everything including the existing metal shelving</div>
+        <div class="step-meta">~3–4 hrs</div>
+      </div>
+      <div class="step-body">
+        The metal shelving unit visible in the photos can come back in if it's in good shape — but get it out first so you can work freely and assess the wall behind it. Check it for rust damage while it's out; if the shelves are solid, clean, paint with Rust-Oleum, and re-use.
+        <ul>
+          <li>Sort as you go: trash / keep / move to upper barn temporarily</li>
+          <li>The hoses, garden tools, and lumber scraps are likely all staying in some form — just staging them outside temporarily</li>
+          <li>Old lumber: assess each piece. Straight, sound boards can be reclaimed for shelving. Rotted or warped ones go</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Sweep and blow out all debris — leaves, dirt, cobwebs</div>
+        <div class="step-meta">~1 hr</div>
+      </div>
+      <div class="step-body">
+        A leaf blower through the open door opening is the fastest way to clear the bulk. Follow with a stiff push broom. Get into every corner and along the base of the walls where debris accumulates. Once swept, you'll be able to see the brick floor properly and spot any problem areas.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Stuff all wall gaps with hardware cloth — temporary critter block</div>
+        <div class="step-meta">~30 min</div>
+      </div>
+      <div class="step-body">
+        Before you walk away from a clean empty space, stuff any gaps larger than ½" in the stone walls with crumpled hardware cloth (metal mesh). This prevents re-infestation while you work on the door and windows over the following weeks. It's temporary — you'll mortar or properly seal once the space is finished.
+        <span class="tag">¼" hardware cloth — $15–20 for a roll</span>
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">The existing loft/shelf framing above — decide now</div>
+      </div>
+      <div class="step-body">
+        The timber framing visible in the photos (the loft-like structure spanning the space) — decide whether it stays or goes before doing anything else. If it's solid, it could become very useful overhead storage shelving with minimal work. If it's rotted, sagging, or just in the way, remove it now while the space is empty. Don't work around it for months and then decide to pull it.
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showPhase('phase-door',this)">Next: New Door →</button></div>
+</div>
+
+<!-- ══ DOOR ══ -->
+<div id="phase-door" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">4</div>
+    <div>
+      <h2>Installing the new door — the most important weathertighting step</h2>
+      <p>A stone opening without a square frame is the challenge here. You're not hanging a door in drywall — you need to build a proper wooden door frame within the stone opening first, then hang the door in that frame. This is a half-day job that makes an enormous difference.</p>
+    </div>
+  </div>
+
+  <h3 class="section-head">Choosing the right door</h3>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Get a pre-hung exterior door — not a slab door</div>
+      </div>
+      <div class="step-body">
+        A <strong>pre-hung door</strong> comes with the door already mounted in its own frame with hinges attached. You install the whole unit — frame and door together — into the rough opening. This is far simpler than building a frame and hanging a slab separately, and produces a better weathertight result.
+        <ul>
+          <li>Measure your rough opening and buy the closest standard size that fits within it (standard: 32"×80" or 36"×80")</li>
+          <li>You'll shim the pre-hung unit within the rough opening to make it level and plumb</li>
+          <li>Go for a solid wood or fiberglass exterior door — steel is fine too but may look out of character against the stone</li>
+          <li>A simple plank-style wood door (board-and-batten) would look fantastic and authentic against the limestone</li>
+        </ul>
+        <span class="tag">Pre-hung exterior door 32"×80" — $200–500</span>
+        <span class="tag">Board-and-batten style recommended</span>
+      </div>
+    </div>
+
+    <h3 class="section-head">Installation — step by step</h3>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Build a rough buck frame inside the stone opening</div>
+        <div class="step-meta">~2 hrs</div>
+      </div>
+      <div class="step-body">
+        A "buck" is a rectangular wood frame built to fill the stone opening and give you a square, plumb surface to attach the pre-hung door to. Without it, you're trying to attach a door to irregular stone — which won't work.
+        <ul>
+          <li>Cut 2×6 or 2×8 lumber to form a rectangle that fits snugly within the stone opening</li>
+          <li>The width of the lumber should roughly match the wall thickness so the frame sits flush inside</li>
+          <li>Use a level religiously — even small deviations here cause the door to swing open or closed on its own</li>
+          <li>Anchor the buck to the stone using masonry anchors or Tapcon screws driven into the stone</li>
+          <li>Fill any gaps between the buck and stone with expanding foam insulation — this weatherseals and locks the frame in place</li>
+        </ul>
+        <span class="tag">2×6 or 2×8 lumber</span>
+        <span class="tag">Tapcon masonry screws + hammer drill</span>
+        <span class="tag">Great Stuff expanding foam</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Set the pre-hung unit into the buck — shim, level, fasten</div>
+        <div class="step-meta">~2 hrs</div>
+      </div>
+      <div class="step-body">
+        This is the same process as hanging a door in a house — just into your buck frame instead of standard stud framing.
+        <ul>
+          <li>Test fit the pre-hung unit first before fastening anything</li>
+          <li>Shim from the hinge side first — hinge side must be perfectly plumb</li>
+          <li>Check that the door opens and closes freely before driving any screws</li>
+          <li>Fasten through the pre-hung frame into the buck with 3" screws — hit both sides and top</li>
+          <li>Check and recheck level and plumb after every fastener — things shift</li>
+          <li>Test swing again: door should stay where you leave it (not swing open or closed)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Seal and trim — inside and outside</div>
+        <div class="step-meta">~1 hr</div>
+      </div>
+      <div class="step-body">
+        <ul>
+          <li>Fill any remaining gap between the pre-hung frame and the buck with expanding foam — let cure, then trim flush with a utility knife</li>
+          <li>Outside: apply flashing tape over the top of the door frame where it meets the stone, to direct water away</li>
+          <li>Outside: caulk the joint between the door frame and stone with a flexible exterior caulk (not rigid — stone moves seasonally)</li>
+          <li>Inside: simple wood casing trim covers the gap between frame and stone face — nail into the buck frame, not the stone</li>
+          <li>Install a threshold with a door sweep on the bottom of the door to seal the gap at the sill</li>
+        </ul>
+        <span class="tag">Flashing tape</span>
+        <span class="tag">Exterior caulk (flexible)</span>
+        <span class="tag">Door sweep / threshold</span>
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">Add a deadbolt — this space will have bikes and equipment in it</div>
+      </div>
+      <div class="step-body">
+        A basic keyed deadbolt takes 20 minutes to install and makes the basement secure. Use the same key as the barn's main doors if possible so you're not carrying multiple keys. Schlage or Kwikset both make weatherized exterior deadbolts for around $30–50.
+        <span class="tag">Schlage B60N exterior deadbolt — $35–55</span>
+      </div>
+    </div>
+
+    <div class="step warn">
+      <div class="step-header">
+        <div class="step-icon ic-warn">!</div>
+        <div class="step-title">Check the lintel above the door opening before hanging anything</div>
+      </div>
+      <div class="step-body">
+        The lintel is the stone or timber that spans the top of the door opening and carries the wall load above it. Before installing the buck or hanging the door, inspect it carefully. If it's a large flat stone: look for cracks running vertically from its ends — these indicate the stone is splitting under load and needs to be addressed by a stonemason before you hang a door. If it's a timber lintel: probe for rot with a screwdriver.
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showPhase('phase-windows',this)">Next: Windows →</button></div>
+</div>
+
+<!-- ══ WINDOWS ══ -->
+<div id="phase-windows" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">5</div>
+    <div>
+      <h2>Fixing the three windows — same buck principle, simpler execution</h2>
+      <p>The window openings get the same treatment as the door: a wood buck frame built into the stone opening, then a window unit set into it. For a basement storage space, fixed (non-opening) windows are the right call — simpler, cheaper, and more secure.</p>
+    </div>
+  </div>
+
+  <h3 class="section-head">What type of window to use</h3>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Use fixed glass block or fixed single-pane windows — not casements</div>
+      </div>
+      <div class="step-body">
+        For a storage basement, you have three good options:
+        <br><br>
+        <strong>Option 1 — Glass block panels:</strong> Pre-assembled glass block panels fit directly into the opening with mortar or a vinyl frame kit. No buck needed for standard sizes. Extremely durable, very secure (can't be broken easily), great light transmission, zero maintenance. Best option if the openings are roughly square. Cost: $40–80 per panel.
+        <br><br>
+        <strong>Option 2 — Fixed single-pane window with buck:</strong> A simple fixed-pane window unit (no sash, just glass in a frame) set into a buck. Gives more light than glass block and looks more like a traditional window. Cost: $60–150 per unit for custom or standard sizes.
+        <br><br>
+        <strong>Option 3 — Polycarbonate panel:</strong> Corrugated or flat polycarbonate (like Twinwall) cut to fit and screwed to a buck frame. Cheapest option, lets light through, very easy to install. Not as attractive but completely functional. Cost: $20–40 per opening.
+        <br><br>
+        <strong>Recommendation for your space:</strong> Glass block for the two smaller openings, fixed single-pane for the largest one if you want a more finished look. Or all glass block for simplicity and maximum security.
+        <span class="tag">Pittsburgh Corning glass block — $40–80/panel</span>
+        <span class="tag">Vinyl frame glass block kit — easiest install</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Build a buck frame for each window opening</div>
+        <div class="step-meta">~1 hr per window</div>
+      </div>
+      <div class="step-body">
+        Same principle as the door buck but smaller. Use 2×6 lumber (or match your wall thickness) to build a rectangular frame that fits within the stone opening.
+        <ul>
+          <li>Cut four pieces: two for sides (full height of opening), one for top, one for bottom sill</li>
+          <li>Assemble as a rectangle, checking for square with a diagonal measurement</li>
+          <li>Slide into the opening and shim until level and plumb</li>
+          <li>Anchor to stone with Tapcon masonry screws — 2 per side minimum</li>
+          <li>Foam the gaps between buck and stone — both inside and outside</li>
+          <li>The window unit then installs into the buck exactly as it would in a house wall</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Installing glass block panels — mortar or vinyl frame method</div>
+        <div class="step-meta">~1.5 hrs per window</div>
+      </div>
+      <div class="step-body">
+        <strong>Vinyl frame kit method (easiest):</strong> Glass block kits come with a vinyl channel frame that you install into the buck opening first, then snap the glass blocks into. No mortar, no mess.
+        <ul>
+          <li>Cut the vinyl channels to fit your buck opening</li>
+          <li>Snap channels onto the perimeter of the glass block assembly</li>
+          <li>Set the whole assembly into the buck opening</li>
+          <li>Caulk the joint between vinyl frame and buck with silicone</li>
+          <li>Done — no mortar cure time needed</li>
+        </ul>
+        <strong>Mortar method (more traditional, stronger):</strong>
+        <ul>
+          <li>Mix glass block mortar (white, pre-mixed)</li>
+          <li>Lay blocks one row at a time with ⅜" mortar joints</li>
+          <li>Use plastic spacers to keep joints consistent</li>
+          <li>Allow 24 hrs to cure before any stress on the panel</li>
+          <li>Tool the joints smooth and clean off mortar haze with a damp sponge</li>
+        </ul>
+        <span class="tag">Glass block mortar — $12–18</span>
+        <span class="tag">Glass block spacers — $8</span>
+        <span class="tag">Vinyl glass block frame kit</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Flash and caulk the exterior of each window</div>
+        <div class="step-meta">~20 min per window</div>
+      </div>
+      <div class="step-body">
+        Water running down the stone face will try to get in at the top of each window frame. A strip of self-adhesive flashing tape over the top joint directs water over and past the frame.
+        <ul>
+          <li>Apply flashing tape to the top of the window buck where it meets the stone</li>
+          <li>Lap the tape at least 4" onto the stone face above and 4" onto the window frame below</li>
+          <li>Then caulk all four sides of the window-to-stone joint with flexible exterior caulk</li>
+          <li>On the sill (bottom), create a slight outward slope so water drains away from the building — a sloped wood sill board or mortar slope does this</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">Route your dehumidifier drain through one window before glazing</div>
+      </div>
+      <div class="step-body">
+        Before you install the last window, run the dehumidifier drain hose through the opening and cap around it. Once all three windows are in, you'd have to drill through stone or glass block to add a drain exit — much harder. Plan the drain route first, then install windows around it.
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showPhase('phase-floor',this)">Next: Brick Floor →</button></div>
+</div>
+
+<!-- ══ FLOOR ══ -->
+<div id="phase-floor" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">6</div>
+    <div>
+      <h2>The brick floor — clean, reset, seal</h2>
+      <p>The brick floor is a genuine feature — old handmade brick is beautiful and durable. The goal is to stabilize what's there, level any problem spots, and seal it so it's cleanable and dust-free. You are not replacing it.</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Reset any heaved, sunken, or loose bricks</div>
+        <div class="step-meta">~2–3 hrs</div>
+      </div>
+      <div class="step-body">
+        Old brick floors are sand-set — the bricks sit on a compacted sand bed with no mortar between them (or very old, crumbled mortar). This makes resetting easy:
+        <ul>
+          <li>Pry up the problem brick with a flat bar — it should come up easily</li>
+          <li>Add or remove sand underneath to bring it to the right height</li>
+          <li>Re-set the brick, check it's level with neighbors</li>
+          <li>Sweep dry sand or dry-set mortar into the joints around it</li>
+          <li>For missing bricks: antique brick salvage yards often have matching old brick — worth the trip for authenticity</li>
+        </ul>
+        <span class="tag">Flat pry bar</span>
+        <span class="tag">Coarse sand or polymeric sand</span>
+        <span class="tag">Rubber mallet for setting</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Clean the brick — TSP wash, then rinse</div>
+        <div class="step-meta">~1.5 hrs + dry time</div>
+      </div>
+      <div class="step-body">
+        Same TSP wash used on the interior barn walls works perfectly on brick. Mix at label ratio, scrub with a stiff brush, let dwell 10 minutes, rinse thoroughly.
+        <ul>
+          <li>For efflorescence (white chalky deposits): scrub with diluted white vinegar (1:1 with water) first, let sit 10 min, rinse. Then do the TSP wash.</li>
+          <li>For oil or fuel stains from old equipment: apply cat litter or baking soda to absorb, leave overnight, sweep up, then TSP wash</li>
+          <li>Allow 48 hrs to dry completely before sealing — brick is very absorbent</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Seal with a penetrating masonry sealer — matte finish</div>
+        <div class="step-meta">~1.5 hrs + cure time</div>
+      </div>
+      <div class="step-body">
+        A penetrating masonry sealer soaks into the brick and mortar, binds the surface so it doesn't dust, repels moisture, and makes it cleanable — without changing the appearance or making it slippery.
+        <ul>
+          <li>Do NOT use a film-forming sealer or epoxy coating — it will peel as moisture migrates through the brick</li>
+          <li>Apply with a pump garden sprayer — saturate the surface, then back-brush to work it in</li>
+          <li>One coat is usually sufficient; a second coat on very absorbent brick is worthwhile</li>
+          <li>Allow 24 hrs before foot traffic, 72 hrs before placing heavy storage</li>
+        </ul>
+        <span class="tag">Surecrete Eco-Finish (penetrating) — $45–65/gal</span>
+        <span class="tag">Foundation Armor SX5000 — $60–80/gal</span>
+        <span class="tag">Pump garden sprayer</span>
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">The brick floor will look dramatically better after cleaning alone</div>
+      </div>
+      <div class="step-body">
+        Old brick that's been covered in debris and grime for years often reveals beautiful color variation and patina once cleaned. Don't be surprised if the floor looks completely different after the TSP wash — in a very good way. Take before and after photos; it's one of the most satisfying transformations in this whole project.
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showPhase('phase-storage',this)">Next: Storage Setup →</button></div>
+</div>
+
+<!-- ══ STORAGE SETUP ══ -->
+<div id="phase-storage" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">7</div>
+    <div>
+      <h2>Storage setup — what goes where</h2>
+      <p>With the door and windows in and the floor sealed, you're ready to set up storage. The layout is simple: bikes on the wall opposite the door, seasonal bins along the back wall, lawn equipment in the center floor zone near the door for easy access.</p>
+    </div>
+  </div>
+
+  <h3 class="section-head">Zone layout</h3>
+  <div class="steps">
+    <div class="step stone">
+      <div class="step-header">
+        <div class="step-icon ic-stone">DO</div>
+        <div class="step-title">Bike hooks — mount into the stone with masonry anchors</div>
+        <div class="step-meta">Right wall or back wall</div>
+      </div>
+      <div class="step-body">
+        You can absolutely mount bike hooks directly into the limestone wall using masonry anchors. This is more secure than you might expect — dry-stacked stone is very hard.
+        <ul>
+          <li>Use a hammer drill with a masonry bit to drill into the stone (not the gaps between stones)</li>
+          <li>Install sleeve anchors or Tapcon screws rated for the hook load</li>
+          <li>Alternatively: mount a 2×8 horizontal board to the wall first (anchored at multiple points), then hang all hooks from the board — gives you flexibility to reposition hooks without drilling new holes in the stone</li>
+          <li>Aim for wall space that doesn't block the window light or the door swing</li>
+        </ul>
+        <span class="tag">Hammer drill + ½" masonry bit</span>
+        <span class="tag">Sleeve anchors or Tapcon 3"</span>
+        <span class="tag">Bike wall hooks — $12–18 each</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Seasonal bin shelving — freestanding, not wall-mounted</div>
+        <div class="step-meta">Back wall or side wall</div>
+      </div>
+      <div class="step-body">
+        Given the stone walls, freestanding heavy-duty shelving is easier than wall-mounting for heavy bin storage. A metal utility shelf (the kind used in garages) requires no anchoring and holds enormous weight.
+        <ul>
+          <li>Husky or Edsal metal shelving — 4–5 shelf units, 48"×18"×72" — $60–100 each</li>
+          <li>Position against the back wall or side wall away from the door</li>
+          <li>Same labeled bin system as planned upstairs — Sterilite 27-gal totes for seasonal items</li>
+          <li>Sleds and long items hang on wall hooks above the shelving</li>
+        </ul>
+        <span class="tag">Husky 5-shelf steel unit — $65–90</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Lawn equipment zone — center floor, near the door</div>
+      </div>
+      <div class="step-body">
+        Mower, pressure washer, hose reels, garden tools — anything you roll in and out goes in the floor zone nearest the door. The goal is one clear path: open door, roll equipment out, done.
+        <ul>
+          <li>Wall-mount a tool rack for long-handled tools (rakes, shovels, brooms) — keeps them vertical and out of the walkway</li>
+          <li>Hose reels mount to the wall or sit on a small shelf near the door</li>
+          <li>Keep this zone intentionally limited — it's the "active" zone, not overflow storage</li>
+        </ul>
+        <span class="tag">Wall-mount tool rack — $25–40</span>
+        <span class="tag">Hose reel wall mount — $20–35</span>
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">Add one light — battery-powered LED is enough to start</div>
+      </div>
+      <div class="step-body">
+        Before you have proper electrical run to the basement, a battery-powered motion-sensor LED light does the job surprisingly well. Mount one near the door and one at the back wall. When you eventually run electrical (from the upper barn), you can wire a proper switched fixture — the stone walls and exposed beam ceiling would look stunning with a couple of vintage-style cage bulb fixtures.
+        <span class="tag">Govee battery LED motion light — $20–30</span>
+        <span class="tag">Later: run conduit from upper barn electrical</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showPhase('phase-supplies',this)">View Supply List →</button></div>
+</div>
+
+<!-- ══ SUPPLIES ══ -->
+<div id="phase-supplies" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">★</div>
+    <div>
+      <h2>Full basement supply list</h2>
+      <p>Organized by phase. The door and window work requires a hammer drill — rent one if you don't own one (~$40/day). Everything else is standard hardware store.</p>
+    </div>
+  </div>
+
+  <h3 class="section-head">Assessment + cleanout</h3>
+  <table class="supply-table">
+    <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
+    <tbody>
+      <tr><td>¼" hardware cloth (10 ft roll)</td><td>Temporary gap stuffing — critter block</td><td class="cost">$15–20</td></tr>
+      <tr><td>Heavy-duty work gloves</td><td>Cleanout</td><td class="cost">$10–15</td></tr>
+      <tr><td>N95 respirator (2-pack)</td><td>Dust during cleanout</td><td class="cost">$10–15</td></tr>
+      <tr><td>Good flashlight / headlamp</td><td>Assessment in dark corners</td><td class="cost">Own or $20–30</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="section-head">Door installation</h3>
+  <table class="supply-table">
+    <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
+    <tbody>
+      <tr><td>Pre-hung exterior door (32" or 36" × 80")</td><td>Main door unit</td><td class="cost">$200–500</td></tr>
+      <tr><td>2×6 or 2×8 lumber (×4 boards, 8 ft)</td><td>Buck frame</td><td class="cost">$40–70</td></tr>
+      <tr><td>Tapcon masonry screws (3", 1 box)</td><td>Anchor buck to stone</td><td class="cost">$15–20</td></tr>
+      <tr><td>Great Stuff expanding foam (×2 cans)</td><td>Gap sealing around buck</td><td class="cost">$10–16</td></tr>
+      <tr><td>Flashing tape (4" × 10 ft roll)</td><td>Over door frame top</td><td class="cost">$12–18</td></tr>
+      <tr><td>Flexible exterior caulk</td><td>Frame-to-stone joint</td><td class="cost">$8–12</td></tr>
+      <tr><td>Door threshold + sweep</td><td>Bottom seal</td><td class="cost">$20–35</td></tr>
+      <tr><td>Deadbolt (exterior, keyed)</td><td>Security</td><td class="cost">$35–55</td></tr>
+      <tr><td>Hammer drill rental</td><td>Tapcon installation into stone</td><td class="cost">$40–50/day</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="section-head">Windows (×3)</h3>
+  <table class="supply-table">
+    <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
+    <tbody>
+      <tr><td>Glass block panels or fixed window units (×3)</td><td>Glaze window openings</td><td class="cost">$40–150 each</td></tr>
+      <tr><td>2×6 lumber for window bucks (×3 sets)</td><td>Buck frames</td><td class="cost">$60–90 total</td></tr>
+      <tr><td>Glass block mortar or vinyl frame kits</td><td>Setting glass block</td><td class="cost">$25–50</td></tr>
+      <tr><td>Silicone caulk (clear)</td><td>Window-to-frame seal</td><td class="cost">$10–15</td></tr>
+      <tr><td>Flashing tape (4" roll)</td><td>Over each window top</td><td class="cost">$12–18</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="section-head">Floor</h3>
+  <table class="supply-table">
+    <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
+    <tbody>
+      <tr><td>Coarse sand (1 bag)</td><td>Re-setting heaved bricks</td><td class="cost">$6–10</td></tr>
+      <tr><td>Polymeric sand (1 bag)</td><td>Joint fill after resetting</td><td class="cost">$20–30</td></tr>
+      <tr><td>TSP substitute (1 box)</td><td>Floor cleaning</td><td class="cost">$8–12</td></tr>
+      <tr><td>White vinegar (1 gal)</td><td>Efflorescence removal</td><td class="cost">$4–6</td></tr>
+      <tr><td>Stiff scrub brush + push broom</td><td>Cleaning</td><td class="cost">$15–25</td></tr>
+      <tr><td>Penetrating masonry sealer (1 gal)</td><td>Floor sealing — covers ~200 sq ft</td><td class="cost">$45–80</td></tr>
+      <tr><td>Pump garden sprayer</td><td>Sealer application</td><td class="cost">Own or $20–30</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="section-head">Moisture + storage</h3>
+  <table class="supply-table">
+    <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
+    <tbody>
+      <tr><td>50-pint dehumidifier</td><td>Year-round moisture control</td><td class="cost">$180–250</td></tr>
+      <tr><td>20 ft dehumidifier drain hose</td><td>Continuous drain — no bucket emptying</td><td class="cost">$12–18</td></tr>
+      <tr><td>Bike wall hooks (×4–6)</td><td>All bikes off the floor</td><td class="cost">$12–18 each</td></tr>
+      <tr><td>2×8 board (×1, 10 ft)</td><td>Bike hook mounting board</td><td class="cost">$12–18</td></tr>
+      <tr><td>Heavy-duty metal shelving unit (×1–2)</td><td>Seasonal bins</td><td class="cost">$65–100 each</td></tr>
+      <tr><td>Wall-mount tool rack</td><td>Long-handled tools vertical</td><td class="cost">$25–40</td></tr>
+      <tr><td>Motion-sensor LED lights (×2)</td><td>Lighting before electrical run</td><td class="cost">$20–30 each</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note tip">
+    <strong>Total estimated cost: $800–1,800</strong> — wide range depending on door choice (a solid wood door vs a basic steel unit swings $200+ alone) and how many of the window openings need full buck frames vs fit off-the-shelf glass block sizes. Get your measurements first, then price it out precisely.
+  </div>
+
+  <div class="note" style="margin-top:.75rem">
+    <strong>Sequence reminder:</strong> Cleanout → moisture check after rain → door buck + door → window bucks + windows → floor reset + clean + seal → dehumidifier → storage setup. Do not seal the floor before the windows and door are in — you'll just track debris back across it.
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+function showPhase(id, btn) {
+  document.querySelectorAll('.phase-content').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.pnav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>
