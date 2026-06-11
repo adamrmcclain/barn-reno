@@ -3,10 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Step 4 — Storage &amp; Workshop — Barn Reno</title>
+<title>Step 4 — Craft &amp; Workshop — Barn Reno</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  :root {
+    --bike:#3A6A9A; --seasonal:#7A8C6E; --tools:#8B5C35;
+    --sports:#B84C2B; --craft:#C9922A; --overflow:#6A5A8A;
+  }
+  .zone-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1rem; margin-bottom:1.5rem; }
+  .zone-card { background:white; border:1px solid #E5D9C4; border-radius:8px; overflow:hidden; }
+  .zone-header { padding:.85rem 1.1rem; color:white; }
+  .zone-header h3 { font-size:.95rem; font-weight:500; margin-bottom:.15rem; }
+  .zone-header .zone-dim { font-size:.75rem; opacity:.8; }
+  .zone-body { padding:1rem 1.1rem; }
+  .zone-body p { font-size:.83rem; color:var(--smoke); line-height:1.6; margin-bottom:.6rem; }
+  .zone-items { list-style:none; }
+  .zone-items li { font-size:.82rem; color:var(--smoke); padding:.2rem 0; display:flex; align-items:flex-start; gap:.4rem; }
+  .zone-items li::before { content:'·'; color:var(--cedar); flex-shrink:0; }
+
+  .shelf-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem; }
+  @media(max-width:560px) { .shelf-grid, .zone-grid { grid-template-columns:1fr; } }
+  .shelf-card { background:white; border:1px solid #E5D9C4; border-radius:8px; padding:1.1rem 1.2rem; }
+  .shelf-card h4 { font-size:.8rem; text-transform:uppercase; letter-spacing:.1em; color:var(--cedar); margin-bottom:.5rem; font-weight:500; }
+  .shelf-card p { font-size:.83rem; color:var(--smoke); line-height:1.6; }
+  .shelf-card ul { font-size:.83rem; color:var(--smoke); line-height:1.6; margin:.3rem 0 0 1rem; }
+
+  .bin-table { width:100%; border-collapse:collapse; font-size:.83rem; margin-bottom:1.5rem; }
+  .bin-table th { background:var(--walnut); color:var(--wheat); padding:.55rem .8rem; text-align:left; font-size:.7rem; text-transform:uppercase; letter-spacing:.1em; font-weight:500; }
+  .bin-table td { padding:.6rem .8rem; border-bottom:1px solid #EDE5D2; color:var(--smoke); vertical-align:top; }
+  .bin-table tr:last-child td { border-bottom:none; }
+  .bin-table tr:nth-child(even) td { background:var(--bg2); }
+  .bin-table td:first-child { font-weight:500; color:var(--bark); }
+  .bin-dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; vertical-align:middle; }
+
+  .sort-cols { display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem; margin-bottom:1.5rem; }
+  @media(max-width:560px) { .sort-cols { grid-template-columns:1fr 1fr; } }
+  .sort-col { border-radius:8px; overflow:hidden; }
+  .sort-col-hdr { padding:.6rem .8rem; color:white; font-size:.75rem; font-weight:600; text-transform:uppercase; letter-spacing:.07em; }
+  .sort-col-body { background:white; border:1px solid #E5D9C4; border-top:none; padding:.7rem .8rem; }
+  .sort-col-body p { font-size:.78rem; color:var(--smoke); line-height:1.5; }
+</style>
 </head>
 <body>
+
 <nav class="topnav">
   <div class="topnav-inner">
     <div class="topnav-brand">
@@ -14,134 +53,137 @@
       <div class="brand-sub">Renovation Guide</div>
     </div>
     <div class="topnav-links">
-      <a href="index.html" class="NAV_index"><span class="nav-icon">🏠</span> Overview</a>
-      <a href="floorplans.html" class="NAV_floorplans"><span class="nav-icon">📐</span> Floor Plans</a>
-      <a href="interior.html" class="NAV_interior"><span class="nav-icon">🪵</span> Interior</a>
-      <a href="exterior.html" class="NAV_exterior"><span class="nav-icon">🏚</span> Exterior</a>
-      <a href="bar.html" class="NAV_bar"><span class="nav-icon">🍺</span> Bar</a>
-      <a href="storage.html" class="NAV_storage active"><span class="nav-icon">📦</span> Storage</a>
-      <a href="basement.html" class="NAV_basement"><span class="nav-icon">🪨</span> Basement</a>
-      <a href="timeline.html" class="NAV_timeline"><span class="nav-icon">📅</span> Timeline</a>
+      <a href="index.html"><span class="nav-icon">🏠</span> Overview</a>
+      <a href="floorplans.html"><span class="nav-icon">📐</span> Floor Plans</a>
+      <a href="interior.html"><span class="nav-icon">🪵</span> Interior</a>
+      <a href="exterior.html"><span class="nav-icon">🏚</span> Exterior</a>
+      <a href="bar.html"><span class="nav-icon">🍺</span> Bar</a>
+      <a href="storage.html" class="active"><span class="nav-icon">📦</span> Storage</a>
+      <a href="basement.html"><span class="nav-icon">🪨</span> Basement</a>
+      <a href="timeline.html"><span class="nav-icon">📅</span> Timeline</a>
     </div>
   </div>
 </nav>
 
 <div class="page-hdr">
   <p class="eye">Barn Reno · Step 4</p>
-  <h1>Step 4 — Storage &amp; Workshop</h1>
-  <p>Craft/workshop upstairs · Bulk storage downstairs</p>
+  <h1>Craft &amp; <em>Workshop</em></h1>
+  <p>12 × 15.5 ft · Tools · Sports gear · Craft table · Workbench · Bulk storage moves to basement</p>
 </div>
+
 <div class="phase-nav">
-  <button class="pnav-btn active" onclick="showPhase('phase-zones',this)">Zones</button>
+  <button class="pnav-btn active" onclick="showPhase('phase-overview',this)">Overview</button>
   <button class="pnav-btn" onclick="showPhase('phase-floorplan',this)">Floor Plan</button>
   <button class="pnav-btn" onclick="showPhase('phase-sort',this)">1 · Sort</button>
-  <button class="pnav-btn" onclick="showPhase('phase-shelving',this)">2 · Shelving</button>
-  <button class="pnav-btn" onclick="showPhase('phase-bikes',this)">3 · Bikes ↓ Basement</button>
-  <button class="pnav-btn" onclick="showPhase('phase-bins',this)">4 · Bins</button>
+  <button class="pnav-btn" onclick="showPhase('phase-workbench',this)">2 · Workbench</button>
+  <button class="pnav-btn" onclick="showPhase('phase-tools',this)">3 · Tool Wall</button>
+  <button class="pnav-btn" onclick="showPhase('phase-sports',this)">4 · Sports Zone</button>
+  <button class="pnav-btn" onclick="showPhase('phase-shelving',this)">5 · Shelving</button>
   <button class="pnav-btn" onclick="showPhase('phase-supplies',this)">Supplies</button>
 </div>
-<div class="main">
-<div class="note tip" style="margin-bottom:1.5rem">
-  <strong>Updated plan:</strong> With the basement now available for bulk storage and bikes, this upper half becomes a dedicated craft and workshop space. The zone map below reflects this — seasonal storage and bikes move downstairs, workbench and craft table come in.
-</div>
-
 
 <div class="main">
 
-<!-- ══ ZONES ══ -->
-<div id="phase-zones" class="phase-content active">
+<!-- ══ OVERVIEW ══ -->
+<div id="phase-overview" class="phase-content active">
   <div class="phase-intro">
-    <div class="phase-num">▦</div>
+    <div class="phase-num">✦</div>
     <div>
-      <h2>Five zones in 186 sq ft</h2>
-      <p>The key to making a mixed storage space work is treating each category as its own dedicated zone — not mixing them. Once everything has a home, it stays organized with almost no effort. The layout below works with your actual wall positions, the partition opening, and the single door.</p>
-    </div>
-  </div>
-
-  <div class="zone-grid">
-    <div class="zone-card">
-      <div class="zone-header" style="background:var(--bike)">
-        <h3>🚲 Zone A — Bikes</h3>
-        <div class="zone-dim">Right wall · full height</div>
-      </div>
-      <div class="zone-body">
-        <p>Wall-mounted bike hooks along the right wall, stacked vertically to use the full ceiling height. Keeps bikes completely off the floor — reclaims ~30 sq ft of floor space.</p>
-        <ul class="zone-items">
-          <li>4–6 bikes on hooks</li>
-          <li>Helmets on a small shelf above</li>
-          <li>Pump + repair kit in a bin below</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="zone-card">
-      <div class="zone-header" style="background:var(--seasonal)">
-        <h3>❄️ Zone B — Seasonal</h3>
-        <div class="zone-dim">Back wall (window wall) · floor to mid height</div>
-      </div>
-      <div class="zone-body">
-        <p>The back wall under and beside the windows. Sleds, holiday bins, camping gear — stuff you reach for a few times a year. Low-priority access, so it goes against the farthest wall.</p>
-        <ul class="zone-items">
-          <li>Sleds (hang on wall hooks)</li>
-          <li>Labeled bins on shelving</li>
-          <li>Camping / outdoor gear</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="zone-card">
-      <div class="zone-header" style="background:var(--tools)">
-        <h3>🔧 Zone C — Tools</h3>
-        <div class="zone-dim">Left wall · near partition opening</div>
-      </div>
-      <div class="zone-body">
-        <p>Left wall closest to the partition opening — tools you reach for regularly. Pegboard panel on the wall for hand tools. Shelving below for power tools, the pressure washer, cords.</p>
-        <ul class="zone-items">
-          <li>Pegboard for hand tools</li>
-          <li>Lower shelf for power tools</li>
-          <li>Pressure washer + hoses</li>
-          <li>Extension cords</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="zone-card">
-      <div class="zone-header" style="background:var(--sports)">
-        <h3>⚽ Zone D — Sports gear</h3>
-        <div class="zone-dim">Left wall · center section</div>
-      </div>
-      <div class="zone-body">
-        <p>Ball bins, rackets, bats, cleats — the stuff that gets grabbed most often. Open bins at reachable height, right near the door. Easy in, easy out.</p>
-        <ul class="zone-items">
-          <li>Ball bin (open top)</li>
-          <li>Rackets / bats vertical</li>
-          <li>Gear bags on hooks</li>
-          <li>Cleats / sports shoes bin</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="zone-card">
-      <div class="zone-header" style="background:var(--overflow)">
-        <h3>📦 Zone E — Overflow / flex</h3>
-        <div class="zone-dim">Center floor · near single door</div>
-      </div>
-      <div class="zone-body">
-        <p>A small open floor area near the single door for things in active rotation — the stuff that's coming and going. Keep this zone intentionally small to prevent it becoming a catch-all.</p>
-        <ul class="zone-items">
-          <li>Lawn mower / seasonal equip</li>
-          <li>Anything currently "in use"</li>
-          <li>Max 4×4 ft footprint</li>
-        </ul>
-      </div>
+      <h2>The updated plan — workshop, not storage</h2>
+      <p>With bikes, seasonal bins, sleds, and lawn equipment moving to the basement, the rear half of the barn is freed up to become something genuinely useful: a craft room and workshop. The natural light from the back windows makes it ideal for detailed work. The partition opening stays completely clear.</p>
     </div>
   </div>
 
   <div class="note tip">
-    <strong>The single door placement works in your favor.</strong> With the door on the right wall (storage side), bikes on that wall and sports gear on the left means you enter and immediately access what you need most without walking through anything else.
+    <strong>What changed:</strong> The original plan had this half as mixed storage — bikes, seasonal bins, tools, overflow. Now that the basement handles bulk storage, this space has one clear purpose: active use. Workbench, craft table, tool pegboard, and sports gear only. Nothing that belongs in the basement comes up here.
   </div>
 
-  <div class="next-row"><button class="next-btn" onclick="showIdx(1)">See floor plan →</button></div>
+  <div class="zone-grid">
+    <div class="zone-card">
+      <div class="zone-header" style="background:#8B5C35">
+        <h3>🔨 Zone A — Workbench</h3>
+        <div class="zone-dim">Back wall · under the windows</div>
+      </div>
+      <div class="zone-body">
+        <p>An 8 ft workbench runs along the back wall directly under the large windows — the best natural light in the space. Pegboard above for tools. Clear counter surface for projects.</p>
+        <ul class="zone-items">
+          <li>8 ft butcher block or reclaimed slab top</li>
+          <li>Pegboard above — hand tools, drill bits, clamps</li>
+          <li>Power strip + outlets along back wall (Plan B)</li>
+          <li>Bin drawer or shelf below for hardware</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="zone-card">
+      <div class="zone-header" style="background:#C9922A">
+        <h3>✂️ Zone B — Craft Table</h3>
+        <div class="zone-dim">Center of room</div>
+      </div>
+      <div class="zone-body">
+        <p>A 6×4 ft table in the center of the space — big enough to spread out a project, close enough to the workbench to share tools. Freestanding so it can be moved if needed.</p>
+        <ul class="zone-items">
+          <li>6×4 ft table — IKEA RÅSKOG, folding table, or DIY</li>
+          <li>Chairs or stools tucked underneath when not in use</li>
+          <li>Good overhead lighting directly above</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="zone-card">
+      <div class="zone-header" style="background:#8B5C35">
+        <h3>🔧 Zone C — Tool Storage</h3>
+        <div class="zone-dim">Left wall · above window</div>
+      </div>
+      <div class="zone-body">
+        <p>Pegboard on the left wall above the window for hand tools. Shelving below the window for power tools, the pressure washer, extension cords, and hardware.</p>
+        <ul class="zone-items">
+          <li>4×4 ft pegboard panel above window</li>
+          <li>Shelf below window for power tools</li>
+          <li>Pressure washer + hose reel</li>
+          <li>Small parts organizer for fasteners</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="zone-card">
+      <div class="zone-header" style="background:#B84C2B">
+        <h3>⚽ Zone D — Sports Gear</h3>
+        <div class="zone-dim">Left wall · below window + near door</div>
+      </div>
+      <div class="zone-body">
+        <p>Open ball bin and gear hooks near the single door — grab it on the way out. The stuff that gets used most often should be closest to the exit.</p>
+        <ul class="zone-items">
+          <li>Open-top ball bin at floor level</li>
+          <li>Hooks for gear bags + rackets</li>
+          <li>Cleats / sports shoes shelf</li>
+          <li>Right next to the single door</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="zone-card">
+      <div class="zone-header" style="background:#6A5A8A">
+        <h3>📚 Zone E — Craft Shelving</h3>
+        <div class="zone-dim">Right wall · full height</div>
+      </div>
+      <div class="zone-body">
+        <p>The solid right wall (no windows, no door) is the best shelving wall in the space. Floor-to-ceiling shelving for craft supplies, labeled bins, and project materials.</p>
+        <ul class="zone-items">
+          <li>Adjustable shelving — IVAR or reclaimed</li>
+          <li>Labeled bins for craft supplies by category</li>
+          <li>Visible from partition opening — keep it tidy</li>
+          <li>Built-in bookcase (existing) near partition top-left</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>The partition opening stays completely clear.</strong> No furniture, no shelving, nothing blocking the threshold between the entertaining space and the workshop. This is a through-traffic corridor — treat it like a hallway.
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showPhase('phase-floorplan',this)">See floor plan →</button></div>
 </div>
 
 <!-- ══ FLOOR PLAN ══ -->
@@ -149,14 +191,14 @@
   <div class="phase-intro">
     <div class="phase-num">▦</div>
     <div>
-      <h2>Storage zone layout — top down</h2>
-      <p>Each zone color-coded and positioned in the actual 12 × 15.5 ft space. The large back windows are preserved — no shelving blocks them above 36".</p>
+      <h2>Craft / workshop layout — top down</h2>
+      <p>Workbench on the back wall under the windows. Craft table center. Pegboard and tool storage on the left wall. Sports zone near the door. Shelving on the right wall. Partition opening kept clear.</p>
     </div>
   </div>
 
   <div class="plan-wrap">
-    <h3>Storage section — zone map</h3>
-    <svg viewBox="0 0 580 460" xmlns="http://www.w3.org/2000/svg" width="100%">
+    <h3>Craft / workshop — zone map</h3>
+    <svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" width="100%">
       <defs>
         <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
           <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -164,123 +206,127 @@
       </defs>
 
       <!-- dimension labels -->
-      <line x1="90" y1="28" x2="530" y2="28" stroke="#8B5C35" stroke-width=".5" marker-end="url(#ar)" marker-start="url(#ar)"/>
-      <text font-family="Inter,sans-serif" font-size="11" fill="#8B5C35" x="310" y="22" text-anchor="middle">15.5 ft wide</text>
-      <line x1="68" y1="44" x2="68" y2="420" stroke="#8B5C35" stroke-width=".5" marker-end="url(#ar)" marker-start="url(#ar)"/>
-      <text font-family="Inter,sans-serif" font-size="11" fill="#8B5C35" x="62" y="234" text-anchor="middle" transform="rotate(-90 62 234)">12 ft deep</text>
+      <line x1="100" y1="22" x2="540" y2="22" stroke="#8B5C35" stroke-width=".5" marker-end="url(#ar)" marker-start="url(#ar)"/>
+      <text font-family="Inter,sans-serif" font-size="11" fill="#8B5C35" x="320" y="17" text-anchor="middle">15.5 ft wide</text>
+      <line x1="76" y1="44" x2="76" y2="454" stroke="#8B5C35" stroke-width=".5" marker-end="url(#ar)" marker-start="url(#ar)"/>
+      <text font-family="Inter,sans-serif" font-size="11" fill="#8B5C35" x="66" y="252" text-anchor="middle" transform="rotate(-90 66 252)">12 ft deep</text>
 
-      <!-- walls -->
-      <rect x="90" y="44" width="440" height="376" fill="#F5EFE3" stroke="#5C3D20" stroke-width="6" rx="2"/>
+      <!-- room fill -->
+      <rect x="100" y="44" width="440" height="410" fill="#F5EFE3" stroke="#5C3D20" stroke-width="5" rx="2"/>
 
-      <!-- partition wall (top) - this is the top edge, connecting to entertaining space -->
-      <text font-family="Inter,sans-serif" font-size="10" fill="#8B5C35" x="310" y="60" text-anchor="middle" opacity=".7">← to entertaining space</text>
+      <!-- TOP WALL — partition to entertaining space -->
+      <text font-family="Inter,sans-serif" font-size="10" fill="#8B5C35" x="320" y="62" text-anchor="middle" opacity=".7">← partition · to entertaining space →</text>
 
-      <!-- large back windows - bottom wall -->
-      <rect x="130" y="408" width="140" height="12" rx="1" fill="#A8C5DA" stroke="#5C3D20" stroke-width="1.5"/>
-      <rect x="300" y="408" width="140" height="12" rx="1" fill="#A8C5DA" stroke="#5C3D20" stroke-width="1.5"/>
-      <text font-family="Inter,sans-serif" font-size="9" fill="#3A6A8A" x="310" y="434" text-anchor="middle">large windows (back wall)</text>
+      <!-- Built-in bookcase top-left near partition -->
+      <rect x="106" y="50" width="70" height="52" rx="2" fill="#5C3D20" opacity=".2" stroke="#5C3D20" stroke-width="1.5"/>
+      <line x1="120" y1="50" x2="120" y2="102" stroke="#5C3D20" stroke-width=".8" opacity=".4"/>
+      <line x1="140" y1="50" x2="140" y2="102" stroke="#5C3D20" stroke-width=".8" opacity=".4"/>
+      <line x1="160" y1="50" x2="160" y2="102" stroke="#5C3D20" stroke-width=".8" opacity=".4"/>
+      <line x1="106" y1="70" x2="176" y2="70" stroke="#5C3D20" stroke-width=".8" opacity=".4"/>
+      <line x1="106" y1="86" x2="176" y2="86" stroke="#5C3D20" stroke-width=".8" opacity=".4"/>
+      <text font-family="Inter,sans-serif" font-size="8" fill="#5C3D20" x="141" y="113" text-anchor="middle">built-in</text>
+      <text font-family="Inter,sans-serif" font-size="7" fill="#8B5C35" x="141" y="123" text-anchor="middle">(storage use)</text>
 
-      <!-- single door - right wall -->
-      <rect x="518" y="220" width="12" height="60" fill="#F5EFE3"/>
-      <line x1="530" y1="220" x2="556" y2="236" stroke="#5C3D20" stroke-width="1.5"/>
-      <path d="M530 220 Q554 238 553 280" fill="none" stroke="#8B5C35" stroke-width="1" stroke-dasharray="4 3"/>
-      <text font-family="Inter,sans-serif" font-size="9" fill="#5C3D20" x="560" y="250" text-anchor="start">single</text>
-      <text font-family="Inter,sans-serif" font-size="9" fill="#5C3D20" x="560" y="262" text-anchor="start">door</text>
+      <!-- ZONE C — Tool pegboard, left wall ABOVE window -->
+      <rect x="106" y="50" width="58" height="145" rx="2" fill="#8B5C35" opacity=".12"/>
+      <rect x="110" y="54" width="50" height="137" rx="2" fill="none" stroke="#8B5C35" stroke-width="1.5" stroke-dasharray="5 3"/>
+      <circle cx="122" cy="130" r="2.5" fill="#8B5C35" opacity=".5"/>
+      <circle cx="135" cy="130" r="2.5" fill="#8B5C35" opacity=".5"/>
+      <circle cx="148" cy="130" r="2.5" fill="#8B5C35" opacity=".5"/>
+      <circle cx="122" cy="145" r="2.5" fill="#8B5C35" opacity=".5"/>
+      <circle cx="135" cy="145" r="2.5" fill="#8B5C35" opacity=".5"/>
+      <circle cx="148" cy="145" r="2.5" fill="#8B5C35" opacity=".5"/>
+      <text font-family="Inter,sans-serif" font-size="9" font-weight="500" fill="#8B5C35" x="135" y="178" text-anchor="middle">C · Tools</text>
+      <text font-family="Inter,sans-serif" font-size="8" fill="#8B5C35" x="135" y="190" text-anchor="middle">pegboard</text>
 
-      <!-- ZONE A — bikes, right wall -->
-      <rect x="470" y="50" width="58" height="200" rx="2" fill="#3A6A9A" opacity=".18"/>
-      <rect x="474" y="54" width="50" height="192" rx="2" fill="none" stroke="#3A6A9A" stroke-width="1.5" stroke-dasharray="5 3"/>
-      <!-- bike hook icons (simple) -->
-      <line x1="499" y1="90"  x2="519" y2="82"  stroke="#3A6A9A" stroke-width="2"/>
-      <line x1="499" y1="118" x2="519" y2="110" stroke="#3A6A9A" stroke-width="2"/>
-      <line x1="499" y1="146" x2="519" y2="138" stroke="#3A6A9A" stroke-width="2"/>
-      <line x1="499" y1="174" x2="519" y2="166" stroke="#3A6A9A" stroke-width="2"/>
-      <text font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="#3A6A9A" x="499" y="235" text-anchor="middle">A</text>
-      <text font-family="Inter,sans-serif" font-size="9"  fill="#3A6A9A" x="499" y="247" text-anchor="middle">Bikes</text>
+      <!-- LEFT WALL window -->
+      <rect x="100" y="200" width="12" height="78" rx="1" fill="#A8C5DA" stroke="#5C3D20" stroke-width="1.5"/>
+      <line x1="100" y1="239" x2="112" y2="239" stroke="#5C3D20" stroke-width="1"/>
+      <text font-family="Inter,sans-serif" font-size="8" fill="#3A6A8A" x="95" y="243" text-anchor="end">win.</text>
 
-      <!-- ZONE B — seasonal, back wall -->
-      <rect x="96" y="360" width="420" height="46" rx="2" fill="#7A8C6E" opacity=".18"/>
-      <rect x="100" y="364" width="412" height="38" rx="2" fill="none" stroke="#7A8C6E" stroke-width="1.5" stroke-dasharray="5 3"/>
-      <!-- sled icons -->
-      <path d="M140 385 Q155 375 170 385" fill="none" stroke="#7A8C6E" stroke-width="2"/>
-      <path d="M200 385 Q215 375 230 385" fill="none" stroke="#7A8C6E" stroke-width="2"/>
-      <rect x="280" y="372" width="30" height="22" rx="2" fill="#7A8C6E" opacity=".3"/>
-      <rect x="320" y="372" width="30" height="22" rx="2" fill="#7A8C6E" opacity=".3"/>
-      <rect x="360" y="372" width="30" height="22" rx="2" fill="#7A8C6E" opacity=".3"/>
-      <text font-family="Inter,sans-serif" font-size="9" fill="#5C7050" x="310" y="395" text-anchor="middle">B · Seasonal (bins + sleds on wall)</text>
+      <!-- Power tools shelf below left window -->
+      <rect x="106" y="285" width="58" height="30" rx="2" fill="#8B5C35" opacity=".2" stroke="#8B5C35" stroke-width="1"/>
+      <text font-family="Inter,sans-serif" font-size="8" fill="#6B4020" x="135" y="303" text-anchor="middle">power tools</text>
 
-      <!-- ZONE C — tools, left wall upper -->
-      <rect x="96" y="50" width="130" height="160" rx="2" fill="#8B5C35" opacity=".15"/>
-      <rect x="100" y="54" width="122" height="152" rx="2" fill="none" stroke="#8B5C35" stroke-width="1.5" stroke-dasharray="5 3"/>
-      <!-- pegboard dots -->
-      <circle cx="120" cy="80"  r="3" fill="#8B5C35" opacity=".5"/>
-      <circle cx="135" cy="80"  r="3" fill="#8B5C35" opacity=".5"/>
-      <circle cx="150" cy="80"  r="3" fill="#8B5C35" opacity=".5"/>
-      <circle cx="165" cy="80"  r="3" fill="#8B5C35" opacity=".5"/>
-      <circle cx="120" cy="95"  r="3" fill="#8B5C35" opacity=".5"/>
-      <circle cx="135" cy="95"  r="3" fill="#8B5C35" opacity=".5"/>
-      <circle cx="150" cy="95"  r="3" fill="#8B5C35" opacity=".5"/>
-      <circle cx="165" cy="95"  r="3" fill="#8B5C35" opacity=".5"/>
-      <!-- shelf for power tools -->
-      <rect x="104" y="150" width="114" height="20" rx="2" fill="#8B5C35" opacity=".25"/>
-      <text font-family="Inter,sans-serif" font-size="9" fill="#6B4020" x="161" y="164" text-anchor="middle">power tools</text>
-      <text font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="#8B5C35" x="161" y="195" text-anchor="middle">C · Tools</text>
-      <text font-family="Inter,sans-serif" font-size="9"  fill="#8B5C35" x="161" y="207" text-anchor="middle">pegboard above</text>
+      <!-- ZONE D — Sports, left wall BELOW window, near door -->
+      <rect x="106" y="322" width="58" height="126" rx="2" fill="#B84C2B" opacity=".12"/>
+      <rect x="110" y="326" width="50" height="118" rx="2" fill="none" stroke="#B84C2B" stroke-width="1.5" stroke-dasharray="5 3"/>
+      <rect x="116" y="340" width="36" height="36" rx="3" fill="#B84C2B" opacity=".18"/>
+      <circle cx="126" cy="353" r="5" fill="#B84C2B" opacity=".45"/>
+      <circle cx="140" cy="357" r="4" fill="#B84C2B" opacity=".45"/>
+      <circle cx="130" cy="365" r="3.5" fill="#B84C2B" opacity=".45"/>
+      <line x1="115" y1="392" x2="158" y2="392" stroke="#B84C2B" stroke-width="1.5" opacity=".4"/>
+      <circle cx="124" cy="392" r="3" fill="#B84C2B" opacity=".5"/>
+      <circle cx="139" cy="392" r="3" fill="#B84C2B" opacity=".5"/>
+      <circle cx="154" cy="392" r="3" fill="#B84C2B" opacity=".5"/>
+      <text font-family="Inter,sans-serif" font-size="9" font-weight="500" fill="#B84C2B" x="135" y="424" text-anchor="middle">D · Sports</text>
+      <text font-family="Inter,sans-serif" font-size="8" fill="#B84C2B" x="135" y="436" text-anchor="middle">bins + hooks</text>
 
-      <!-- ZONE D — sports, left wall lower -->
-      <rect x="96" y="218" width="130" height="135" rx="2" fill="#B84C2B" opacity=".15"/>
-      <rect x="100" y="222" width="122" height="127" rx="2" fill="none" stroke="#B84C2B" stroke-width="1.5" stroke-dasharray="5 3"/>
-      <!-- ball bin icon -->
-      <rect x="108" y="238" width="40" height="40" rx="3" fill="#B84C2B" opacity=".2"/>
-      <circle cx="120" cy="252" r="6" fill="#B84C2B" opacity=".4"/>
-      <circle cx="136" cy="256" r="5" fill="#B84C2B" opacity=".4"/>
-      <circle cx="125" cy="265" r="4" fill="#B84C2B" opacity=".4"/>
-      <!-- gear hooks -->
-      <line x1="165" y1="240" x2="215" y2="240" stroke="#B84C2B" stroke-width="1.5" opacity=".5"/>
-      <circle cx="175" cy="240" r="3" fill="#B84C2B" opacity=".5"/>
-      <circle cx="195" cy="240" r="3" fill="#B84C2B" opacity=".5"/>
-      <circle cx="215" cy="240" r="3" fill="#B84C2B" opacity=".5"/>
-      <text font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="#B84C2B" x="161" y="328" text-anchor="middle">D · Sports</text>
-      <text font-family="Inter,sans-serif" font-size="9"  fill="#B84C2B" x="161" y="340" text-anchor="middle">bins + hooks</text>
+      <!-- SINGLE DOOR right wall -->
+      <rect x="528" y="210" width="12" height="55" fill="#F5EFE3"/>
+      <line x1="540" y1="210" x2="566" y2="224" stroke="#5C3D20" stroke-width="1.5"/>
+      <path d="M540 210 Q564 226 563 265" fill="none" stroke="#8B5C35" stroke-width="1" stroke-dasharray="4 3"/>
+      <text font-family="Inter,sans-serif" font-size="9" fill="#5C3D20" x="570" y="233" text-anchor="start">door</text>
 
-      <!-- ZONE E — flex/overflow, center floor near door -->
-      <rect x="248" y="200" width="210" height="150" rx="4" fill="#6A5A8A" opacity=".1"/>
-      <rect x="252" y="204" width="202" height="142" rx="3" fill="none" stroke="#6A5A8A" stroke-width="1.5" stroke-dasharray="6 4"/>
-      <text font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="#6A5A8A" x="353" y="278" text-anchor="middle">E · Flex / overflow</text>
-      <text font-family="Inter,sans-serif" font-size="9"  fill="#6A5A8A" x="353" y="292" text-anchor="middle">lawn equipment, active rotation</text>
-      <text font-family="Inter,sans-serif" font-size="9"  fill="#6A5A8A" x="353" y="304" text-anchor="middle">keep intentionally small</text>
+      <!-- ZONE E — Craft shelving, RIGHT wall (solid, no openings) -->
+      <rect x="476" y="50" width="62" height="400" rx="2" fill="#6A5A8A" opacity=".12"/>
+      <rect x="480" y="54" width="54" height="392" rx="2" fill="none" stroke="#6A5A8A" stroke-width="1.5" stroke-dasharray="5 3"/>
+      <line x1="480" y1="115" x2="534" y2="115" stroke="#6A5A8A" stroke-width="1.5" opacity=".5"/>
+      <line x1="480" y1="185" x2="534" y2="185" stroke="#6A5A8A" stroke-width="1.5" opacity=".5"/>
+      <line x1="480" y1="255" x2="534" y2="255" stroke="#6A5A8A" stroke-width="1.5" opacity=".5"/>
+      <line x1="480" y1="325" x2="534" y2="325" stroke="#6A5A8A" stroke-width="1.5" opacity=".5"/>
+      <rect x="484" y="120" width="46" height="58" rx="2" fill="#6A5A8A" opacity=".18"/>
+      <rect x="484" y="190" width="46" height="58" rx="2" fill="#6A5A8A" opacity=".18"/>
+      <rect x="484" y="260" width="46" height="58" rx="2" fill="#6A5A8A" opacity=".18"/>
+      <text font-family="Inter,sans-serif" font-size="9" font-weight="500" fill="#6A5A8A" x="507" y="355" text-anchor="middle">E · Craft</text>
+      <text font-family="Inter,sans-serif" font-size="8" fill="#6A5A8A" x="507" y="367" text-anchor="middle">shelving</text>
+      <text font-family="Inter,sans-serif" font-size="7" fill="#6A5A8A" x="507" y="440" text-anchor="middle">solid wall</text>
+      <text font-family="Inter,sans-serif" font-size="7" fill="#6A5A8A" x="507" y="450" text-anchor="middle">best for shelving</text>
 
-      <!-- center shelf unit (freestanding) -->
-      <rect x="248" y="80" width="200" height="112" rx="3" fill="#D4A96A" opacity=".25" stroke="#D4A96A" stroke-width="1.5"/>
-      <line x1="248" y1="112" x2="448" y2="112" stroke="#C9922A" stroke-width="1" opacity=".6"/>
-      <line x1="248" y1="144" x2="448" y2="144" stroke="#C9922A" stroke-width="1" opacity=".6"/>
-      <line x1="248" y1="176" x2="448" y2="176" stroke="#C9922A" stroke-width="1" opacity=".6"/>
-      <text font-family="Inter,sans-serif" font-size="10" fill="#8B6030" x="348" y="100" text-anchor="middle">center shelving unit</text>
-      <text font-family="Inter,sans-serif" font-size="9"  fill="#8B6030" x="348" y="114" text-anchor="middle">(labeled bins — seasonal overflow)</text>
+      <!-- ZONE B — Craft table, center -->
+      <rect x="200" y="160" width="260" height="130" rx="3" fill="#C9922A" opacity=".15" stroke="#C9922A" stroke-width="1.5"/>
+      <text font-family="Inter,sans-serif" font-size="10" font-weight="500" fill="#8B6030" x="330" y="221" text-anchor="middle">B · CRAFT TABLE</text>
+      <text font-family="Inter,sans-serif" font-size="8" fill="#8B6030" x="330" y="235" text-anchor="middle">6×4 ft · freestanding · moveable</text>
 
-      <!-- legend -->
-      <rect x="94" y="444" width="10" height="10" rx="2" fill="#3A6A9A" opacity=".7"/>
-      <text font-family="Inter,sans-serif" font-size="9" fill="#5A6070" x="108" y="453">Bikes</text>
-      <rect x="154" y="444" width="10" height="10" rx="2" fill="#7A8C6E" opacity=".7"/>
-      <text font-family="Inter,sans-serif" font-size="9" fill="#5A6070" x="168" y="453">Seasonal</text>
-      <rect x="232" y="444" width="10" height="10" rx="2" fill="#8B5C35" opacity=".7"/>
-      <text font-family="Inter,sans-serif" font-size="9" fill="#5A6070" x="246" y="453">Tools</text>
-      <rect x="294" y="444" width="10" height="10" rx="2" fill="#B84C2B" opacity=".7"/>
-      <text font-family="Inter,sans-serif" font-size="9" fill="#5A6070" x="308" y="453">Sports</text>
-      <rect x="354" y="444" width="10" height="10" rx="2" fill="#6A5A8A" opacity=".5"/>
-      <text font-family="Inter,sans-serif" font-size="9" fill="#5A6070" x="368" y="453">Flex</text>
-      <rect x="406" y="444" width="10" height="10" rx="2" fill="#D4A96A" opacity=".7"/>
-      <text font-family="Inter,sans-serif" font-size="9" fill="#5A6070" x="420" y="453">Shelving</text>
-      <rect x="476" y="444" width="10" height="10" rx="2" fill="#A8C5DA"/>
-      <text font-family="Inter,sans-serif" font-size="9" fill="#5A6070" x="490" y="453">Windows</text>
+      <!-- ZONE A — Workbench, BACK WALL (bottom) under windows -->
+      <rect x="106" y="398" width="360" height="48" rx="2" fill="#8B5C35" opacity=".28" stroke="#8B5C35" stroke-width="1.5"/>
+      <text font-family="Inter,sans-serif" font-size="10" font-weight="500" fill="#5C3D20" x="286" y="418" text-anchor="middle">A · WORKBENCH</text>
+      <text font-family="Inter,sans-serif" font-size="8" fill="#5C3D20" x="286" y="431" text-anchor="middle">8 ft · natural light from windows · pegboard above</text>
+
+      <!-- BOTTOM WALL windows -->
+      <rect x="140" y="444" width="130" height="10" rx="1" fill="#A8C5DA" stroke="#5C3D20" stroke-width="1.5"/>
+      <rect x="290" y="444" width="130" height="10" rx="1" fill="#A8C5DA" stroke="#5C3D20" stroke-width="1.5"/>
+      <text font-family="Inter,sans-serif" font-size="8" fill="#3A6A8A" x="290" y="466" text-anchor="middle">large windows (back wall — light for workbench)</text>
+
+      <!-- CENTER — open floor / circulation zone -->
+      <rect x="172" y="316" width="296" height="76" rx="3" fill="none" stroke="#DDD0BA" stroke-width="1" stroke-dasharray="4 4"/>
+      <text font-family="Inter,sans-serif" font-size="8" fill="#8B8070" x="320" y="358" text-anchor="middle">open floor / circulation</text>
+
+      <!-- Partition opening clear indicator -->
+      <rect x="186" y="44" width="276" height="16" rx="2" fill="none" stroke="#C9922A" stroke-width="1.5" stroke-dasharray="4 3" opacity=".6"/>
+      <text font-family="Inter,sans-serif" font-size="8" fill="#C9922A" x="324" y="56" text-anchor="middle" opacity=".8">partition opening — keep clear</text>
+
+      <!-- Legend -->
+      <rect x="100" y="476" width="10" height="10" rx="1" fill="#8B5C35" opacity=".5"/>
+      <text font-family="Inter,sans-serif" font-size="9" fill="#5A6070" x="114" y="485">Workbench</text>
+      <rect x="186" y="476" width="10" height="10" rx="1" fill="#C9922A" opacity=".4"/>
+      <text font-family="Inter,sans-serif" font-size="9" fill="#5A6070" x="200" y="485">Craft table</text>
+      <rect x="268" y="476" width="10" height="10" rx="1" fill="#8B5C35" opacity=".3"/>
+      <text font-family="Inter,sans-serif" font-size="9" fill="#5A6070" x="282" y="485">Tools</text>
+      <rect x="330" y="476" width="10" height="10" rx="1" fill="#B84C2B" opacity=".4"/>
+      <text font-family="Inter,sans-serif" font-size="9" fill="#5A6070" x="344" y="485">Sports</text>
+      <rect x="398" y="476" width="10" height="10" rx="1" fill="#6A5A8A" opacity=".4"/>
+      <text font-family="Inter,sans-serif" font-size="9" fill="#5A6070" x="412" y="485">Craft shelving</text>
+      <rect x="510" y="476" width="10" height="10" rx="1" fill="#A8C5DA"/>
+      <text font-family="Inter,sans-serif" font-size="9" fill="#5A6070" x="524" y="485">Windows</text>
     </svg>
   </div>
 
-  <div class="note">
-    <strong>Key insight from the photos:</strong> That large timber-framed opening between the two halves has no door — which means the storage zone is partially visible from the entertaining space. Keeping it clean and organized isn't just practical, it genuinely affects the look of the entertaining space. The center shelving unit with labeled bins is the most visible element from that angle.
+  <div class="note tip">
+    <strong>Why workbench on the back wall:</strong> The two large windows on the back wall give the best natural light in the space — ideal for detailed work. It also keeps the workbench as far as possible from the partition opening, so the craft half feels like a separate room rather than a continuation of the entertaining space.
   </div>
 
-  <div class="next-row"><button class="next-btn" onclick="showIdx(2)">Next: Sort session →</button></div>
+  <div class="next-row"><button class="next-btn" onclick="showPhase('phase-sort',this)">Next: Sort session →</button></div>
 </div>
 
 <!-- ══ SORT ══ -->
@@ -288,55 +334,95 @@
   <div class="phase-intro">
     <div class="phase-num">1</div>
     <div>
-      <h2>The sort session — before a single shelf goes up</h2>
-      <p>Everything out of the storage half completely. Sort into four piles. This takes half a day but it's the most important step — you can't design storage for stuff you haven't categorized yet.</p>
+      <h2>The sort session — decide what stays up here vs goes downstairs</h2>
+      <p>Before building anything, everything comes out and gets sorted into four piles. The key question for each item: does it belong in the active workshop upstairs, or in the basement with the bulk storage?</p>
     </div>
   </div>
 
   <div class="sort-cols">
     <div class="sort-col">
       <div class="sort-col-hdr" style="background:#B84C2B">Trash / toss</div>
-      <div class="sort-col-body"><p>Broken, expired, rusted through, hasn't been used in 3+ years. Be ruthless. Haul-away day or dumpster rental. You cannot organize clutter.</p></div>
+      <div class="sort-col-body"><p>Broken, expired, rusted through, unused in 3+ years. Be ruthless — you cannot organize clutter and this space has a clear purpose now.</p></div>
     </div>
     <div class="sort-col">
       <div class="sort-col-hdr" style="background:#C9922A">Donate / sell</div>
-      <div class="sort-col-body"><p>Working condition but not needed. Facebook Marketplace, Craigslist, or a neighborhood group. Kids outgrown bikes are particularly easy to sell fast.</p></div>
+      <div class="sort-col-body"><p>Working but no longer needed. Kids' outgrown bikes move fast on Facebook Marketplace. Duplicate tools too.</p></div>
     </div>
     <div class="sort-col">
-      <div class="sort-col-hdr" style="background:#7A8C6E">Barn storage</div>
-      <div class="sort-col-body"><p>Everything coming back in. Sort by zone (A–E) as you go — don't just make one pile. Box and label seasonal items now, before they go back in.</p></div>
+      <div class="sort-col-hdr" style="background:#8B5C35">Workshop (upstairs)</div>
+      <div class="sort-col-body"><p>Hand tools, power tools, sports gear, craft supplies, active project materials. Stuff you use regularly and want quick access to.</p></div>
     </div>
     <div class="sort-col">
-      <div class="sort-col-hdr" style="background:#5A6070">Elsewhere</div>
-      <div class="sort-col-body"><p>Stuff that belongs in the house, garage, or another location entirely. Don't let it creep back into the barn because it has nowhere else to go yet.</p></div>
+      <div class="sort-col-hdr" style="background:#7A8C6E">Basement</div>
+      <div class="sort-col-body"><p>Bikes, sleds, seasonal bins, lawn equipment, hoses. Anything bulky or infrequently accessed. If you reach for it less than once a month, it lives downstairs.</p></div>
     </div>
   </div>
 
   <div class="steps">
-    <div class="step warn">
+    <div class="step">
       <div class="step-header">
-        <div class="step-icon ic-warn">!</div>
-        <div class="step-title">Count your bikes before buying hooks</div>
-        <div class="step-meta">5 min</div>
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Be strict about the upstairs/basement divide</div>
       </div>
       <div class="step-body">
-        You've got at least 4 bikes visible in the photos, possibly more once the space is cleared. Count them, measure the fattest tire width, and note if any are kids bikes that'll be outgrown soon (those go on the lowest hooks for easy swap). This determines exactly how many hooks and how much wall space Zone A needs.
+        The most common mistake is letting the workshop fill up with things that should live in the basement. Set a rule now: if it's seasonal, bulky, or used less than monthly, it goes downstairs. The workshop only contains things you'd reasonably reach for while working on a project or grabbing gear for an activity.
       </div>
     </div>
 
     <div class="step tip">
       <div class="step-header">
         <div class="step-icon ic-tip">TIP</div>
-        <div class="step-title">Label seasonal bins during the sort — not after</div>
+        <div class="step-title">Sort craft supplies into categories during the sort — not later</div>
       </div>
       <div class="step-body">
-        The moment to label a bin is when you're putting things in it, not after it's on the shelf. Have a label maker or masking tape + marker on hand during the sort. Categories that work well for a typical family:
+        If you're setting up a craft space, label your bins during the sort while you have everything out and in hand. Categories to consider:
         <ul>
-          <li>Winter / sledding gear</li>
-          <li>Pool / water toys</li>
-          <li>Camping</li>
-          <li>Holiday decorations (by holiday)</li>
-          <li>Sports — offseason gear</li>
+          <li>Fabric / sewing</li>
+          <li>Paper / cards / scrapbooking</li>
+          <li>Paint + brushes</li>
+          <li>Seasonal / holiday crafts</li>
+          <li>Kids' craft supplies</li>
+          <li>Hardware / fasteners (tools zone)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step warn">
+      <div class="step-header">
+        <div class="step-icon ic-warn">!</div>
+        <div class="step-title">Assess the existing built-in bookcase now</div>
+      </div>
+      <div class="step-body">
+        The built-in bookcase near the partition opening is staying. While everything is out, check it properly: any rotted shelves, loose joints, pest damage? Clean it thoroughly with TSP (same as the wall cleaning), let dry, then seal with the same interior stain you used on the rest of the barn. It'll look intentional rather than abandoned.
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showPhase('phase-workbench',this)">Next: Workbench →</button></div>
+</div>
+
+<!-- ══ WORKBENCH ══ -->
+<div id="phase-workbench" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">2</div>
+    <div>
+      <h2>Building the workbench — Zone A, back wall</h2>
+      <p>An 8 ft workbench under the back windows. Same basic construction as the bar — ledger board into studs, front legs, top surface. But this one is built for work: a bit lower (34–36"), deeper (24–28"), and tougher.</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Set workbench height at 34–36" — lower than the bar</div>
+      </div>
+      <div class="step-body">
+        Bar height (42") is for standing and drinking. Workbench height (34–36") is for standing and working — more leverage, less fatigue. The right height is roughly elbow height minus 2–4 inches. If you're ~6 ft, 36" is comfortable for most work.
+        <ul>
+          <li>Standard workbench: 34–36" (adjust to your height)</li>
+          <li>Depth: 24–28" — deeper than the bar, gives more project space</li>
+          <li>Width: 8 ft running the full back wall</li>
         </ul>
       </div>
     </div>
@@ -344,114 +430,208 @@
     <div class="step">
       <div class="step-header">
         <div class="step-icon ic-do">DO</div>
-        <div class="step-title">Take an inventory photo of each zone's contents</div>
-        <div class="step-meta">10 min</div>
+        <div class="step-title">Build the frame — ledger into studs, front legs, lower shelf</div>
+        <div class="step-meta">~3–4 hrs</div>
       </div>
       <div class="step-body">
-        Before anything goes back in, photograph each pile. Sounds unnecessary but it's very useful when you're at the hardware store trying to remember how many bikes you have or whether the ball bin needs to be 18" or 24" wide. One photo per zone, saved to an album.
+        Same approach as the bar frame. Locate studs in the back wall first. Mount a 2×6 ledger at 32–34" (the top surface adds 1.5–2"). Front legs of 4×4 or doubled 2×4. Lower horizontal rail connecting legs — this becomes a bottom shelf for bins, power tools, or the pressure washer.
+        <ul>
+          <li>Pre-drill into reclaimed lumber to avoid splitting</li>
+          <li>Check level on the ledger before final tightening — everything follows from it</li>
+          <li>3 front legs max across 8 ft — at each end and one center</li>
+          <li>Lower shelf rail at 6–8" off the floor — keeps things off the ground</li>
+        </ul>
+        <span class="tag">2×6 ledger board</span>
+        <span class="tag">4×4 front legs</span>
+        <span class="tag">3" structural screws</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Top surface — thick and tough</div>
+      </div>
+      <div class="step-body">
+        The workbench top takes more abuse than the bar. Options from most to least durable:
+        <br><br>
+        <strong>Option 1 — 2×4 or 2×6 edge-glued slab:</strong> Glue up a series of 2×4s on edge to create a 3.5"-thick top. Extremely strong, completely DIY from construction lumber, looks great in a rustic space. ~$40–60 in materials.
+        <br><br>
+        <strong>Option 2 — Butcher block (same as bar):</strong> Consistent look if you used it on the bar. Easy to source, easy to work with. May need replacement eventually if heavily abused. ~$80–150.
+        <br><br>
+        <strong>Option 3 — Reclaimed wide plank:</strong> Whatever you have. If thick enough (1.5"+) it works fine. Free if you have the lumber.
+        <br><br>
+        Finish with a penetrating oil (not poly) — it's easier to touch up as the surface gets scratched and dinged over time.
+        <span class="tag">Watco Danish Oil — $20–30</span>
+        <span class="tag">Or leave raw + wax coat</span>
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">Add a power strip along the back wall now</div>
+      </div>
+      <div class="step-body">
+        Even before you have proper electrical, a heavy-duty outdoor-rated extension cord running from the barn's existing outlet (or a temporary power source) to a 6-outlet power strip mounted under the upper shelf of the workbench gives you immediate usability for power tools, chargers, and a work light. When proper electrical gets run (Plan B), you replace the extension cord with a hard-wired circuit — the strip stays.
+        <span class="tag">Tripp Lite 6-outlet heavy-duty power strip — $25–35</span>
       </div>
     </div>
   </div>
 
-  <div class="next-row"><button class="next-btn" onclick="showIdx(3)">Next: Shelving →</button></div>
+  <div class="next-row"><button class="next-btn" onclick="showPhase('phase-tools',this)">Next: Tool Wall →</button></div>
+</div>
+
+<!-- ══ TOOL WALL ══ -->
+<div id="phase-tools" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">3</div>
+    <div>
+      <h2>Tool wall — Zone C, left wall above window</h2>
+      <p>A 4×4 ft pegboard panel above the left wall window puts every hand tool in plain sight and within reach. Below the window: a single deep shelf for power tools and bulky equipment. Simple, cheap, and highly functional.</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Mount the pegboard panel on furring strips — not flat to the wall</div>
+        <div class="step-meta">~1 hr</div>
+      </div>
+      <div class="step-body">
+        Pegboard hooks need about ½–¾" of clearance behind the board to hook in and out. On a flat barn board wall, you need to mount the pegboard on 1×2 or 1×3 furring strips first, which creates that gap.
+        <ul>
+          <li>Run two horizontal furring strips across the wall — one near the top, one near the bottom</li>
+          <li>Screw furring strips into studs with 2.5" screws</li>
+          <li>Mount the pegboard panel to the furring strips</li>
+          <li>Paint the pegboard and the wall behind it the same color — the gap becomes invisible and the tools pop</li>
+        </ul>
+        <span class="tag">4×4 ft pegboard panel — $20–30</span>
+        <span class="tag">1×3 furring strips</span>
+        <span class="tag">Pegboard hook assortment — $15–25</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Install one deep shelf below the window for power tools</div>
+        <div class="step-meta">~45 min</div>
+      </div>
+      <div class="step-body">
+        A single 2×12 board on heavy-duty brackets, positioned just below the window sill, holds the drill, circular saw, jigsaw, sander, and the pressure washer. Keep it at a height where you can see everything on it at a glance — around 18–24" off the floor is right.
+        <ul>
+          <li>2×12 or doubled 2×10 for the depth — power tools need room</li>
+          <li>Heavy-duty shelf brackets rated for 100+ lbs</li>
+          <li>Screws into studs — not just into barn board</li>
+        </ul>
+        <span class="tag">Simpson Strong-Tie heavy-duty bracket — $8–14 each</span>
+      </div>
+    </div>
+
+    <div class="step tip">
+      <div class="step-header">
+        <div class="step-icon ic-tip">TIP</div>
+        <div class="step-title">Use the French cleat system here too if you built it for the bar</div>
+      </div>
+      <div class="step-body">
+        A horizontal French cleat running across the left wall above the window lets you hang pegboard, shelves, tool holders, and hooks all off the same system — and reposition everything without drilling new holes. If you're already cutting cleats for the bar shelving, cut a few extra for the workshop wall.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Add a small parts organizer for fasteners and hardware</div>
+      </div>
+      <div class="step-body">
+        A wall-mounted parts cabinet or a set of stackable drawer units on the shelf keeps screws, nails, drill bits, and hardware from becoming a loose pile. This is one of those small investments that saves significant time over the course of a project.
+        <span class="tag">Akro-Mils wall-mount bin rack — $30–50</span>
+        <span class="tag">Or Stanley wall-mount organizer — $25–40</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showPhase('phase-sports',this)">Next: Sports Zone →</button></div>
+</div>
+
+<!-- ══ SPORTS ZONE ══ -->
+<div id="phase-sports" class="phase-content">
+  <div class="phase-intro">
+    <div class="phase-num">4</div>
+    <div>
+      <h2>Sports zone — Zone D, left wall near the door</h2>
+      <p>The stuff that gets grabbed on the way out the door — balls, gear bags, rackets, cleats. Positioned right next to the single door so it takes seconds to grab and go. No bins with lids here: everything open and visible.</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Open ball bin at floor level — the most-used item in any sports zone</div>
+      </div>
+      <div class="step-body">
+        A large open-top wire or canvas bin for balls is the single most useful piece of sports storage. No lid, no latches — just drop balls in, grab them out. Position it right beside the door.
+        <ul>
+          <li>Wire mesh bin or heavy canvas tote — $15–35</li>
+          <li>Or DIY: a simple 18"×18" wooden crate from reclaimed lumber, open top</li>
+          <li>Large enough for soccer balls, basketballs, footballs simultaneously</li>
+        </ul>
+        <span class="tag">Rubbermaid large utility bin — $20–30</span>
+        <span class="tag">Or DIY reclaimed wood crate</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Gear bag hooks at 60–66" — reachable but out of the way</div>
+      </div>
+      <div class="step-body">
+        3–4 heavy coat hooks on a mounted board at around 60–66" height hold gear bags, backpacks, and racket bags. Mount on a board anchored to studs — not direct to barn board — so the hooks can carry real weight.
+        <ul>
+          <li>Mount a 2×6 board horizontally at 60–66" height, screwed into studs</li>
+          <li>Space hooks 12–14" apart</li>
+          <li>Heavy cast-iron coat hooks look great and hold up — $8–15 each</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">One shelf at 36–42" for cleats and sports shoes</div>
+      </div>
+      <div class="step-body">
+        A single 2×8 shelf below the hooks at 36–42" keeps sports shoes off the floor and in view. Open shelves work better than bins for shoes — you can see everything at a glance and grab without rummaging.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-icon ic-do">DO</div>
+        <div class="step-title">Vertical rack for rackets, bats, and sticks</div>
+      </div>
+      <div class="step-body">
+        Long-handled sports equipment (tennis/badminton rackets, baseball bats, hockey sticks, lacrosse sticks) stores best vertically. A simple PVC pipe or wooden dowel holder mounted on the wall — or a floor-standing rack — keeps everything upright and contained without taking up floor space.
+        <span class="tag">Wallmaster vertical sports rack — $25–40</span>
+        <span class="tag">Or DIY: two horizontal boards with holes drilled for dowels</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="next-row"><button class="next-btn" onclick="showPhase('phase-shelving',this)">Next: Shelving →</button></div>
 </div>
 
 <!-- ══ SHELVING ══ -->
 <div id="phase-shelving" class="phase-content">
   <div class="phase-intro">
-    <div class="phase-num">2</div>
+    <div class="phase-num">5</div>
     <div>
-      <h2>Shelving — three different systems for three different zones</h2>
-      <p>One shelving system doesn't fit all the zones. The tool wall, the center unit, and the seasonal back wall all have different requirements. Here's the right approach for each.</p>
-    </div>
-  </div>
-
-  <div class="shelf-grid">
-    <div class="shelf-card">
-      <h4>Left wall — tools (Zone C)</h4>
-      <p>A 4×4 ft sheet of pegboard mounted to the wall studs is the entire tool storage system. Add pegboard hooks and you can hang every hand tool, cord, and small item with full visibility and easy access. Below the pegboard: one or two deep shelves (2×10 boards on heavy-duty brackets) for the pressure washer and power tools.</p>
-      <ul>
-        <li>4×4 pegboard panel — $20–30</li>
-        <li>Pegboard hook assortment — $15–25</li>
-        <li>2 heavy-duty shelf brackets + 2×10 board</li>
-      </ul>
-    </div>
-    <div class="shelf-card">
-      <h4>Center — labeled bins (Zones B+D overflow)</h4>
-      <p>A simple 5-shelf freestanding unit 36–48" wide, positioned so it's visible through the partition opening. This is the unit that needs to look clean — use matching bins with clear labels. The IKEA IVAR or a similar pine shelving unit stained to match the barn is the right call here — looks intentional, not like a garage.</p>
-      <ul>
-        <li>IKEA IVAR (pine, adjustable) — $60–90</li>
-        <li>Or build from 1×10 reclaimed — $20–50</li>
-        <li>6–8 matching bins — $40–70</li>
-      </ul>
-    </div>
-    <div class="shelf-card">
-      <h4>Back wall — seasonal (Zone B)</h4>
-      <p>Low shelving (max 36" tall) under the windows so the light stays. Two wide shelves for tubs and bins. Sleds, bodyboards, and long items hang above on wall hooks — keeping them vertical saves enormous floor space.</p>
-      <ul>
-        <li>2× 8ft wall-mounted shelves (2×10 on brackets)</li>
-        <li>Heavy-duty wall hooks for sleds/boards</li>
-        <li>Keep below window sill height</li>
-      </ul>
-    </div>
-    <div class="shelf-card">
-      <h4>Left wall lower — sports (Zone D)</h4>
-      <p>An open-top ball bin (a large wire or plastic bin, or a DIY wooden crate) at floor level for balls and loose gear. Above it: 2–3 hooks for gear bags, backpacks, and racket bags. One shelf for shoes/cleats. This zone needs to be easy access — no latches, no lids.</p>
-      <ul>
-        <li>Open wire bin or DIY crate — $15–30</li>
-        <li>3–4 heavy hooks on board — $15–20</li>
-        <li>One shelf at 48" height for bags</li>
-      </ul>
-    </div>
-  </div>
-
-  <h3 class="section-head">Building the center shelving unit</h3>
-  <div class="steps">
-    <div class="step">
-      <div class="step-header">
-        <div class="step-icon ic-do">DO</div>
-        <div class="step-title">Stain and seal any pine or new wood to match the barn</div>
-        <div class="step-meta">Before assembly</div>
-      </div>
-      <div class="step-body">
-        An off-the-shelf pine shelving unit sitting in a weathered barn will look completely out of place unless it's finished to match. A coat of your interior stain (dark walnut or whatever you chose) on the IVAR before assembly takes 30 minutes and makes it look like it belongs. No need to match exactly — just get it in the same tonal family.
-      </div>
-    </div>
-
-    <div class="step tip">
-      <div class="step-header">
-        <div class="step-icon ic-tip">TIP</div>
-        <div class="step-title">Use the French cleat system here too</div>
-      </div>
-      <div class="step-body">
-        If you built a French cleat for the bar shelving, run a longer cleat section across the left wall at multiple heights. You can hang pegboard, shelves, bike hooks, and tool holders all off the same cleat system — everything is repositionable, and you only drill into the studs once.
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-header">
-        <div class="step-icon ic-do">DO</div>
-        <div class="step-title">Anchor all freestanding units to the wall</div>
-        <div class="step-meta">Safety</div>
-      </div>
-      <div class="step-body">
-        Any shelving unit over 48" tall needs to be wall-anchored, especially with kids around. A simple L-bracket screwed to the top rear of the unit and into a stud is enough. Anti-tip furniture straps work well too. Takes 5 minutes and prevents a serious hazard.
-        <span class="tag">Anti-tip furniture strap — $8–12</span>
-        <span class="tag">L-bracket + 3" screw into stud</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="next-row"><button class="next-btn" onclick="showIdx(4)">Next: Bikes →</button></div>
-</div>
-
-<!-- ══ BIKES ══ -->
-<div id="phase-bikes" class="phase-content">
-  <div class="phase-intro">
-    <div class="phase-num">3</div>
-    <div>
-      <h2>Bike storage — off the floor, all of them</h2>
-      <p>Bikes on the floor are the single biggest space-waster in any storage area. Four bikes lying around consume 40+ sq ft. On wall hooks, they consume about 8 sq ft. This is the highest-impact single change you can make in the storage half.</p>
+      <h2>Craft shelving — Zone E, right wall</h2>
+      <p>The right wall is the best shelving wall in the space — solid, no windows, no door, full 12 ft length. Floor-to-ceiling adjustable shelving for craft supplies, project bins, and the labeled tote system. This wall is partially visible through the partition opening, so it should look intentional.</p>
     </div>
   </div>
 
@@ -459,161 +639,53 @@
     <div class="step">
       <div class="step-header">
         <div class="step-icon ic-do">DO</div>
-        <div class="step-title">Horizontal wall hooks — simplest and cheapest</div>
-        <div class="step-meta">Right wall · ~1 hr install</div>
+        <div class="step-title">Use adjustable shelving — IVAR or equivalent</div>
       </div>
       <div class="step-body">
-        A single rubber-coated J-hook or two-prong bike hook screwed into a wall stud holds one bike by the wheel. Hang front wheel up for a smaller footprint. Stagger heights so handlebars don't clash — alternate left-right, high-low.
+        Craft supply needs change over time. Adjustable shelving lets you reconfigure as projects evolve without rebuilding. IKEA IVAR (pine, fully adjustable) stained to match the barn interior looks completely at home here. Or build reclaimed wood shelves on a French cleat system for the same flexibility.
         <ul>
-          <li>Space hooks 12–16" apart horizontally</li>
-          <li>Stagger heights: 60" / 48" / 60" / 48" alternating</li>
-          <li>Kids bikes on lower hooks (36–42") for independence</li>
-          <li>Heavier adult bikes on lower hooks for easier lifting</li>
+          <li>IVAR unit (19×70") — $60–90 stained to match</li>
+          <li>Or 2–3 runs of 1×10 reclaimed boards on French cleats</li>
+          <li>Anchor the top to the wall regardless of system — anti-tip with kids around</li>
+          <li>Match the stain to the rest of the interior or go slightly lighter for a built-in feel</li>
         </ul>
-        <span class="tag">Rubbermaid FastTrack bike hook — $12–18 each</span>
-        <span class="tag">Gladiator GearTrack bike hook — $15–20 each</span>
+        <span class="tag">IKEA IVAR 19×70" — $65</span>
+        <span class="tag">Anti-tip strap — $10</span>
       </div>
     </div>
 
     <div class="step">
       <div class="step-header">
         <div class="step-icon ic-do">DO</div>
-        <div class="step-title">Mount on a horizontal board, not direct to barn wall</div>
-        <div class="step-meta">Important for old walls</div>
+        <div class="step-title">Use matching bins throughout — same brand, same color</div>
       </div>
       <div class="step-body">
-        Old barn board walls may not have studs where you need them for bike hook spacing. The solution: mount a 2×8 or 2×10 horizontal board (a "cleat board") directly into the studs across the full right wall, then screw bike hooks anywhere into that board. Gives you full flexibility on hook placement.
+        This shelf is visible from the entertaining space. Matching bins make it look designed, not accumulated. Sterilite or HDX clear or gray totes in consistent sizes, labeled with a P-Touch label maker, will look clean and organized from across the room.
         <ul>
-          <li>Run a 2×8 at 54" height across the right wall</li>
-          <li>Hit every stud — minimum 3 stud connections for the weight</li>
-          <li>Hang all hooks from this board, not from the barn wall directly</li>
-          <li>Can double as the top of Zone A and hold a small helmet shelf above</li>
+          <li>Sterilite 6-qt for small craft supplies</li>
+          <li>Sterilite 18-gal for larger project materials</li>
+          <li>Label front face and short end of every bin</li>
+          <li>Group by category, not by size</li>
         </ul>
+        <span class="tag">Brother P-Touch label maker — $25</span>
+        <span class="tag">Sterilite clear bins — $5–12 each</span>
       </div>
     </div>
 
     <div class="step tip">
       <div class="step-header">
         <div class="step-icon ic-tip">TIP</div>
-        <div class="step-title">Add a small shelf above the hooks for helmets + pumps</div>
+        <div class="step-title">Put a chalkboard or whiteboard above the craft table</div>
       </div>
       <div class="step-body">
-        A single shelf at 72–78" (above the highest bike hook) holds helmets, a floor pump, patch kit, and lock. Everything for the bikes in one zone, nothing on the floor. A row of 3–4 small hooks under the shelf holds helmets if the shelf feels crowded.
-      </div>
-    </div>
-
-    <div class="step warn">
-      <div class="step-header">
-        <div class="step-icon ic-warn">!</div>
-        <div class="step-title">Check bike tire condition before hanging</div>
-      </div>
-      <div class="step-body">
-        A bike with a flat or cracked tire hung on the wall for months is a bike that won't get used when you want it. Quick check before hanging — if a tire needs air or replacing, do it now while the bike is accessible. Takes 10 minutes and avoids a frustrating moment later.
+        A simple 2×3 ft chalkboard or whiteboard mounted on the wall above the craft table or near the workbench is one of those things that gets used constantly — project notes, measurements, shopping lists, to-do items. A framed chalkboard in a barn setting looks great and costs $20–30.
+        <span class="tag">VersaChalk framed chalkboard — $25–40</span>
+        <span class="tag">Or DIY: chalkboard paint on a reclaimed board with a frame</span>
       </div>
     </div>
   </div>
 
-  <div class="next-row"><button class="next-btn" onclick="showIdx(5)">Next: Bins →</button></div>
-</div>
-
-<!-- ══ BINS ══ -->
-<div id="phase-bins" class="phase-content">
-  <div class="phase-intro">
-    <div class="phase-num">4</div>
-    <div>
-      <h2>The bin system — labeled, consistent, easy to use</h2>
-      <p>The difference between a storage space that stays organized and one that reverts to chaos in six months is almost entirely the bin system. Consistent bins with clear labels make it frictionless to put things back correctly.</p>
-    </div>
-  </div>
-
-  <h3 class="section-head">Recommended bin categories</h3>
-  <table class="bin-table">
-    <thead><tr><th>Zone</th><th>Bin label</th><th>Bin size</th><th>Shelf location</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><span class="bin-dot" style="background:#7A8C6E"></span>Seasonal</td>
-        <td>Winter / Sleds</td><td>27 gal tote</td><td>Back wall shelf, bottom</td>
-      </tr>
-      <tr>
-        <td><span class="bin-dot" style="background:#7A8C6E"></span>Seasonal</td>
-        <td>Pool / Water Toys</td><td>27 gal tote</td><td>Back wall shelf, bottom</td>
-      </tr>
-      <tr>
-        <td><span class="bin-dot" style="background:#7A8C6E"></span>Seasonal</td>
-        <td>Camping</td><td>27 gal tote</td><td>Back wall shelf, top</td>
-      </tr>
-      <tr>
-        <td><span class="bin-dot" style="background:#7A8C6E"></span>Seasonal</td>
-        <td>Holiday — Christmas</td><td>27 gal tote</td><td>Center shelf, top</td>
-      </tr>
-      <tr>
-        <td><span class="bin-dot" style="background:#B84C2B"></span>Sports</td>
-        <td>Balls (open top)</td><td>Large wire bin</td><td>Floor, Zone D</td>
-      </tr>
-      <tr>
-        <td><span class="bin-dot" style="background:#B84C2B"></span>Sports</td>
-        <td>Cleats / Sports Shoes</td><td>18 gal tote</td><td>Zone D shelf</td>
-      </tr>
-      <tr>
-        <td><span class="bin-dot" style="background:#B84C2B"></span>Sports</td>
-        <td>Rackets / Bats / Sticks</td><td>Tall bin or wall rack</td><td>Zone D wall</td>
-      </tr>
-      <tr>
-        <td><span class="bin-dot" style="background:#8B5C35"></span>Tools</td>
-        <td>Cords / Hoses</td><td>18 gal tote</td><td>Zone C lower shelf</td>
-      </tr>
-      <tr>
-        <td><span class="bin-dot" style="background:#8B5C35"></span>Tools</td>
-        <td>Fasteners / Hardware</td><td>Small parts organizer</td><td>Zone C shelf</td>
-      </tr>
-      <tr>
-        <td><span class="bin-dot" style="background:#3A6A9A"></span>Bikes</td>
-        <td>Bike Tools / Pump / Locks</td><td>12 gal tote</td><td>Zone A lower shelf</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="steps">
-    <div class="step tip">
-      <div class="step-header">
-        <div class="step-icon ic-tip">TIP</div>
-        <div class="step-title">Use one bin brand, one color family</div>
-      </div>
-      <div class="step-body">
-        Matching bins make the space look intentional and organized rather than accumulated. Sterilite or HDX totes from Home Depot in gray or clear are cheap, stack well, and look clean. Buy them all at once in two sizes: 18 gal (most things) and 27 gal (bulky seasonal). Don't mix brands if you can avoid it — different dimensions don't stack cleanly.
-        <br/><br/>
-        <span class="tag">Sterilite 18 gal — ~$8 each</span>
-        <span class="tag">Sterilite 27 gal — ~$12 each</span>
-        <span class="tag">HDX gray totes (Home Depot house brand)</span>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-header">
-        <div class="step-icon ic-do">DO</div>
-        <div class="step-title">Label on the front face AND the short end</div>
-        <div class="step-meta">Label system</div>
-      </div>
-      <div class="step-body">
-        Bins on a shelf are usually seen from the front. Bins stacked on the floor or in a corner are seen from the end. Label both. A Brother P-Touch label maker produces clean, durable labels — worth the $25 investment for a space like this. Hand-written masking tape labels will smear and fall off within a season.
-        <br/><br/>
-        <span class="tag">Brother P-Touch PTM95 — $25</span>
-        <span class="tag">Or chalkboard label stickers + chalk marker</span>
-      </div>
-    </div>
-
-    <div class="step tip">
-      <div class="step-header">
-        <div class="step-icon ic-tip">TIP</div>
-        <div class="step-title">Put a master list on the wall near the partition opening</div>
-      </div>
-      <div class="step-body">
-        A small chalkboard or printed card mounted near the partition opening listing what's in each zone ("Bikes · right wall / Sports · left wall / Seasonal · back") means anyone can find anything without opening every bin. Takes 10 minutes to make and gets used constantly.
-      </div>
-    </div>
-  </div>
-
-  <div class="next-row"><button class="next-btn" onclick="showIdx(6)">View Supply List →</button></div>
+  <div class="next-row"><button class="next-btn" onclick="showPhase('phase-supplies',this)">View Supply List →</button></div>
 </div>
 
 <!-- ══ SUPPLIES ══ -->
@@ -621,101 +693,90 @@
   <div class="phase-intro">
     <div class="phase-num">★</div>
     <div>
-      <h2>Storage section — full supply list</h2>
-      <p>Most of this is one Home Depot run. The bins and label maker can be ordered online. Total materials cost is very low for the impact — this is mostly labor and organization.</p>
+      <h2>Workshop supply list — full buildout</h2>
+      <p>Organized by zone. Most is one Home Depot trip. The IVAR shelving and label maker can be ordered online ahead of time.</p>
     </div>
   </div>
 
-  <h3 class="section-head">Shelving + mounting</h3>
+  <h3 class="section-head">Zone A — Workbench (back wall)</h3>
   <table class="supply-table">
     <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
     <tbody>
-      <tr><td>2×10 × 8ft boards (×4)</td><td>Wall-mounted shelves (back + left walls)</td><td class="cost">$15–25 each</td></tr>
-      <tr><td>Heavy-duty shelf brackets (×8)</td><td>Support 2×10 shelves</td><td class="cost">$5–10 each</td></tr>
-      <tr><td>4×4 ft pegboard panel</td><td>Tool wall, Zone C</td><td class="cost">$20–30</td></tr>
-      <tr><td>Pegboard hook assortment</td><td>Hand tools</td><td class="cost">$15–25</td></tr>
-      <tr><td>IKEA IVAR shelving unit (or reclaimed)</td><td>Center unit, visible from entertaining space</td><td class="cost">$60–90</td></tr>
-      <tr><td>2×8 × 10ft cleat board</td><td>Bike hook mounting board</td><td class="cost">$12–18</td></tr>
-      <tr><td>3" structural screws (1 lb)</td><td>All wall mounting</td><td class="cost">$10–15</td></tr>
-      <tr><td>Anti-tip furniture straps (2-pack)</td><td>Anchor center shelving unit</td><td class="cost">$10–14</td></tr>
+      <tr><td>2×6 ledger board (8 ft)</td><td>Wall mount for workbench</td><td class="cost">$12–18</td></tr>
+      <tr><td>4×4 posts × 3 (36" each)</td><td>Front legs</td><td class="cost">$15–25</td></tr>
+      <tr><td>Workbench top — butcher block or 2×4 glue-up</td><td>Work surface</td><td class="cost">$40–150</td></tr>
+      <tr><td>Watco Danish Oil or penetrating finish</td><td>Top finish</td><td class="cost">$20–30</td></tr>
+      <tr><td>3" structural screws (1 lb)</td><td>Frame assembly</td><td class="cost">$10–15</td></tr>
+      <tr><td>Heavy-duty power strip (6-outlet, outdoor-rated)</td><td>Tool power along back wall</td><td class="cost">$25–35</td></tr>
     </tbody>
   </table>
 
-  <h3 class="section-head">Bike storage</h3>
+  <h3 class="section-head">Zone C — Tool wall (left wall)</h3>
   <table class="supply-table">
     <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
     <tbody>
-      <tr><td>Bike wall hooks (×5–6)</td><td>Hang all bikes off floor</td><td class="cost">$12–18 each</td></tr>
-      <tr><td>Helmet hooks (×4–6)</td><td>Above bike hooks</td><td class="cost">$4–8 each</td></tr>
-      <tr><td>Wall hooks for sleds (×3–4)</td><td>Zone B, back wall</td><td class="cost">$6–10 each</td></tr>
+      <tr><td>4×4 ft pegboard panel</td><td>Hand tool storage above window</td><td class="cost">$20–30</td></tr>
+      <tr><td>1×3 furring strips (×2, 4 ft)</td><td>Spacer behind pegboard</td><td class="cost">$6–10</td></tr>
+      <tr><td>Pegboard hook assortment</td><td>All hand tools</td><td class="cost">$15–25</td></tr>
+      <tr><td>2×12 × 4 ft shelf + heavy brackets (×2)</td><td>Power tool shelf below window</td><td class="cost">$30–50</td></tr>
+      <tr><td>Wall-mount parts organizer</td><td>Screws, nails, drill bits, hardware</td><td class="cost">$25–50</td></tr>
     </tbody>
   </table>
 
-  <h3 class="section-head">Bins + organization</h3>
+  <h3 class="section-head">Zone D — Sports zone (near door)</h3>
   <table class="supply-table">
     <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
     <tbody>
-      <tr><td>Sterilite 18 gal totes (×6)</td><td>Sports, tools, bikes zone</td><td class="cost">$8 each / $48</td></tr>
-      <tr><td>Sterilite 27 gal totes (×4)</td><td>Seasonal / bulky items</td><td class="cost">$12 each / $48</td></tr>
-      <tr><td>Large open wire bin</td><td>Ball storage, Zone D</td><td class="cost">$20–35</td></tr>
-      <tr><td>Brother P-Touch label maker</td><td>All bin labels</td><td class="cost">$25–35</td></tr>
-      <tr><td>Extra label tape (×2 rolls)</td><td>Future relabeling</td><td class="cost">$8–12</td></tr>
-      <tr><td>Small chalkboard or card holder</td><td>Zone map near partition</td><td class="cost">$8–15</td></tr>
+      <tr><td>Large open wire or canvas bin</td><td>Ball storage</td><td class="cost">$20–35</td></tr>
+      <tr><td>2×6 hook board + 4 cast-iron hooks</td><td>Gear bags and rackets</td><td class="cost">$40–65</td></tr>
+      <tr><td>2×8 × 4 ft shelf + brackets</td><td>Cleats / sports shoes</td><td class="cost">$20–35</td></tr>
+      <tr><td>Vertical sports rack</td><td>Bats, rackets, sticks</td><td class="cost">$25–40</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="section-head">Zone E — Craft shelving (right wall)</h3>
+  <table class="supply-table">
+    <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
+    <tbody>
+      <tr><td>IKEA IVAR shelving unit (×1–2)</td><td>Adjustable craft storage</td><td class="cost">$65–90 each</td></tr>
+      <tr><td>Interior stain (match barn walls)</td><td>Finish IVAR to blend in</td><td class="cost">Use leftovers</td></tr>
+      <tr><td>Anti-tip furniture strap</td><td>Wall anchor — safety</td><td class="cost">$10–14</td></tr>
+      <tr><td>Sterilite 6-qt bins (×8–12)</td><td>Craft supply categories</td><td class="cost">$5–8 each</td></tr>
+      <tr><td>Sterilite 18-gal bins (×4)</td><td>Larger project materials</td><td class="cost">$8–12 each</td></tr>
+      <tr><td>Brother P-Touch label maker</td><td>All bin labeling</td><td class="cost">$25–35</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="section-head">Center — Craft table (Zone B)</h3>
+  <table class="supply-table">
+    <thead><tr><th>Item</th><th>Use</th><th>Est. Cost</th></tr></thead>
+    <tbody>
+      <tr><td>6×4 ft folding table or IKEA LAGKAPTEN</td><td>Central work surface</td><td class="cost">$50–120</td></tr>
+      <tr><td>2 stools or chairs</td><td>Seating at craft table</td><td class="cost">$40–100</td></tr>
+      <tr><td>Framed chalkboard or whiteboard</td><td>Project notes near table or workbench</td><td class="cost">$25–40</td></tr>
+      <tr><td>Good task light or LED shop light</td><td>Overhead lighting above table</td><td class="cost">$30–60</td></tr>
     </tbody>
   </table>
 
   <div class="note tip">
-    <strong>Total estimated cost:</strong> $450–650 for the full storage buildout — shelving, bike hooks, bins, label maker. The bin and hook investment alone will save you hours of frustration per year. This is the cheapest high-impact step in the whole project.
+    <strong>Total estimated cost:</strong> $450–750 for the full workshop buildout — workbench frame + top, pegboard, shelving, bins, sports zone, craft table. Cheaper than the old storage-only plan and far more useful. The biggest variable is the craft table and seating ($50 folding table vs $120 proper desk).
   </div>
 
   <div class="note">
-    <strong>Sequence reminder:</strong> Sort session first (half day), then clean and seal the storage half floor and walls (same products as the entertaining space — do both halves at the same time), then install shelving, then hang bikes and fill bins. Do not skip the sort — you cannot design storage around stuff you haven't categorized.
+    <strong>Sequence:</strong> Sort + cleanout → assess built-in bookcase → build workbench frame + top → mount pegboard and tool shelf → install craft shelving → set up sports zone → bring in craft table → fill and label bins. Do the built-in bookcase cleaning and staining at the same time as the rest of the interior walls.
   </div>
 </div>
 
-</div>
-<script>
-const phases = ['zones','floorplan','sort','shelving','bikes','bins','supplies'];
-function show(id, btn) {
-  phases.forEach(p => document.getElementById('phase-'+p).classList.remove('active'));
-  document.querySelectorAll('.pnav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('phase-'+id).classList.add('active');
-  if (btn) btn.classList.add('active');
-  else document.querySelectorAll('.pnav-btn')[phases.indexOf(id)].classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function showIdx(i) { show(phases[i], null); }
-</script>
+</div><!-- /main -->
 
-</div>
 <script>
 function showPhase(id, btn) {
   document.querySelectorAll('.phase-content').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.pnav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if (btn) btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
 }
-function toggle(el, phase) {
-  el.classList.toggle('checked');
-  const cl = document.getElementById('cl-'+phase);
-  if (!cl) return;
-  const done = cl.querySelectorAll('.check-item.checked').length;
-  const total = cl.querySelectorAll('.check-item').length;
-  const prog = document.getElementById('prog-'+phase);
-  if (prog) prog.textContent = done+'/'+total;
-}
-
-const phases = ['zones','floorplan','sort','shelving','bikes','bins','supplies'];
-function show(id, btn) {
-  phases.forEach(p => document.getElementById('phase-'+p).classList.remove('active'));
-  document.querySelectorAll('.pnav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('phase-'+id).classList.add('active');
-  if (btn) btn.classList.add('active');
-  else document.querySelectorAll('.pnav-btn')[phases.indexOf(id)].classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function showIdx(i) { show(phases[i], null); }
-
 </script>
 </body>
 </html>
